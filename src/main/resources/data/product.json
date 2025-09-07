@@ -1,0 +1,132 @@
+[
+    {
+        "productId": "product-1",
+        "name": "Hard Disk Drive",
+        "description": "Internal hard disk drive for desktop computers, ideal for reliable data storage and backups.",
+        "online": true,
+        "imageURL": "images/product/product_image_1.png",
+        "inventory": {
+            "ats": 25
+        },
+        "priceBook": {
+            "price": 59.99
+        }
+    },
+    {
+        "productId": "product-2",
+        "name": "Graphics Card",
+        "description": "High-performance graphics card with triple-fan cooling for gaming and rendering workloads.",
+        "online": true,
+        "imageURL": "images/product/product_image_2.png",
+        "inventory": {
+            "ats": 15
+        },
+        "priceBook": {
+            "price": 399.49
+        }
+    },
+    {
+        "productId": "product-3",
+        "name": "Smartphone",
+        "description": "Modern smartphone featuring a sleek design and advanced front-facing camera.",
+        "online": true,
+        "imageURL": "images/product/product_image_3.png",
+        "priceBook": {
+            "price": 699.00
+        },
+        "inventory": {
+            "ats": 40
+        }
+    },
+    {
+        "productId": "product-4",
+        "name": "Floppy Disk",
+        "description": "Vintage Fujifilm ZIP floppy disk, used for portable data storage in older PCs.",
+        "online": true,
+        "imageURL": "images/product/product_image_4.png",
+        "inventory": {
+            "ats": 120
+        },
+        "priceBook": {
+            "price": 4.99
+        }
+    },
+    {
+        "productId": "product-5",
+        "name": "LCD Monitor",
+        "description": "Flat-screen LCD computer monitor with wide viewing angles and clear display quality.",
+        "online": true,
+        "imageURL": "images/product/product_image_5.png",
+        "inventory": {
+            "ats": 30
+        },
+        "priceBook": {
+            "price": 149.95
+        }
+    },
+    {
+        "productId": "product-6",
+        "name": "Ethernet Cable",
+        "description": "Standard Ethernet network cable for wired internet connections and data transfer.",
+        "online": true,
+        "imageURL": "images/product/product_image_6.png",
+        "inventory": {
+            "ats": 200
+        },
+        "priceBook": {
+            "price": 9.49
+        }
+    },
+    {
+        "productId": "product-7",
+        "name": "Color Calibration Monitor",
+        "description": "Professional monitor with color calibration test screen, perfect for graphics work.",
+        "online": true,
+        "imageURL": "images/product/product_image_7.png",
+        "inventory": {
+            "ats": 12
+        },
+        "priceBook": {
+            "price": 299.00
+        }
+    },
+    {
+        "productId": "product-8",
+        "name": "Nintendo Wii U Console",
+        "description": "Nintendo Wii U gaming console with handheld gamepad controller for interactive play.",
+        "online": true,
+        "imageURL": "images/product/product_image_8.png",
+        "inventory": {
+            "ats": 8
+        },
+        "priceBook": {
+            "price": 249.99
+        }
+    },
+    {
+        "productId": "product-9",
+        "name": "Compact Disc Set",
+        "description": "Set of compact discs (CDs/DVDs) for digital media storage and playback.",
+        "online": true,
+        "imageURL": "images/product/product_image_9.png",
+        "inventory": {
+            "ats": 75
+        },
+        "priceBook": {
+            "price": 19.99
+        }
+    },
+    {
+        "productId": "product-10",
+        "name": "Jeep Wrangler",
+        "description": "Classic Jeep Wrangler SUV, built for off-road adventures with rugged durability.",
+        "online": true,
+        "imageURL": "images/product/product_image_10.png",
+        "inventory": {
+            "ats": 3
+        },
+        "priceBook": {
+            "price": 28999.00
+        }
+    }
+]

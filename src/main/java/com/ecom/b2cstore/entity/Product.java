@@ -3,16 +3,20 @@ package com.ecom.b2cstore.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Product extends BaseEntity {
 
     @Id
     @Column(name = "product_id")
     @Getter
+    @Setter
     private String productId;
 
     @Getter
@@ -58,12 +62,15 @@ public class Product extends BaseEntity {
         this.imageURL = imageURL;
     }
 
-    public void setProductId(String id) {
-        this.productId = id;
-    }
-
     @Override
     public String toString() {
-        return String.format("Product[id=%s, name='%s', online=%s, imageURL='%s']", productId, name, online, imageURL);
+        return String.format(
+                "Product[id=%s, name='%s', online=%s, imageURL='%s', inventory=%s, priceBook=%s]",
+                productId,
+                name,
+                online,
+                imageURL,
+                inventory != null ? inventory.toString() : "null",
+                priceBook != null ? priceBook.toString() : "null");
     }
 }

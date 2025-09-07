@@ -3,10 +3,13 @@ package com.ecom.b2cstore.entity;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Category extends BaseEntity {
 
@@ -25,7 +28,7 @@ public class Category extends BaseEntity {
     @Setter
     private Category parent;
 
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CategoryAssignment> assignments = new HashSet<>();
 
     public void setId(String id) {

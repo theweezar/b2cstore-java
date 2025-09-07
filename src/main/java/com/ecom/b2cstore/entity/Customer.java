@@ -2,11 +2,12 @@ package com.ecom.b2cstore.entity;
 
 import java.util.HashSet;
 import java.util.Set;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class Customer extends BaseEntity {
 
@@ -45,6 +46,14 @@ public class Customer extends BaseEntity {
     private Basket basket;
 
     public Customer() {
+    }
+
+    public Customer(String firstName, String lastName, String email, String phone, String country) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.country = country;
     }
 
     @Override

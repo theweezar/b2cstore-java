@@ -11,6 +11,7 @@ public class PriceBook extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Getter
     private Long id;
 
     @Getter
@@ -22,14 +23,6 @@ public class PriceBook extends BaseEntity {
     @Getter
     @Setter
     private BigDecimal price;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     @Override
     public String toString() {

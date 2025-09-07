@@ -14,13 +14,13 @@ public class Basket extends Container {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "basket")
+    @OneToMany(mappedBy = "basket", cascade = CascadeType.ALL, orphanRemoval = true)
     @Getter
     @Setter
     private Set<BasketLineItem> lineItems = new HashSet<>();
 
     @OneToOne
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customer_id", unique = true)
     @Getter
     @Setter
     private Customer customer;
