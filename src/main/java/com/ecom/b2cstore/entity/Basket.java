@@ -1,0 +1,27 @@
+package com.ecom.b2cstore.entity;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+public class Basket extends Container {
+    @Getter
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @OneToMany(mappedBy = "basket")
+    @Getter
+    @Setter
+    private Set<BasketLineItem> lineItems = new HashSet<>();
+
+    @OneToOne
+    @JoinColumn(name = "customer_id")
+    @Getter
+    @Setter
+    private Customer customer;
+}
