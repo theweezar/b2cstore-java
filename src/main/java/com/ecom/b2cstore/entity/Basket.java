@@ -2,7 +2,6 @@ package com.ecom.b2cstore.entity;
 
 import java.util.HashSet;
 import java.util.Set;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,4 +23,9 @@ public class Basket extends Container {
     @Getter
     @Setter
     private Customer customer;
+
+    @Getter
+    @Setter
+    @Column(name = "guest_uuid", unique = true)
+    private String guestUUID;
 }

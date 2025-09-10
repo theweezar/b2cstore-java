@@ -1,4 +1,4 @@
-<body th:fragment="header">
+<div th:fragment="header">
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
             <!-- Logo Placeholder -->
@@ -12,17 +12,15 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Luggage</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Backpack</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Bag</a>
+
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0" th:if="${categories}">
+                    <li class="nav-item" th:each="category : ${categories}">
+                        <a class="nav-link text-dark fw-bold" th:href="@{'~/search/' + ${category.categoryId}}" th:text="${category.name}">
+                            Category Name
+                        </a>
                     </li>
                 </ul>
+
                 <ul class="navbar-nav ms-3 d-flex flex-row align-items-center">
                     <li class="nav-item">
                         <a class="nav-link" href="#">
@@ -35,7 +33,7 @@
                             <span
                                 class="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger"
                                 style="font-size:0.8em;">
-                                0
+                                <span id="cartCount" th:text="${cartModel.itemCount}"></span>
                                 <span class="visually-hidden">products in cart</span>
                             </span>
                         </a>
@@ -44,4 +42,4 @@
             </div>
         </div>
     </nav>
-</body>
+</div>

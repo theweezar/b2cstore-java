@@ -10,7 +10,8 @@ const cwd = process.cwd();
  */
 const creatEntries = () => {
     const entries = [
-        path.join(cwd, 'client/js/main.js')
+        path.join(cwd, 'client/js/main.js'),
+        path.join(cwd, 'client/js/search.js'),
     ];
     const obj = {};
     entries.forEach((entry) => {

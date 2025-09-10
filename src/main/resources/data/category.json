@@ -1,0 +1,17 @@
+[
+    {
+        "categoryId": "cat-electronics",
+        "name": "Electronics",
+        "description": "Devices and gadgets"
+    },
+    {
+        "categoryId": "cat-furniture",
+        "name": "Furniture",
+        "description": "Home and office furniture"
+    },
+    {
+        "categoryId": "cat-toys",
+        "name": "Toys",
+        "description": "Toys and games for all ages"
+    }
+]

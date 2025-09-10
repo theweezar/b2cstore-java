@@ -1,10 +1,9 @@
 package com.ecom.b2cstore.entity;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -72,5 +71,21 @@ public class Product extends BaseEntity {
                 imageURL,
                 inventory != null ? inventory.toString() : "null",
                 priceBook != null ? priceBook.toString() : "null");
+    }
+
+    public boolean isInStock() {
+        return inventory != null && inventory.getAts() > 0;
+    }
+
+    public boolean hasPrice() {
+        return priceBook != null && priceBook.getPrice() != null;
+    }
+
+    public BigDecimal getPrice() {
+        return priceBook != null ? priceBook.getPrice() : null;
+    }
+
+    public Integer getAts() {
+        return inventory != null ? inventory.getAts() : null;
     }
 }

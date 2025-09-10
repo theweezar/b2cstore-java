@@ -1,4 +1,4 @@
-package com.ecom.b2cstore.repo;
+package com.ecom.b2cstore.repository;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;

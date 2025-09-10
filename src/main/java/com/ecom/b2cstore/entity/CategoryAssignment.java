@@ -1,9 +1,11 @@
 package com.ecom.b2cstore.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 public class CategoryAssignment extends BaseEntity {
 
@@ -33,5 +35,4 @@ public class CategoryAssignment extends BaseEntity {
         this.category = category;
         this.product = product;
     }
-
 }
