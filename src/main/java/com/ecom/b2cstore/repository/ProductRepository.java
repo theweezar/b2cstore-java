@@ -1,5 +1,6 @@
 package com.ecom.b2cstore.repository;
 
+import java.util.Collection;
 import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
@@ -9,5 +10,5 @@ import com.ecom.b2cstore.entity.Product;
 public interface ProductRepository extends CrudRepository<Product, String> {
     Optional<Product> findByProductId(String productId);
 
-    // Iterable<Product> findAllByProductIds(Iterable<String> productIds);
+    Collection<Product> findAllByProductIdIn(Iterable<String> productIds);
 }

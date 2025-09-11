@@ -1,0 +1,18 @@
+<div class="minicart-list" th:fragment="list">
+    <ul style="list-style: none; padding: 0;">
+        <li class="product-li" th:each="item : ${cartModel.items}">
+            <div class="product-li-card" th:data-pid="${item.productId}" style="display: flex; align-items: center;">
+                <img th:src="@{'~/' + ${item.imageURL}}" alt="Product Image"
+                    style="width: 50px; height: 50px; margin-right: 10px;">
+                <div>
+                    <p><strong th:text="${item.name}">Product Name</strong></p>
+                    <p>Price: <span th:text="${item.price}">0.00</span></p>
+                    <p>Quantity: <span th:text="${item.ats}">0</span></p>
+                </div>
+            </div>
+        </li>
+    </ul>
+    <div style="margin-top: 20px; text-align: right;">
+        <p><strong>Total Price: </strong><span th:text="${cartModel.totalPrice}">0.00</span></p>
+    </div>
+</div>
