@@ -1,17 +1,22 @@
-<div class="card product-tile-card h-100 shadow-sm" th:data-pid="${assignment.product.productId}" th:fragment="productTile"
-    style="background:#f6f7fa; border:none; border-radius:0;">
-    <a th:href="@{'~/product/' + ${assignment.product.productId}}">
-        <img th:src="@{'~/' + ${assignment.product.imageURL}}" class="card-img-top" alt="Product Name">
-    </a>
-    <div class="card-body d-flex flex-column">
-        <h5 class="card-title">
+<div class="card product-tile-card h-100 shadow-sm" th:data-pid="${assignment.product.productId}"
+    th:fragment="productTile" style="background:#f6f7fa; border:none; border-radius:0;">
+    <div class="thumbnail">
+        <a th:href="@{'~/product/' + ${assignment.product.productId}}">
+            <img th:src="@{'~/' + ${assignment.product.imageURL}}" class="card-img-top" alt="Product Name">
+        </a>
+    </div>
+    <div class="card-body d-flex flex-column p-2">
+        <h5 class="card-title product-name mb-2">
             <a class="text-decoration-none text-dark" th:href="@{'~/product/' + ${assignment.product.productId}}"
                 th:text="${assignment.product.name}"></a>
         </h5>
-        <div class="mt-auto d-flex align-items-center justify-content-between">
-            <div class="fw-bold text-dark me-2" th:text="${assignment.product.priceBook.price}">$99.99</div>
-            <button class="btn btn-atc" style="background:#000; color:#fff; border:none; border-radius:0; min-width:120px;"
-                type="button">Add to Cart</button>
+        <div class="product-price">
+            <div class="fw-bold text-dark me-2" th:text="${assignment.product.priceBook.price}">$0</div>
         </div>
+    </div>
+    <div class="card-footer p-0">
+        <button class="btn btn-atc d-block w-100"
+            style="background:#000; color:#fff; border:none; border-radius:0; min-width:120px;" type="button">Add to
+            Cart</button>
     </div>
 </div>

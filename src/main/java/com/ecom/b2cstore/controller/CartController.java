@@ -52,6 +52,18 @@ public class CartController extends BaseController {
         return responsePayload;
     }
 
+    @PostMapping("/removefromcart")
+    @ResponseBody
+    public CartModel removeFromCart(@RequestBody AddToCartPayload payload) {
+        String guestUUID = getGuestUUID();
+        Basket basket = basketService.getBasketByGuestUUID(guestUUID);
+
+        if (basket != null) {
+        }
+
+        return new CartModel(basket);
+    }
+
     @GetMapping("/minicart")    
     public String showMinicart(Model model) {
         String guestUUID = getGuestUUID();
@@ -69,7 +81,7 @@ public class CartController extends BaseController {
 
         model.addAttribute("cartModel", cartModel);
 
-        return "global/minicart/list";
+        return "global/minicart";
     }
 
 }

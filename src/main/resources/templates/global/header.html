@@ -2,46 +2,99 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
         <div class="container">
             <!-- Logo Placeholder -->
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <img src="/images/global/b2c-icon-on-white-vector-removebg-preview.png" alt="Logo" width="40"
-                    height="40" class="d-inline-block align-text-top me-2">
-                <span>B2C Store</span>
+            <a class="navbar-brand d-flex align-items-center" th:href="@{'~/'}">
+                <img src="/images/global/logo.png" alt="Logo" width="40" height="40"
+                    class="d-inline-block align-text-top me-2">
+                <span class="fw-bold d-none d-lg-block">
+                    B2C Demo
+                </span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
 
-                <ul class="navbar-nav mx-auto mb-2 mb-lg-0" th:if="${categories}">
-                    <li class="nav-item" th:each="category : ${categories}">
-                        <a class="nav-link text-dark fw-bold" th:href="@{'~/search/' + ${category.categoryId}}"
-                            th:text="${category.name}">
-                            Category Name
-                        </a>
-                    </li>
-                </ul>
+            <div class="mobile-action d-flex d-lg-none align-items-center gap-3">
+                <a class="position-relative minicart-show text-black" th:href="@{'~/minicart'}"
+                    data-bs-toggle="offcanvas" data-bs-target="#minicartRight" aria-controls="minicartRight">
+                    <i class="bi bi-cart3 fs-2 text-black"></i>
+                    <span class="position-absolute top-25 start-100 translate-middle badge rounded-circle bg-danger"
+                        style="font-size:10px">
+                        <span class="cart-count" th:text="${cartModel.itemCount}"></span>
+                    </span>
+                </a>
 
-                <ul class="navbar-nav ms-3 d-flex flex-row align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <i class="bi bi-person-circle fs-4"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link position-relative minicart-show" th:href="@{'~/minicart'}" data-bs-toggle="offcanvas"
-                            data-bs-target="#minicartRight" aria-controls="minicartRight">
-                            <i class="bi bi-cart3 fs-4"></i>
-                            <span
-                                class="position-absolute top-25 start-100 translate-middle badge rounded-pill bg-danger"
-                                style="font-size:0.8em;">
-                                <span id="cartCount" th:text="${cartModel.itemCount}"></span>
-                                <span class="visually-hidden">products in cart</span>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
+                <a class="text-black" data-bs-toggle="offcanvas" data-bs-target="#navbarNavRight"
+                    aria-controls="navbarNavRight">
+                    <i class="bi bi-list fs-2 text-black"></i>
+                </a>
             </div>
+
+            <div class="navbar-nav-right offcanvas offcanvas-end d-lg-none" tabindex="-1" id="navbarNavRight"
+                aria-labelledby="navbarNavRightLabel">
+                <div class="offcanvas-header"></div>
+                <div class="offcanvas-body text-end fs-1">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0" th:if="${categories}">
+                        <li class="nav-item" th:each="category : ${categories}">
+                            <a class="nav-link text-black fw-bold" th:href="@{'~/search/' + ${category.categoryId}}">
+                                <span class="me-2" th:text="${category.name}"></span>
+                                <span>
+                                    <i class="bi bi-caret-right text-black"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="offcanvas-user text-end fs-1 p-3 mb-5">
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link text-black fw-bold" href="#">
+                                <span class="me-2">Account</span>
+                                <span>
+                                    <i class="bi bi-person text-black"></i>
+                                </span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-black fw-bold" href="#">
+                                <span class="me-2">Logout</span>
+                                <span>
+                                    <i class="bi bi-box-arrow-in-right text-black"></i>
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="offcanvas-close text-end p-3 mb-5">
+                    <button type="button" class="btn text-reset ms-auto p-0 fs-3 text-black fw-bold"
+                        data-bs-dismiss="offcanvas" aria-label="Close">
+                        <span>Close</span>
+                    </button>
+                </div>
+            </div>
+
+            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-none d-lg-flex" th:if="${categories}">
+                <li class="nav-item" th:each="category : ${categories}">
+                    <a class="nav-link text-black fw-bold" th:href="@{'~/search/' + ${category.categoryId}}"
+                        th:text="${category.name}">
+                        Category Name
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="navbar-nav ms-3 d-flex flex-row align-items-center d-none d-lg-flex">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="bi bi-person-circle fs-3 text-black"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link position-relative minicart-show" th:href="@{'~/minicart'}"
+                        data-bs-toggle="offcanvas" data-bs-target="#minicartRight" aria-controls="minicartRight">
+                        <i class="bi bi-cart3 fs-3 text-black"></i>
+                        <span class="position-absolute top-25 start-100 translate-middle badge rounded-circle bg-danger"
+                            style="font-size:12px">
+                            <span class="cart-count" th:text="${cartModel.itemCount}"></span>
+                        </span>
+                    </a>
+                </li>
+            </ul>
         </div>
     </nav>
 </div>

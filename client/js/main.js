@@ -8,7 +8,7 @@ window.$ = $;
 window.jQuery = $;
 
 function initAddToCartButtons() {
-    $('body').on('click', 'a.minicart-show', function (e) {
+    $('a.minicart-show').on('click.minicartShow', function (e) {
         e.preventDefault();
         const url = $(this).attr('href');
 
@@ -16,7 +16,12 @@ function initAddToCartButtons() {
             method: 'GET',
             url: url,
             success: function (response) {
-                $('#minicartRight .offcanvas-body').empty().html(response);
+                if (typeof response === 'string') {
+                    let html = $(response);
+                    $('#minicartRight .offcanvas-header').replaceWith(html.find('.offcanvas-header'));
+                    $('#minicartRight .offcanvas-body').replaceWith(html.find('.offcanvas-body'));
+                    $('#minicartRight .offcanvas-basket-data').replaceWith(html.find('.offcanvas-basket-data'));
+                }
             },
             error: function () {
                 console.error('Failed to fetch minicart content.');

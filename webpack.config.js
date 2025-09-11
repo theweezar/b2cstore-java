@@ -27,7 +27,12 @@ module.exports = [
         entry: creatEntries(),
         output: {
             path: path.join(cwd, 'src/main/resources/static/dist'),
-            filename: '[name].js'
+
+            // use [name] to create a js file for each entry point
+            filename: '[name].js',
+
+            // assetModuleFilename for assets like fonts and images
+            assetModuleFilename: '[name][ext]'
         },
         module: {
             rules: [
@@ -79,6 +84,12 @@ module.exports = [
                             }
                         }
                     ]
+                },
+                {
+                    // https://webpack.js.org/guides/asset-modules/
+                    test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+                    include: path.resolve(__dirname, './node_modules/bootstrap-icons/font/fonts'),
+                    type: 'asset/resource'
                 }
             ]
         },

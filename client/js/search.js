@@ -12,8 +12,10 @@ function addToCart(pid) {
         contentType: 'application/json; charset=UTF-8',
         success: function (response) {
             if (response.status) {
-                alert('Product added to cart successfully.');
-                $('#cartCount').text(response.cartModel.itemCount);
+                // alert('Product added to cart successfully.');
+                $('.minicart-show .cart-count').text(response.cartModel.itemCount);
+            } else if (response.productStatus) {
+                alert(`Product status: ${response.productStatus}`);
             } else {
                 alert('Failed to add product to cart.');
             }
