@@ -24,11 +24,31 @@ public abstract class Container extends BaseEntity {
 
     @Getter
     @Setter
+    private String shipFirstName;
+
+    @Getter
+    @Setter
+    private String shipLastName;
+
+    @Getter
+    @Setter
     private String country;
 
     @Getter
     @Setter
     private String address;
+
+    @Getter
+    @Setter
+    private String city;
+
+    @Getter
+    @Setter
+    private String state;
+
+    @Getter
+    @Setter
+    private String zipCode;
 
     public Container() {
     }

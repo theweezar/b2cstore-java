@@ -9,6 +9,7 @@ import com.ecom.b2cstore.interceptor.CookieInjectionInterceptor;
 public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new CookieInjectionInterceptor());
+        registry.addInterceptor(new CookieInjectionInterceptor())
+                .excludePathPatterns("/dist/**", "/images/**");
     }
 }

@@ -11862,6 +11862,45 @@ textarea.form-control-lg {
     display: none !important;
   }
 }
+@font-face {
+  font-family: "Comfortaa";
+  src: local("Comfortaa"), url(Comfortaa-Regular.ttf) format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Comfortaa";
+  src: local("Comfortaa Bold"), url(Comfortaa-Bold.ttf) format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Comfortaa";
+  src: local("Comfortaa Light"), url(Comfortaa-Light.ttf) format("truetype");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Comfortaa";
+  src: local("Comfortaa Medium"), url(Comfortaa-Medium.ttf) format("truetype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Comfortaa";
+  src: local("Comfortaa SemiBold"), url(Comfortaa-SemiBold.ttf) format("truetype");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  --bs-body-font-family: "Comfortaa", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
 /*!
  * Bootstrap Icons v1.13.1 (https://icons.getbootstrap.com/)
  * Copyright 2019-2024 The Bootstrap Authors
@@ -20199,11 +20238,69 @@ textarea.form-control-lg {
   content: "爛";
 }
 
-.minicart-right .offcanvas-action a {
-  font-size: 20px;
+.checkout-main .checkout-progress .step-1 .rounded-circle,
+.checkout-main .checkout-progress .step-2 .rounded-circle,
+.checkout-main .checkout-progress .step-3 .rounded-circle {
+  width: 36px;
+  height: 36px;
 }
-@media (min-width: 992px) {
-  .minicart-right .offcanvas-action a {
-    font-size: 16px;
-  }
+.checkout-main .checkout-progress .step-2 .rounded-circle,
+.checkout-main .checkout-progress .step-3 .rounded-circle {
+  background-color: #f8f9fa;
+  color: #6c757d;
+}
+.checkout-main .checkout-progress .step-2 + div.border-top,
+.checkout-main .checkout-progress .step-3 + div.border-top {
+  border-top: 2px solid #f8f9fa;
+}
+.checkout-main[data-step="1"] .shipping-form-card {
+  display: block;
+}
+.checkout-main[data-step="1"] .payment-form-card,
+.checkout-main[data-step="1"] .review-summary-card {
+  display: none;
+}
+.checkout-main[data-step="2"] .shipping-form-card,
+.checkout-main[data-step="2"] .review-summary-card {
+  display: none;
+}
+.checkout-main[data-step="2"] .payment-form-card {
+  display: block;
+}
+.checkout-main[data-step="2"] .checkout-progress .step-2 .rounded-circle {
+  background-color: #212529 !important;
+  color: #fff !important;
+}
+.checkout-main[data-step="2"] .checkout-progress .step-2 .small {
+  font-weight: bold !important;
+}
+.checkout-main[data-step="2"] .checkout-progress .step-2 + div.border-top {
+  border-top: 2px solid #212529 !important;
+}
+.checkout-main[data-step="3"] .shipping-form-card,
+.checkout-main[data-step="3"] .payment-form-card {
+  display: none;
+}
+.checkout-main[data-step="3"] .review-summary-card {
+  display: block;
+}
+.checkout-main[data-step="3"] .checkout-progress .step-2 .rounded-circle,
+.checkout-main[data-step="3"] .checkout-progress .step-3 .rounded-circle {
+  background-color: #212529 !important;
+  color: #fff !important;
+}
+.checkout-main[data-step="3"] .checkout-progress .step-2 .small,
+.checkout-main[data-step="3"] .checkout-progress .step-3 .small {
+  font-weight: bold !important;
+}
+.checkout-main[data-step="3"] .checkout-progress .step-2 + div.border-top,
+.checkout-main[data-step="3"] .checkout-progress .step-3 + div.border-top {
+  border-top: 2px solid #212529 !important;
+}
+.checkout-main .payment-form-card .payment-method-selection [name=paymentMethod] + img {
+  border: 2px solid #dee2e6;
+  cursor: pointer;
+}
+.checkout-main .payment-form-card .payment-method-selection [name=paymentMethod]:checked + img {
+  border-color: #0d6efd;
 }

@@ -1,0 +1,70 @@
+<div class="shipping-form-card" th:fragment="shippingForm">
+    <h5 class="mb-3 fw-bold">Customer Info</h5>
+    <form th:action="@{'~/submitshipping'}" method="post" id="shippingForm">
+        <div class="row g-3 mb-4">
+            <div class="col-12 col-md-6">
+                <label for="firstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name">
+                <small class="error text-danger" id="firstNameError"></small>
+            </div>
+            <div class="col-12 col-md-6">
+                <label for="lastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name">
+                <small class="error text-danger" id="lastNameError"></small>
+            </div>
+            <div class="col-12 col-md-6">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                <small class="error text-danger" id="emailError"></small>
+            </div>
+            <div class="col-12 col-md-6">
+                <label for="phone" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number">
+                <small class="error text-danger" id="phoneError"></small>
+            </div>
+        </div>
+        <hr>
+        <h5 class="mb-3 mt-4 fw-bold">Shipping Address</h5>
+        <div class="row g-3 mb-2">
+            <div class="col-12">
+                <label for="shipFirstName" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="shipFirstName" name="shipFirstName"
+                    placeholder="First Name">
+                <small class="error text-danger" id="shipFirstNameError"></small>
+            </div>
+            <div class="col-12">
+                <label for="shipLastName" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="shipLastName" name="shipLastName" placeholder="Last Name">
+                <small class="error text-danger" id="shipLastNameError"></small>
+            </div>
+            <div class="col-12">
+                <div class="row g-2">
+                    <div class="col-12 col-md-4">
+                        <label for="city" class="form-label">City</label>
+                        <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                        <small class="error text-danger" id="cityError"></small>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label for="state" class="form-label">State</label>
+                        <input type="text" class="form-control" id="state" name="state" placeholder="State">
+                        <small class="error text-danger" id="stateError"></small>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <label for="zipCode" class="form-label">Zip Code</label>
+                        <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Zip Code">
+                        <small class="error text-danger" id="zipCodeError"></small>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="address" class="form-label">Address</label>
+                <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                <small class="error text-danger" id="addressError"></small>
+            </div>
+        </div>
+        <input type="hidden" id="country" name="country" value="US">
+        <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-dark btn-lg">Continue</button>
+        </div>
+    </form>
+</div>

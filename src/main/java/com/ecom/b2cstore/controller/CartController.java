@@ -27,13 +27,13 @@ public class CartController extends BaseController {
     public AddToCartResponsePayload addToCart(@RequestBody AddToCartPayload payload) {
         ProductStatus productStatus = productService.getProductStatus(payload.getPid());
         AddToCartResponsePayload responsePayload = new AddToCartResponsePayload(false, productStatus.getStatus());
-        String guestUUID = getGuestUUID();
 
         if (!productStatus.getStatus().equals(ProductStatus.VALID)) {
             return responsePayload;
         }
 
         Product product = productStatus.getProduct();
+        String guestUUID = getGuestUUID();
         Basket basket = basketService.getBasketByGuestUUID(guestUUID);
 
         if (basket == null) {

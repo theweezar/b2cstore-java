@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.ecom.b2cstore.entity.Basket;
 import com.ecom.b2cstore.entity.BasketLineItem;
 import com.ecom.b2cstore.entity.Product;
+import com.ecom.b2cstore.form.ShippingForm;
 import com.ecom.b2cstore.repository.BasketRepository;
 
 @Service
@@ -19,6 +20,10 @@ public class BasketService {
 
     @Autowired
     private ProductService productService;
+
+    public Basket save(Basket basket) {
+        return basketRepository.save(basket);
+    }
 
     public Basket getBasketByGuestUUID(String guestUUID) {
         // Logic to retrieve the basket by guest UUID
@@ -46,7 +51,18 @@ public class BasketService {
         return productMap;
     }
 
-    public Basket save(Basket basket) {
-        return basketRepository.save(basket);
+    public void saveShippingForm(Basket basket, ShippingForm form) {
+        basket.setFirstName(form.getFirstName());
+        basket.setLastName(form.getLastName());
+        basket.setEmail(form.getEmail());
+        basket.setPhone(form.getPhone());
+        basket.setShipFirstName(form.getShipFirstName());
+        basket.setShipLastName(form.getShipLastName());
+        basket.setAddress(form.getAddress());
+        basket.setCity(form.getCity());
+        basket.setState(form.getState());
+        basket.setCountry(form.getCountry());
+        basket.setZipCode(form.getZipCode());
+        save(basket);
     }
 }

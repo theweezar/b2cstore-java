@@ -9,6 +9,7 @@ public class CookieUtil {
     public static String getCookie(HttpServletRequest request, String name) {
         // Implementation here
         Cookie[] cookies = request.getCookies();
+        System.out.println("Cookies in request: " + Arrays.toString(cookies));
         return cookies == null
                 ? null
                 : Arrays.stream(cookies)

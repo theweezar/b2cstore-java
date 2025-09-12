@@ -1,5 +1,119 @@
 @import "~bootstrap/scss/bootstrap";
+@import "fonts";
+@import "variables";
 
 $bootstrap-icons-font-dir: "~bootstrap-icons/font/fonts";
 
 @import "~bootstrap-icons/font/bootstrap-icons.scss";
+
+.checkout-main {
+    .checkout-progress {
+
+        .step-1,
+        .step-2,
+        .step-3 {
+            .rounded-circle {
+                width: 36px;
+                height: 36px;
+            }
+        }
+
+        .step-2,
+        .step-3 {
+            .rounded-circle {
+                background-color: $light;
+                color: $secondary;
+            }
+
+            +div.border-top {
+                border-top: 2px solid $light;
+            }
+        }
+    }
+
+    &[data-step="1"] {
+        .shipping-form-card {
+            display: block;
+        }
+
+        .payment-form-card,
+        .review-summary-card {
+            display: none;
+        }
+    }
+
+    &[data-step="2"] {
+
+        .shipping-form-card,
+        .review-summary-card {
+            display: none;
+        }
+
+        .payment-form-card {
+            display: block;
+        }
+
+        .checkout-progress {
+            .step-2 {
+                .rounded-circle {
+                    background-color: $dark !important;
+                    color: $white !important;
+                }
+
+                .small {
+                    font-weight: bold !important;
+                }
+
+                +div.border-top {
+                    border-top: 2px solid $dark !important;
+                }
+            }
+        }
+    }
+
+    &[data-step="3"] {
+
+        .shipping-form-card,
+        .payment-form-card {
+            display: none;
+        }
+
+        .review-summary-card {
+            display: block;
+        }
+
+        .checkout-progress {
+
+            .step-2,
+            .step-3 {
+                .rounded-circle {
+                    background-color: $dark !important;
+                    color: $white !important;
+                }
+
+                .small {
+                    font-weight: bold !important;
+                }
+
+                +div.border-top {
+                    border-top: 2px solid $dark !important;
+                }
+            }
+        }
+    }
+
+    .payment-form-card {
+        .payment-method-selection {
+            [name="paymentMethod"] {
+                +img {
+                    border: 2px solid #dee2e6;
+                    cursor: pointer;
+                }
+
+                &:checked+img {
+                    border-color: #0d6efd; // Primary color border when selected
+                }
+            }
+        }
+    }
+}

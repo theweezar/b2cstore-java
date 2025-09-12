@@ -25,4 +25,20 @@ public class Order extends Container {
     @Getter
     @Setter
     private Customer customer;
+
+    @Getter
+    @Setter
+    private int status; // e.g., 0 = pending, 1 = completed, 2 = shipped, etc.
+
+    @Getter
+    @Setter
+    private int confirmationStatus; // e.g., 0 = unconfirmed, 1 = confirmed, etc.
+
+    @Getter
+    @Setter
+    private int paymentStatus; // e.g., 0 = unpaid, 1 = paid, 2 = refunded, etc.
+
+    @Getter
+    @Setter
+    private int shippingStatus; // e.g., 0 = not shipped, 1 = shipped, 2 = delivered, etc.
 }

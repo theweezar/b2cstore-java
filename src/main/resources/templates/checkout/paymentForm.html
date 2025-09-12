@@ -1,0 +1,58 @@
+<div class="payment-form-card" th:fragment="paymentForm">
+    <form action="/submitpayment" method="POST" id="paymentForm">
+        <h5 class="mb-3 fw-bold">Payment Information</h5>
+
+        <div class="payment-method-selection">
+            <h6 class="fw-bold">Select Payment Method</h6>
+            <div class="d-flex gap-4">
+                <div class="form-check w-auto p-0">
+                    <label style="display: flex; align-items: center;">
+                        <input type="radio" name="paymentMethod" value="creditCard" checked style="display: none;">
+                        <img th:src="@{'~/images/payment/creditcard.jpg'}" alt="Credit Card" class="payment-method-icon"
+                            style="width: 100px; height: 100px; ">
+                    </label>
+                </div>
+                <div class="form-check w-auto p-0">
+                    <label style="display: flex; align-items: center;">
+                        <input type="radio" name="paymentMethod" value="paypal" style="display: none;">
+                        <img th:src="@{'~/images/payment/paypal.png'}" alt="Paypal" class="payment-method-icon"
+                            style="width: 100px; height: 100px; ">
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4">
+
+        <div class="credit-card-details">
+            <h6 class="fw-bold">Credit Card Details</h6>
+            <div class="row">
+                <div class="form-group mb-4 col-12">
+                    <label for="cardName">Name on Card</label>
+                    <input type="text" id="cardName" name="cardName" class="form-control" placeholder="John Doe">
+                    <div class="error text-danger"></div>
+                </div>
+                <div class="form-group mb-4 col-12">
+                    <label for="cardNumber">Card Number</label>
+                    <input type="text" id="cardNumber" name="cardNumber" class="form-control"
+                        placeholder="1234 5678 9012 3456">
+                    <div class="error text-danger"></div>
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="expiration">Expiration</label>
+                    <input type="text" id="expiration" name="expiration" class="form-control" placeholder="MM/YY">
+                    <div class="error text-danger"></div>
+                </div>
+                <div class="form-group col-12 col-md-6">
+                    <label for="cvv">CVV</label>
+                    <input type="text" id="cvv" name="cvv" class="form-control" placeholder="123">
+                    <div class="error text-danger"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-dark btn-lg">Continue</button>
+        </div>
+    </form>
+</div>
