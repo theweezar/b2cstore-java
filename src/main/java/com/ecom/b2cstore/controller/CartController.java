@@ -12,9 +12,7 @@ import com.ecom.b2cstore.entity.Product;
 import com.ecom.b2cstore.model.CartModel;
 import com.ecom.b2cstore.payload.AddToCartPayload;
 import com.ecom.b2cstore.payload.AddToCartResponsePayload;
-import com.ecom.b2cstore.service.ProductStatus;
 import org.springframework.web.bind.annotation.GetMapping;
-
 
 @Controller
 public class CartController extends BaseController {
@@ -25,14 +23,17 @@ public class CartController extends BaseController {
     @PostMapping("/addtocart")
     @ResponseBody
     public AddToCartResponsePayload addToCart(@RequestBody AddToCartPayload payload) {
-        ProductStatus productStatus = productService.getProductStatus(payload.getPid());
-        AddToCartResponsePayload responsePayload = new AddToCartResponsePayload(false, productStatus.getStatus());
+        Product product = productService.getProductById(payload.getPid());
+        AddToCartResponsePayload responsePayload = new AddToCartResponsePayload(false, Product.STATUS_NOT_FOUND);
 
-        if (!productStatus.getStatus().equals(ProductStatus.VALID)) {
+        if (product == null) {
             return responsePayload;
         }
 
-        Product product = productStatus.getProduct();
+        if (product.getStatus() != Product.STATUS_VALID) {
+            return responsePayload;
+        }
+
         String guestUUID = getGuestUUID();
         Basket basket = basketService.getBasketByGuestUUID(guestUUID);
 
@@ -64,7 +65,7 @@ public class CartController extends BaseController {
         return new CartModel(basket);
     }
 
-    @GetMapping("/minicart")    
+    @GetMapping("/minicart")
     public String showMinicart(Model model) {
         String guestUUID = getGuestUUID();
         Basket basket = basketService.getBasketByGuestUUID(guestUUID);
@@ -72,7 +73,7 @@ public class CartController extends BaseController {
         CartModel cartModel = null;
 
         if (basket != null) {
-            productMap = basketService.getProductMap(basket);
+            productMap = checkoutUtil.getProductMap(basket.getLineItems());
             cartModel = new CartModel(basket);
             cartModel.setItems(cartModel.createItemList(productMap));
         } else {

@@ -20244,6 +20244,11 @@ textarea.form-control-lg {
   width: 36px;
   height: 36px;
 }
+.checkout-main .checkout-progress .step-1,
+.checkout-main .checkout-progress .step-2,
+.checkout-main .checkout-progress .step-3 {
+  cursor: pointer;
+}
 .checkout-main .checkout-progress .step-2 .rounded-circle,
 .checkout-main .checkout-progress .step-3 .rounded-circle {
   background-color: #f8f9fa;

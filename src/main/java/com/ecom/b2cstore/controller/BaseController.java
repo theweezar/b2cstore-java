@@ -8,6 +8,7 @@ import com.ecom.b2cstore.model.CartModel;
 import com.ecom.b2cstore.service.BasketService;
 import com.ecom.b2cstore.service.CategoryService;
 import com.ecom.b2cstore.service.ProductService;
+import com.ecom.b2cstore.util.CheckoutUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -28,6 +29,9 @@ public abstract class BaseController {
 
     @Autowired
     protected BasketService basketService;
+
+    @Autowired
+    protected CheckoutUtil checkoutUtil;
 
     protected void initBaseModel(Model model) {
         String guestUUID = getGuestUUID();

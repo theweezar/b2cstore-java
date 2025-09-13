@@ -12,7 +12,7 @@ public class AddToCartResponsePayload {
 
     @Getter
     @Setter
-    private String productStatus;
+    private int productStatus;
 
     @Getter
     @Setter
@@ -21,7 +21,7 @@ public class AddToCartResponsePayload {
     public AddToCartResponsePayload() {
     }
 
-    public AddToCartResponsePayload(boolean status, String productStatus) {
+    public AddToCartResponsePayload(boolean status, int productStatus) {
         this.status = status;
         this.productStatus = productStatus;
     }

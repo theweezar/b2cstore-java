@@ -1,28 +1,44 @@
 <div class="review-summary-card" th:fragment="reviewSummary">
     <h5 class="mb-3 fw-bold">Order Summary</h5>
 
-    <div class="row">
-        <!-- Shipping Summary -->
-        <div class="col-12 col-lg-6">
-            <h6 class="fw-bold">Shipping</h6>
-            <p>John Doe</p>
-            <p>123 Main Street</p>
-            <p>Springfield, IL 62704</p>
+    <div class="row mb-4">
+        <!-- Billing Information -->
+        <div class="col-12 col-lg-6 mb-4 mb-lg-0">
+            <div class="card bg-white text-dark shadow rounded-3 py-4 px-3 h-100">
+                <h6 class="fw-bold text-uppercase">Billing Information</h6>
+                <p class="mb-1">Jane Smith</p>
+                <p class="mb-1">jane.smith@example.com</p>
+                <p class="mb-1">(555) 123-4567</p>
+                <p class="mb-1">456 Elm Street</p>
+                <p class="mb-1">Chicago, IL 60616</p>
+            </div>
         </div>
 
-        <hr>
-
-        <!-- Billing Summary -->
+        <!-- Shipping Information -->
         <div class="col-12 col-lg-6">
-            <h6 class="fw-bold">Billing</h6>
-            <p>Jane Smith</p>
-            <p>456 Elm Street</p>
-            <p>Chicago, IL 60616</p>
+            <div class="card bg-white text-dark shadow rounded-3 py-4 px-3 h-100">
+                <h6 class="fw-bold text-uppercase">Shipping Information</h6>
+                <p class="mb-1">John Doe</p>
+                <p class="mb-1">123 Main Street</p>
+                <p class="mb-1">Springfield, IL 62704</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Payment Information -->
+        <div class="col-12">
+            <div class="card bg-white text-dark shadow rounded-3 py-4 px-3">
+                <h6 class="fw-bold text-uppercase">Payment Information</h6>
+                <p class="mb-1">Cardholder: Jane Smith</p>
+                <p class="mb-1">Card Number: **** **** **** 1234</p>
+                <p class="mb-1">Expiration: 12/24</p>
+            </div>
         </div>
     </div>
 
     <!-- Place Order Button -->
     <div class="d-grid mt-3">
-        <button type="submit" class="btn btn-dark btn-lg">Place Order</button>
+        <button type="submit" class="btn btn-dark btn-lg place-order" th:data-action="@{'~/placeorder'}">Place Order</button>
     </div>
 </div>

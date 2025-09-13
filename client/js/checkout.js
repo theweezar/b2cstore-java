@@ -12,7 +12,26 @@ function showErrors(errors) {
     }
 }
 
+/**
+ * Checks if the device is mobile.
+ * @returns {boolean} True if the device is mobile (screen width <= 991px), false otherwise.
+ */
+function isMobile() {
+    return window.matchMedia("only screen and (max-width: 991px)").matches;
+}
 
+/**
+ * Switches to the specified checkout step.
+ * @param {number} step - The step number to switch to (1, 2, or 3). 
+ */
+function switchToStep(step) {
+    $('#checkoutMain').attr('data-step', step).data('step', step);
+    if (isMobile()) {
+        $('html, body').animate({
+            scrollTop: $("#checkoutMain").offset().top
+        }, 60);
+    }
+}
 
 /**
  * Handles the submission of the shipping form via AJAX.
@@ -35,11 +54,8 @@ function handleShippingFormSubmit() {
                     return;
                 }
                 if (data.success === true || data.success === 'true') {
-                    // Handle success (e.g., redirect or show success message)
-                    console.log('Form submitted successfully');
-                    $('#checkoutMain').attr('data-step', '2').data('step', 2);
+                    switchToStep(2);
                 } else {
-                    // Handle validation errors
                     showErrors(data.errors);
                 }
             },
@@ -73,11 +89,8 @@ function handlePaymentFormSubmit() {
                     return;
                 }
                 if (data.success === true || data.success === 'true') {
-                    // Handle success (e.g., redirect or show success message)
-                    console.log('Form submitted successfully');
-                    $('#checkoutMain').attr('data-step', '3').data('step', 3);
+                    switchToStep(3);
                 } else {
-                    // Handle validation errors
                     showErrors(data.errors);
                 }
             },
@@ -88,6 +101,47 @@ function handlePaymentFormSubmit() {
                 }
             }
         });
+    });
+}
+
+/**
+ * Handles the "Place Order" button click event.
+ * Sends an AJAX POST request to place the order.
+ */
+function handlePlaceOrder() {
+    $('.place-order').on('click', function (event) {
+        event.preventDefault();
+        const actionUrl = $(this).data('action');
+        $.ajax({
+            url: actionUrl,
+            method: 'POST',
+            success: function (data) {
+                if (data.redirect) {
+                    window.location.href = data.redirect;
+                } else if (data.success === true || data.success === 'true') {
+                    alert('Order placed successfully!');
+                } else {
+                    alert('Failed to place the order. Please try again.');
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error('Error placing order:', error);
+                alert('An error occurred while placing the order. Please try again.');
+            }
+        });
+    });
+}
+
+/**
+ * Initializes the checkout progress bar, allowing users to navigate to previous steps.
+ */
+function initCheckoutProgress() {
+    $('.checkout-progress .step').on('click', function () {
+        const step = parseInt($(this).data('step'), 10);
+        const currentStep = parseInt($('#checkoutMain').data('step'), 10);
+        if (step < currentStep) {
+            switchToStep(step);
+        }
     });
 }
 
@@ -110,5 +164,7 @@ function fillShippingFormWithFakeData() {
 $(document).ready(function () {
     handleShippingFormSubmit();
     handlePaymentFormSubmit();
+    handlePlaceOrder();
+    initCheckoutProgress();
     fillShippingFormWithFakeData();
 });

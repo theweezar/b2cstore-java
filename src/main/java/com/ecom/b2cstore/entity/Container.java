@@ -1,5 +1,7 @@
 package com.ecom.b2cstore.entity;
 
+import java.util.Set;
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -59,4 +61,6 @@ public abstract class Container extends BaseEntity {
                 "%s[id=%d, firstName='%s', lastName='%s', email='%s', phone='%s', country='%s', address='%s']",
                 this.getClass().getSimpleName(), firstName, lastName, email, phone, country, address);
     }
+
+    public abstract Set<? extends LineItem> getContainerLineItems();
 }

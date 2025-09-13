@@ -1,10 +1,5 @@
 package com.ecom.b2cstore.service;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ecom.b2cstore.entity.Basket;
@@ -26,7 +21,6 @@ public class BasketService {
     }
 
     public Basket getBasketByGuestUUID(String guestUUID) {
-        // Logic to retrieve the basket by guest UUID
         return basketRepository.findByGuestUUID(guestUUID).orElse(null);
     }
 
@@ -39,19 +33,7 @@ public class BasketService {
         return lineItem;
     }
 
-    public Map<String, Product> getProductMap(Basket basket) {
-        Set<String> productIds = basket.getLineItems().stream()
-                .map(BasketLineItem::getProductId)
-                .collect(java.util.stream.Collectors.toSet());
-        Collection<Product> products = productService.getProductsByIds(productIds);
-
-        // Convert Set to Map for easy lookup
-        Map<String, Product> productMap = new HashMap<>();
-        products.forEach(product -> productMap.put(product.getProductId(), product));
-        return productMap;
-    }
-
-    public void saveShippingForm(Basket basket, ShippingForm form) {
+    public void saveShippingBillingForm(Basket basket, ShippingForm form) {
         basket.setFirstName(form.getFirstName());
         basket.setLastName(form.getLastName());
         basket.setEmail(form.getEmail());

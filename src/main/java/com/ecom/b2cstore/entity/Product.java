@@ -12,6 +12,14 @@ import lombok.Setter;
 @Entity
 public class Product extends BaseEntity {
 
+    public static final int STATUS_NOT_FOUND = 0;
+    public static final int STATUS_IN_STOCK = 1;
+    public static final int STATUS_OUT_OF_STOCK = 2;
+    public static final int STATUS_ONLINE = 3;
+    public static final int STATUS_OFFLINE = 4;
+    public static final int STATUS_PRICE_NA = 5;
+    public static final int STATUS_VALID = 6;
+
     @Id
     @Column(name = "product_id")
     @Getter
@@ -87,5 +95,16 @@ public class Product extends BaseEntity {
 
     public Integer getAts() {
         return inventory != null ? inventory.getAts() : null;
+    }
+
+    public int getStatus() {
+        if (!isOnline()) {
+            return STATUS_OFFLINE;
+        } else if (!hasPrice()) {
+            return STATUS_PRICE_NA;
+        } else if (!isInStock()) {
+            return STATUS_OUT_OF_STOCK;
+        }
+        return STATUS_VALID;
     }
 }
