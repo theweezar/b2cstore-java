@@ -66,4 +66,28 @@ public class Order extends Container {
     public Set<? extends LineItem> getContainerLineItems() {
         return lineItems;
     }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "Order[id=%d, customerId=%s, status=%d, confirmationStatus=%d, paymentStatus=%d, shippingStatus=%d, firstName=%s, lastName=%s, email=%s, phone=%s, shipFirstName=%s, shipLastName=%s, country=%s, address=%s, city=%s, state=%s, zipCode=%s, lineItems=%d]",
+                orderId,
+                customer != null ? customer.getCustomerId() : null,
+                status,
+                confirmationStatus,
+                paymentStatus,
+                shippingStatus,
+                getFirstName(),
+                getLastName(),
+                getEmail(),
+                getPhone(),
+                getShipFirstName(),
+                getShipLastName(),
+                getCountry(),
+                getAddress(),
+                getCity(),
+                getState(),
+                getZipCode(),
+                lineItems != null ? lineItems.size() : 0);
+    }
 }

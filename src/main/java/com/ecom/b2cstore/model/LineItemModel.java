@@ -1,10 +1,8 @@
 package com.ecom.b2cstore.model;
 
 import java.math.BigDecimal;
-
 import com.ecom.b2cstore.entity.LineItem;
 import com.ecom.b2cstore.entity.Product;
-
 import lombok.Getter;
 import lombok.Setter;
 

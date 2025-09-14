@@ -4,11 +4,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import com.ecom.b2cstore.entity.Basket;
+import com.ecom.b2cstore.entity.Order;
 import com.ecom.b2cstore.model.CartModel;
 import com.ecom.b2cstore.service.BasketService;
 import com.ecom.b2cstore.service.CategoryService;
+import com.ecom.b2cstore.service.OrderService;
 import com.ecom.b2cstore.service.ProductService;
+import com.ecom.b2cstore.util.CartUtil;
 import com.ecom.b2cstore.util.CheckoutUtil;
+import com.ecom.b2cstore.util.OrderUtil;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -31,12 +36,21 @@ public abstract class BaseController {
     protected BasketService basketService;
 
     @Autowired
+    protected OrderService orderService;
+
+    @Autowired
     protected CheckoutUtil checkoutUtil;
+
+    @Autowired
+    protected CartUtil cartUtil;
+
+    @Autowired
+    protected OrderUtil orderUtil;
 
     protected void initBaseModel(Model model) {
         String guestUUID = getGuestUUID();
         Basket currentBasket = basketService.getBasketByGuestUUID(guestUUID);
-        CartModel cartModel = new CartModel(currentBasket);
+        CartModel cartModel = cartUtil.createModel(currentBasket);
 
         System.out.println("Guest UUID in BaseController constructor: " + guestUUID);
 

@@ -4,23 +4,33 @@
     <div class="row mb-4">
         <!-- Billing Information -->
         <div class="col-12 col-lg-6 mb-4 mb-lg-0">
-            <div class="card bg-white text-dark shadow rounded-3 py-4 px-3 h-100">
+            <div class="card billing-card bg-white text-dark shadow rounded-3 py-4 px-3 h-100">
                 <h6 class="fw-bold text-uppercase">Billing Information</h6>
-                <p class="mb-1">Jane Smith</p>
-                <p class="mb-1">jane.smith@example.com</p>
-                <p class="mb-1">(555) 123-4567</p>
-                <p class="mb-1">456 Elm Street</p>
-                <p class="mb-1">Chicago, IL 60616</p>
+                <p class="mb-1 firstName" th:text="${cartModel.billing.firstName}">Jane</p>
+                <p class="mb-1 lastName" th:text="${cartModel.billing.lastName}">Smith</p>
+                <p class="mb-1 email" th:text="${cartModel.billing.email}">jane.smith@example.com</p>
+                <p class="mb-1 address" th:text="${cartModel.billing.address.address}">456 Elm Street</p>
+                <p class="mb-1 cityStateZip">
+                    <span class="city" th:text="${cartModel.billing.address.city}">Chicago</span>,
+                    <span class="state" th:text="${cartModel.billing.address.state}">IL</span>
+                    <span class="zipCode" th:text="${cartModel.billing.address.zipCode}">60616</span>
+                </p>
             </div>
         </div>
 
         <!-- Shipping Information -->
         <div class="col-12 col-lg-6">
-            <div class="card bg-white text-dark shadow rounded-3 py-4 px-3 h-100">
+            <div class="card shipping-card bg-white text-dark shadow rounded-3 py-4 px-3 h-100">
                 <h6 class="fw-bold text-uppercase">Shipping Information</h6>
-                <p class="mb-1">John Doe</p>
-                <p class="mb-1">123 Main Street</p>
-                <p class="mb-1">Springfield, IL 62704</p>
+                <p class="mb-1 firstName" th:text="${cartModel.shipping.firstName}">John</p>
+                <p class="mb-1 lastName" th:text="${cartModel.shipping.lastName}">Doe</p>
+                <p class="mb-1 phone" th:text="${cartModel.shipping.phone}">(555) 987-6543</p>
+                <p class="mb-1 address" th:text="${cartModel.shipping.address.address}">123 Main Street</p>
+                <p class="mb-1 cityStateZip">
+                    <span class="city" th:text="${cartModel.shipping.address.city}">Springfield</span>,
+                    <span class="state" th:text="${cartModel.shipping.address.state}">IL</span>
+                    <span class="zipCode" th:text="${cartModel.shipping.address.zipCode}">62704</span>
+                </p>
             </div>
         </div>
     </div>
@@ -39,6 +49,7 @@
 
     <!-- Place Order Button -->
     <div class="d-grid mt-3">
-        <button type="submit" class="btn btn-dark btn-lg place-order" th:data-action="@{'~/placeorder'}">Place Order</button>
+        <button type="submit" class="btn btn-dark btn-lg place-order" th:data-action="@{'~/placeorder'}">Place
+            Order</button>
     </div>
 </div>

@@ -1,24 +1,9 @@
 'use strict';
 
 import { faker } from '@faker-js/faker';
-
-/**
- * Displays validation errors for the shipping form.
- * @param {*} errors 
- */
-function showErrors(errors) {
-    for (let field in errors) {
-        $("#" + field + "Error").text(errors[field]);
-    }
-}
-
-/**
- * Checks if the device is mobile.
- * @returns {boolean} True if the device is mobile (screen width <= 991px), false otherwise.
- */
-function isMobile() {
-    return window.matchMedia("only screen and (max-width: 991px)").matches;
-}
+import { isMobile } from './components/view.js';
+import { showErrors } from './components/error.js';
+import { toElement } from './components/fill.js';
 
 /**
  * Switches to the specified checkout step.
@@ -70,6 +55,23 @@ function handleShippingFormSubmit() {
 }
 
 /**
+ * Fills the billing and shipping address data in the summary section.
+ * @param {Object} cartModel - The cart model containing billing and shipping data.
+ */
+function fillSummaryWithCartModel(cartModel) {
+    const billingCard = $('.review-summary-card .billing-card');
+    const shippingCard = $('.review-summary-card .shipping-card');
+    if (cartModel?.billing) {
+        toElement(billingCard, cartModel.billing);
+        toElement(billingCard, cartModel.billing.address);
+    }
+    if (cartModel?.shipping) {
+        toElement(shippingCard, cartModel.shipping);
+        toElement(shippingCard, cartModel.shipping.address);
+    }
+}
+
+/**
  * Handles the submission of the payment form via AJAX.
  */
 function handlePaymentFormSubmit() {
@@ -89,6 +91,9 @@ function handlePaymentFormSubmit() {
                     return;
                 }
                 if (data.success === true || data.success === 'true') {
+                    if (data.cartModel) {
+                        fillSummaryWithCartModel(data.cartModel);
+                    }
                     switchToStep(3);
                 } else {
                     showErrors(data.errors);
@@ -109,7 +114,7 @@ function handlePaymentFormSubmit() {
  * Sends an AJAX POST request to place the order.
  */
 function handlePlaceOrder() {
-    $('.place-order').on('click', function (event) {
+    $('.place-order').on('click.placeOrder', function (event) {
         event.preventDefault();
         const actionUrl = $(this).data('action');
         $.ajax({

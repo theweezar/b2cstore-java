@@ -27,7 +27,7 @@ public class ShippingForm {
     @Setter
     private String email;
 
-    @Pattern(regexp = "(^1\\d{9}$)", message = "Invalid phone number")
+    @Pattern(regexp = "(^\\+\\d{1,12})$", message = "Invalid phone number")
     @Getter
     @Setter
     private String phone;

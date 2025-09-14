@@ -49,33 +49,13 @@ public abstract class ContainerModel {
 
         @Getter
         @Setter
-        private String country;
-
-        @Getter
-        @Setter
-        private String address;
-
-        @Getter
-        @Setter
-        private String city;
-
-        @Getter
-        @Setter
-        private String state;
-
-        @Getter
-        @Setter
-        private String zipCode;
+        private AddressModel address;
 
         public Shipping() {
             this.firstName = "";
             this.lastName = "";
             this.phone = "";
-            this.country = "";
-            this.address = "";
-            this.city = "";
-            this.state = "";
-            this.zipCode = "";
+            this.address = new AddressModel();
         }
     }
 
@@ -94,33 +74,13 @@ public abstract class ContainerModel {
 
         @Getter
         @Setter
-        private String country;
-
-        @Getter
-        @Setter
-        private String address;
-
-        @Getter
-        @Setter
-        private String city;
-
-        @Getter
-        @Setter
-        private String state;
-
-        @Getter
-        @Setter
-        private String zipCode;
+        private AddressModel address;
 
         public Billing() {
             this.firstName = "";
             this.lastName = "";
             this.email = "";
-            this.country = "";
-            this.address = "";
-            this.city = "";
-            this.state = "";
-            this.zipCode = "";
+            this.address = new AddressModel();
         }
     }
 
@@ -157,22 +117,14 @@ public abstract class ContainerModel {
         shipping.setFirstName(container.getShipFirstName());
         shipping.setLastName(container.getShipLastName());
         shipping.setPhone(container.getPhone());
-        shipping.setCountry(container.getCountry());
-        shipping.setAddress(container.getAddress());
-        shipping.setCity(container.getCity());
-        shipping.setState(container.getState());
-        shipping.setZipCode(container.getZipCode());
+        shipping.getAddress().copy(container);
     }
 
     public void copyBillingFrom(Container container) {
         billing.setFirstName(container.getFirstName());
         billing.setLastName(container.getLastName());
         billing.setEmail(container.getEmail());
-        billing.setCountry(container.getCountry());
-        billing.setAddress(container.getAddress());
-        billing.setCity(container.getCity());
-        billing.setState(container.getState());
-        billing.setZipCode(container.getZipCode());
+        billing.getAddress().copy(container);
     }
 
     public List<LineItemModel> createItemList(Map<String, Product> productMap) {

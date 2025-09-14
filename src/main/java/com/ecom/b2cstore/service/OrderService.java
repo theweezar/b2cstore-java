@@ -33,4 +33,8 @@ public class OrderService {
         }
         return true;
     }
+
+    public Order getOrderById(Long id) {
+        return orderRepository.findById(id).orElse(null);
+    }
 }

@@ -55,12 +55,7 @@ public abstract class Container extends BaseEntity {
     public Container() {
     }
 
-    @Override
-    public String toString() {
-        return String.format(
-                "%s[id=%d, firstName='%s', lastName='%s', email='%s', phone='%s', country='%s', address='%s']",
-                this.getClass().getSimpleName(), firstName, lastName, email, phone, country, address);
-    }
+    public abstract String toString();
 
     public abstract Set<? extends LineItem> getContainerLineItems();
 }

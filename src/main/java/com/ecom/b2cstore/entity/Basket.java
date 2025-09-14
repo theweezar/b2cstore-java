@@ -35,6 +35,27 @@ public class Basket extends Container {
         return lineItems;
     }
 
+    @Override
+    public String toString() {
+        return String.format(
+                "Basket[id=%d, customerId=%s, guestUUID=%s, lineItems=%d, firstName=%s, lastName=%s, email=%s, phone=%s, shipFirstName=%s, shipLastName=%s, country=%s, address=%s, city=%s, state=%s, zipCode=%s]",
+                id,
+                customer != null ? customer.getCustomerId() : null,
+                guestUUID,
+                lineItems != null ? lineItems.size() : 0,
+                getFirstName(),
+                getLastName(),
+                getEmail(),
+                getPhone(),
+                getShipFirstName(),
+                getShipLastName(),
+                getCountry(),
+                getAddress(),
+                getCity(),
+                getState(),
+                getZipCode());
+    }
+
     public Order convertToOrder() {
         Order order = new Order();
         for (BasketLineItem basketItem : this.lineItems) {

@@ -1,6 +1,5 @@
 package com.ecom.b2cstore.controller;
 
-import java.util.Map;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -69,15 +68,12 @@ public class CartController extends BaseController {
     public String showMinicart(Model model) {
         String guestUUID = getGuestUUID();
         Basket basket = basketService.getBasketByGuestUUID(guestUUID);
-        Map<String, Product> productMap = null;
         CartModel cartModel = null;
 
         if (basket != null) {
-            productMap = checkoutUtil.getProductMap(basket.getLineItems());
-            cartModel = new CartModel(basket);
-            cartModel.setItems(cartModel.createItemList(productMap));
+            cartModel = cartUtil.createModel(basket, true);
         } else {
-            cartModel = new CartModel();
+            cartModel = cartUtil.createModel(null);
         }
 
         model.addAttribute("cartModel", cartModel);

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{global/htmlHead :: htmlHead (page='Confirmation')}"></head>
+
+<body class="bg-light">
+
+    <!-- Header with centered logo -->
+    <header class="bg-light shadow-sm py-4 mb-4">
+        <div class="container text-center">
+            <a th:href="@{'/'}">
+                <img th:src="@{'/images/global/logo.png'}" alt="Brand Logo" style="height:64px;">
+            </a>
+        </div>
+    </header>
+
+    <main class="container px-3" style="max-width: 600px;">
+        <!-- Page Title and Thank You Note -->
+        <div class="mb-4">
+            <h1 class="fw-bold text-center mb-2">Confirm your Order</h1>
+            <p class="text-center text-muted mb-0">Thank you for your purchase! Your order has been placed successfully.
+            </p>
+        </div>
+
+        <!-- Order Listing Section -->
+        <div class="card shadow rounded-0 mb-4">
+            <div class="card-body p-4">
+                <h5 class="fw-semibold mb-2">Order Details</h5>
+                <!-- Order ID -->
+                <div class="mb-2">
+                    <span class="text-muted small">Order ID:</span>
+                    <span class="fw-semibold" th:text="${orderModel.orderId}">#ORDERID</span>
+                </div>
+                <!-- Creation Date -->
+                <div class="mb-1">
+                    <span class="text-muted small">Creation Date:</span>
+                    <span class="fw-semibold" th:text="${orderModel.creationDate}">MM/DD/YYYY</span>
+                </div>
+                <!-- Product List -->
+                <ul class="list-group list-group-flush mb-2">
+                    <li class="list-group-item px-0 fw-bold text-muted">
+                        <span>Products</span>
+                    </li>
+                    <li class="list-group-item" th:each="item : ${orderModel.items}">
+                        <div class="row align-items-center">
+                            <!-- Left Column: Product Image -->
+                            <div class="col-3 text-center">
+                                <img th:src="@{${item.imageURL}}" alt="Product" class="rounded"
+                                    style="width:80px; height:80px; object-fit:cover;">
+                            </div>
+                            <!-- Right Column: Product Details -->
+                            <div class="col-9">
+                                <p class="mb-2 fw-semibold" th:text="${item.name}">Product Name</p>
+                                <p class="mb-2 text-muted small">Qty: <span th:text="${item.ats}">1</span></p>
+                                <p class="mb-0 fw-bold">$<span th:text="${item.price}">0.00</span></p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- Order Total -->
+                <div class="d-flex justify-content-between align-items-center pt-3 border-top">
+                    <span class="fw-bold">Total</span>
+                    <span class="fw-bold fs-5 text-dark">$<span
+                            th:text="${orderModel.total.totalPrice}">0.00</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shipping & Billing Information Section -->
+        <div class="row g-4 mb-4">
+            <!-- Shipping Info -->
+            <div class="col-12 col-md-6">
+                <div class="card shipping-card shadow rounded-0 h-100">
+                    <div class="card-body p-4">
+                        <h6 class="fw-semibold mb-3">Shipping Information</h6>
+                        <p class="mb-2 shippingName">
+                            <span class="fw-bold"
+                                th:text="${orderModel.shipping.firstName} + ' ' + ${orderModel.shipping.lastName}">John
+                                Doe</span>
+                        </p>
+                        <p class="mb-2 shippingPhone" th:text="${orderModel.shipping.phone}">+1 234 567
+                            890</p>
+                        <p class="mb-2 shippingAddress" th:text="${orderModel.shipping.address.address}">123 Main St</p>
+                        <p class="mb-2 shippingLocation">
+                            <span class="shippingCity" th:text="${orderModel.shipping.address.city}">City</span>,
+                            <span class="shippingState" th:text="${orderModel.shipping.address.state}">State</span>,
+                            <span class="shippingZipCode" th:text="${orderModel.shipping.address.zipCode}">Zip</span>
+                        </p>
+                        <p class="mb-2 shippingCountry" th:text="${orderModel.shipping.address.country}">Country</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Billing Info -->
+            <div class="col-12 col-md-6">
+                <div class="card billingCard shadow rounded-0 h-100">
+                    <div class="card-body p-4">
+                        <h6 class="fw-semibold mb-3">Billing Information</h6>
+                        <p class="mb-2 billingName">
+                            <span class="fw-bold"
+                                th:text="${orderModel.billing.firstName} + ' ' + ${orderModel.billing.lastName}">Jane
+                                Doe</span>
+                        </p>
+                        <p class="mb-2 billingEmail" th:text="${orderModel.billing.email}">
+                            jane@example.com</p>
+                        <p class="mb-2 billingAddress" th:text="${orderModel.billing.address.address}">456 Main St</p>
+                        <p class="mb-2 billingLocation">
+                            <span class="billingCity" th:text="${orderModel.billing.address.city}">City</span>,
+                            <span class="billingState" th:text="${orderModel.billing.address.state}">State</span>,
+                            <span class="billingZipCode" th:text="${orderModel.billing.address.zipCode}">Zip</span>
+                        </p>
+                        <p class="mb-2 billingCountry" th:text="${orderModel.billing.address.country}">Country</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer with Back to Homepage Button -->
+    <footer class="container mt-5 mb-4">
+        <div class="d-flex justify-content-center">
+            <a th:href="@{'/'}" class="btn btn-dark btn-lg rounded-0 px-5">
+                <i class="bi bi-house-door me-2"></i>Back to Homepage
+            </a>
+        </div>
+    </footer>
+</body>
+
+</html>
