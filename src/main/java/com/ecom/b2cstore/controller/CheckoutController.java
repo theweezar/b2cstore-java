@@ -24,8 +24,7 @@ public class CheckoutController extends BaseController {
 
     @GetMapping("/checkout")
     public String start(Model model) {
-        String guestUUID = getGuestUUID();
-        Basket basket = basketService.getBasketByGuestUUID(guestUUID);
+        Basket basket = getCurrentBasket();
 
         // If no basket exists, redirect to home page
         if (basket == null) {
@@ -41,8 +40,7 @@ public class CheckoutController extends BaseController {
     public ResponseEntity<?> submitShipping(
             @Valid @ModelAttribute ShippingForm form,
             BindingResult result) {
-        String guestUUID = getGuestUUID();
-        Basket basket = basketService.getBasketByGuestUUID(guestUUID);
+        Basket basket = getCurrentBasket();
         Map<String, Object> resMap = new HashMap<>();
 
         if (basket == null) {
@@ -66,8 +64,7 @@ public class CheckoutController extends BaseController {
     @PostMapping(value = "/submitpayment", consumes = "application/x-www-form-urlencoded")
     public ResponseEntity<?> submitPayment() {
         Map<String, Object> resMap = new HashMap<>();
-        String guestUUID = getGuestUUID();
-        Basket basket = basketService.getBasketByGuestUUID(guestUUID);
+        Basket basket = getCurrentBasket();
         if (basket == null) {
             resMap.put("redirect", "/");
             return ResponseEntity.ok(resMap);
@@ -81,8 +78,7 @@ public class CheckoutController extends BaseController {
     @PostMapping(value = "/placeorder")
     public ResponseEntity<?> placeOrder() {
         Map<String, String> resMap = new HashMap<>();
-        String guestUUID = getGuestUUID();
-        Basket basket = basketService.getBasketByGuestUUID(guestUUID);
+        Basket basket = getCurrentBasket();
 
         if (basket == null) {
             resMap.put("redirect", "/");
@@ -101,9 +97,14 @@ public class CheckoutController extends BaseController {
             return ResponseEntity.badRequest().body(resMap);
         }
 
+        checkoutUtil.deductInventory(orderCreated);
+        basketService.deleteBasket(basket);
+
         boolean orderPlaced = orderService.placeOrder(orderCreated);
 
         if (!orderPlaced) {
+            orderService.failOrder(orderCreated);
+            checkoutUtil.restockInventory(orderCreated);
             resMap.put("error", "Order placement failed. Please try again.");
             return ResponseEntity.badRequest().body(resMap);
         }

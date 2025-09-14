@@ -26,7 +26,7 @@ public class InventoryService {
     public void updateInventory(Inventory inventory, int quantityChange) {
         if (inventory != null) {
             int newAts = inventory.getAts() + quantityChange;
-            inventory.setAts(Math.max(newAts, 0)); // Ensure ATS doesn't go negative
+            inventory.setAts(Math.max(newAts, 0));
             saveInventory(inventory);
         }
     }

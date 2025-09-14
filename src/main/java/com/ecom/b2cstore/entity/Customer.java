@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -29,6 +30,16 @@ public class Customer extends BaseEntity {
     @Setter
     private String email;
 
+    @Column(unique = true)
+    @Getter
+    @Setter
+    private String username;
+
+    @NotBlank
+    @Getter
+    @Setter
+    private String password;
+
     @Getter
     @Setter
     private String phone;
@@ -48,10 +59,12 @@ public class Customer extends BaseEntity {
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName, String email, String phone, String country) {
+    public Customer(String firstName, String lastName, String email, String username, String password, String phone, String country) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.username = username;
+        this.password = password;
         this.phone = phone;
         this.country = country;
     }

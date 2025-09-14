@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{global/htmlHead :: htmlHead (page='Register')}"></head>
+
+<body>
+    <div th:replace="~{global/header :: header}"></div>
+
+    <div class="page container py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h2 class="text-center mb-4">Register</h2>
+                <form th:action="@{'~/register'}" th:object="${customerForm}" method="post" class="needs-validation"
+                    id="registerForm" novalidate>
+                    <div class="mb-3">
+                        <label for="firstName" class="form-label">First Name</label>
+                        <input type="text" th:field="*{firstName}" class="form-control" id="firstName"
+                            placeholder="Enter your first name" required>
+                        <div class="small error text-danger" th:if="${#fields.hasErrors('firstName')}"
+                            th:text="${#fields.errors('firstName')}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="lastName" class="form-label">Last Name</label>
+                        <input type="text" th:field="*{lastName}" class="form-control" id="lastName"
+                            placeholder="Enter your last name" required>
+                        <div class="small error text-danger" th:if="${#fields.hasErrors('lastName')}"
+                            th:text="${#fields.errors('lastName')}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" th:field="*{email}" class="form-control" id="email"
+                            placeholder="Enter your email" required>
+                        <div class="small error text-danger" th:if="${#fields.hasErrors('email')}"
+                            th:text="${#fields.errors('email')}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" th:field="*{username}" class="form-control" id="username"
+                            placeholder="Choose a username" required>
+                        <div class="small error text-danger" th:if="${#fields.hasErrors('username')}"
+                            th:text="${#fields.errors('username')}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" th:field="*{password}" class="form-control" id="password"
+                            placeholder="Enter your password" required>
+                        <div class="small error text-danger" th:if="${#fields.hasErrors('password')}"
+                            th:text="${#fields.errors('password')}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="form-label">Confirm Password</label>
+                        <input type="password" th:field="*{confirmPassword}" class="form-control" id="confirmPassword"
+                            placeholder="Confirm your password" required>
+                        <div class="small error text-danger" th:if="${#fields.hasErrors('confirmPassword')}"
+                            th:text="${#fields.errors('confirmPassword')}"></div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phone" class="form-label">Phone</label>
+                        <input type="text" th:field="*{phone}" class="form-control" id="phone"
+                            placeholder="Enter your phone number">
+                        <div class="small error text-danger" th:if="${#fields.hasErrors('phone')}"
+                            th:text="${#fields.errors('phone')}"></div>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-person-plus"></i> Register
+                        </button>
+                    </div>
+                    <input type="hidden" th:field="*{country}" class="form-control" id="country" value="US">
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{global/minicart :: panel}"></div>
+    <div th:replace="~{global/footer :: footer}"></div>
+</body>
+
+</html>

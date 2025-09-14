@@ -11,7 +11,6 @@ public class OrderController extends BaseController {
 
     @GetMapping("/orderconfirmation")
     public String showOrderConfirmation(@RequestParam String orderId) {
-        // initBaseModel(model);
         Order order = orderService.getOrderById(Long.parseLong(orderId));
         if (order == null) {
             return "redirect:/";

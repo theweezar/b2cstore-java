@@ -1,6 +1,5 @@
 'use strict';
 
-import { faker } from '@faker-js/faker';
 import { isMobile } from './components/view.js';
 import { showErrors } from './components/error.js';
 import { toElement } from './components/fill.js';
@@ -154,6 +153,11 @@ function initCheckoutProgress() {
  * Fills the shipping form with random data using faker-js.
  */
 function fillShippingFormWithFakeData() {
+    const faker = window.faker;
+    if (!faker) {
+        console.warn('Faker library is not loaded.');
+        return;
+    }
     $('#firstName').val(faker.name.firstName());
     $('#lastName').val(faker.name.lastName());
     $('#email').val(faker.internet.email());

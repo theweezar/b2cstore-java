@@ -62,4 +62,12 @@ public class CheckoutUtil {
             inventoryService.updateInventory(pid, -qty);
         }
     }
+
+    public void restockInventory(Order order) {
+        Map<String, Integer> qtyInOrderMap = getQtyInContainerMap(order.getLineItems());
+        for (String pid : qtyInOrderMap.keySet()) {
+            Integer qty = qtyInOrderMap.get(pid);
+            inventoryService.updateInventory(pid, qty);
+        }
+    }
 }

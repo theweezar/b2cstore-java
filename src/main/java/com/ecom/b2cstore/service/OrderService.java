@@ -34,6 +34,13 @@ public class OrderService {
         return true;
     }
 
+    public void failOrder(Order order) {
+        if (order != null) {
+            order.setStatus(Order.STATUS_FAILED);
+            orderRepository.save(order);
+        }
+    }
+
     public Order getOrderById(Long id) {
         return orderRepository.findById(id).orElse(null);
     }

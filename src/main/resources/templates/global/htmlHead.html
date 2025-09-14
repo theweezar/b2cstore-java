@@ -7,6 +7,7 @@
     <script defer th:src="@{'~/dist/main.js'}"></script>
     <script defer th:src="@{'~/dist/search.js'}" th:if="${page == 'Search'}"></script>
     <script defer th:src="@{'~/dist/checkout.js'}" th:if="${page == 'Checkout'}"></script>
+    <script defer th:src="@{'~/dist/login.js'}" th:if="${page == 'Register'}"></script>
 
     <title th:text="${pageTitle}">pageTitle</title>
     <meta name="description" th:content="${pageDescription}" />

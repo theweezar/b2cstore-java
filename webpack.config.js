@@ -13,6 +13,7 @@ const creatEntries = () => {
         path.join(cwd, 'client/js/main.js'),
         path.join(cwd, 'client/js/search.js'),
         path.join(cwd, 'client/js/checkout.js'),
+        path.join(cwd, 'client/js/login.js'),
     ];
     const obj = {};
     entries.forEach((entry) => {

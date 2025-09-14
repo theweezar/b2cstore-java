@@ -44,7 +44,13 @@
                 <div class="offcanvas-user text-end fs-1 p-3 mb-5">
                     <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link text-black fw-bold" href="#">
+                            <a class="nav-link text-black fw-bold" th:href="@{'~/login'}" th:if="${!loggedIn}">
+                                <span class="me-2">Login</span>
+                                <span>
+                                    <i class="bi bi-person text-black"></i>
+                                </span>
+                            </a>
+                            <a class="nav-link text-black fw-bold" th:href="@{'~/account'}" th:if="${loggedIn}">
                                 <span class="me-2">Account</span>
                                 <span>
                                     <i class="bi bi-person text-black"></i>
@@ -52,7 +58,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-black fw-bold" href="#">
+                            <a class="nav-link text-black fw-bold" th:href="@{'~/logout'}" th:if="${loggedIn}">
                                 <span class="me-2">Logout</span>
                                 <span>
                                     <i class="bi bi-box-arrow-in-right text-black"></i>
@@ -80,8 +86,14 @@
 
             <ul class="navbar-nav ms-3 d-flex flex-row align-items-center d-none d-lg-flex">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">
+                    <a class="nav-link" th:href="@{'~/login'}" th:if="${!loggedIn}">
                         <i class="bi bi-person-circle fs-3 text-black"></i>
+                    </a>
+                    <!-- <a class="nav-link" th:href="@{'~/account'}" th:if="${loggedIn}">
+                        <i class="bi bi-person-circle fs-3 text-black"></i>
+                    </a> -->
+                    <a class="nav-link" th:href="@{'~/logout'}" th:if="${loggedIn}">
+                        <i class="bi bi-box-arrow-in-right fs-3 text-black"></i>
                     </a>
                 </li>
                 <li class="nav-item">

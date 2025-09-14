@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{global/htmlHead :: htmlHead (page='Register')}"></head>
+
+<body>
+    <div th:replace="~{global/header :: header}"></div>
+
+    <div class="page container py-4">
+        <div class="row justify-content-center">
+            <div class="col-md-6" style="max-width: 600px;">
+                <h2 class="text-center mb-4">Login</h2>
+                <form th:action="@{'~/login'}" method="post" class="needs-validation" id="loginForm" novalidate>
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Username</label>
+                        <input type="text" name="username" class="form-control" id="username"
+                            placeholder="Enter your username" required th:value="${username}" autocomplete="username">
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="password"
+                            placeholder="Enter your password" required>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-box-arrow-in-right"></i> Login
+                        </button>
+                    </div>
+                    <div>
+                        <p class="mt-3 text-center">
+                            Don't have an account? <a th:href="@{'~/register'}">Register here</a>.
+                        </p>
+                    </div>
+                    <div class="small error text-danger text-center" th:if="${loginError}" th:text="${loginError}"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{global/minicart :: panel}"></div>
+    <div th:replace="~{global/footer :: footer}"></div>
+</body>
+
+</html>

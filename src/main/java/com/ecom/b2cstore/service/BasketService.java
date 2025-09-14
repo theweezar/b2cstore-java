@@ -13,15 +13,22 @@ public class BasketService {
     @Autowired
     private BasketRepository basketRepository;
 
-    @Autowired
-    private ProductService productService;
-
     public Basket save(Basket basket) {
         return basketRepository.save(basket);
     }
 
+    public void deleteBasket(Basket basket) {
+        if (basket != null && basket.getId() != null) {
+            basketRepository.delete(basket);
+        }
+    }
+
     public Basket getBasketByGuestUUID(String guestUUID) {
         return basketRepository.findByGuestUUID(guestUUID).orElse(null);
+    }
+
+    public Basket getBasketByCustomerId(Long customerId) {
+        return basketRepository.findByCustomerCustomerId(customerId).orElse(null);
     }
 
     public BasketLineItem createLineItem(Product product) {

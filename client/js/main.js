@@ -3,9 +3,11 @@
 import '../scss/bootstrap.scss';
 import 'bootstrap';
 import $ from "jquery";
+import { faker } from '@faker-js/faker';
 
 window.$ = $;
 window.jQuery = $;
+window.faker = faker;
 
 function initAddToCartButtons() {
     $('a.minicart-show').on('click.minicartShow', function (e) {

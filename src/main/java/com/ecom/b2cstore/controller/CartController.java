@@ -34,11 +34,16 @@ public class CartController extends BaseController {
         }
 
         String guestUUID = getGuestUUID();
-        Basket basket = basketService.getBasketByGuestUUID(guestUUID);
+        Basket basket = getCurrentBasket();
 
         if (basket == null) {
             basket = new Basket();
-            basket.setGuestUUID(guestUUID);
+            System.out.println("New basket is created");
+            if (isLoggedIn()) {
+                basket.setCustomer(getCurrentCustomer());
+            } else {
+                basket.setGuestUUID(guestUUID);
+            }
         }
 
         BasketLineItem lineItem = basketService.createLineItem(product);
@@ -55,8 +60,7 @@ public class CartController extends BaseController {
     @PostMapping("/removefromcart")
     @ResponseBody
     public CartModel removeFromCart(@RequestBody AddToCartPayload payload) {
-        String guestUUID = getGuestUUID();
-        Basket basket = basketService.getBasketByGuestUUID(guestUUID);
+        Basket basket = getCurrentBasket();
 
         if (basket != null) {
         }
@@ -66,8 +70,7 @@ public class CartController extends BaseController {
 
     @GetMapping("/minicart")
     public String showMinicart(Model model) {
-        String guestUUID = getGuestUUID();
-        Basket basket = basketService.getBasketByGuestUUID(guestUUID);
+        Basket basket = getCurrentBasket();
         CartModel cartModel = null;
 
         if (basket != null) {
