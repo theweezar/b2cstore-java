@@ -12,8 +12,13 @@ import com.ecom.b2cstore.entity.BasketLineItem;
 import com.ecom.b2cstore.entity.LineItem;
 import com.ecom.b2cstore.entity.Order;
 import com.ecom.b2cstore.entity.Product;
+import com.ecom.b2cstore.service.BasketService;
 import com.ecom.b2cstore.service.InventoryService;
+import com.ecom.b2cstore.service.OrderService;
 import com.ecom.b2cstore.service.ProductService;
+
+import lombok.Getter;
+import lombok.Setter;
 
 @Component
 public class CheckoutUtil {
@@ -23,6 +28,12 @@ public class CheckoutUtil {
 
     @Autowired
     private InventoryService inventoryService;
+
+    @Autowired
+    private OrderService orderService;
+
+    @Autowired
+    private BasketService basketService;
 
     public Map<String, Product> getProductMap(Collection<? extends LineItem> lineItems) {
         Set<String> productIds = lineItems.stream()
@@ -69,5 +80,53 @@ public class CheckoutUtil {
             Integer qty = qtyInOrderMap.get(pid);
             inventoryService.updateInventory(pid, qty);
         }
+    }
+
+    public static class PlaceOrderStatus {
+        @Getter
+        @Setter
+        private Order order;
+        @Getter
+        @Setter
+        private boolean success;
+        @Getter
+        @Setter
+        private String error;
+        @Getter
+        @Setter
+        private String redirect;
+
+        public PlaceOrderStatus(Order order, boolean success, String error, String redirect) {
+            this.order = order;
+            this.success = success;
+            this.error = error;
+            this.redirect = redirect;
+        }
+    }
+
+    public PlaceOrderStatus placeOrder(Basket basket) {
+        if (!validateProducts(basket)) {
+            return new PlaceOrderStatus(null, false, "Product validation failed. Please review your cart.", null);
+        }
+
+        Order orderCreated = orderService.createOrder(basket);
+
+        if (orderCreated == null) {
+            return new PlaceOrderStatus(null, false, "Order creation failed. Please try again.", null);
+        }
+
+        deductInventory(orderCreated);
+        basketService.deleteBasket(basket);
+
+        boolean orderPlaced = orderService.placeOrder(orderCreated);
+
+        if (!orderPlaced) {
+            orderService.failOrder(orderCreated);
+            restockInventory(orderCreated);
+            return new PlaceOrderStatus(orderCreated, false, "Order placement failed. Please try again.", null);
+        }
+
+        return new PlaceOrderStatus(orderCreated, true, null,
+                "/orderconfirmation?orderId=" + orderCreated.getOrderId());
     }
 }

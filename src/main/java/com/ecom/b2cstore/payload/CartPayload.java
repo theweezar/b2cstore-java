@@ -3,7 +3,7 @@ package com.ecom.b2cstore.payload;
 import lombok.Getter;
 import lombok.Setter;
 
-public class AddToCartPayload {
+public class CartPayload {
     @Getter
     @Setter
     private String pid;
@@ -12,11 +12,16 @@ public class AddToCartPayload {
     @Setter
     private int quantity;
 
-    public AddToCartPayload() {
+    @Getter
+    @Setter
+    private String uuid;
+
+    public CartPayload() {
     }
 
-    public AddToCartPayload(String pid, int quantity) {
+    public CartPayload(String pid, int quantity, String uuid) {
         this.pid = pid;
         this.quantity = quantity;
+        this.uuid = uuid;
     }
 }

@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.ecom.b2cstore.entity.Basket;
-import com.ecom.b2cstore.entity.Order;
 import com.ecom.b2cstore.form.ShippingForm;
 import com.ecom.b2cstore.model.CartModel;
+import com.ecom.b2cstore.util.CheckoutUtil;
 import jakarta.validation.Valid;
 
 @Controller
@@ -33,6 +33,7 @@ public class CheckoutController extends BaseController {
         CartModel cartModel = cartUtil.createModel(basket, true);
 
         model.addAttribute("cartModel", cartModel);
+        model.addAttribute("stripeApiKey", env.getProperty("stripe.api.key"));
         return "checkout";
     }
 
@@ -77,7 +78,7 @@ public class CheckoutController extends BaseController {
 
     @PostMapping(value = "/placeorder")
     public ResponseEntity<?> placeOrder() {
-        Map<String, String> resMap = new HashMap<>();
+        Map<String, Object> resMap = new HashMap<>();
         Basket basket = getCurrentBasket();
 
         if (basket == null) {
@@ -85,33 +86,20 @@ public class CheckoutController extends BaseController {
             return ResponseEntity.ok(resMap);
         }
 
-        if (!checkoutUtil.validateProducts(basket)) {
-            resMap.put("error", "Product validation failed. Please review your cart.");
+        CheckoutUtil.PlaceOrderStatus status = checkoutUtil.placeOrder(basket);
+
+        if (!status.isSuccess()) {
+            if (status.getError() != null) {
+                resMap.put("error", status.getError());
+            }
+            if (status.getRedirect() != null) {
+                resMap.put("redirect", status.getRedirect());
+            }
             return ResponseEntity.badRequest().body(resMap);
         }
 
-        Order orderCreated = orderService.createOrder(basket);
-
-        if (orderCreated == null) {
-            resMap.put("error", "Order creation failed. Please try again.");
-            return ResponseEntity.badRequest().body(resMap);
-        }
-
-        checkoutUtil.deductInventory(orderCreated);
-        basketService.deleteBasket(basket);
-
-        boolean orderPlaced = orderService.placeOrder(orderCreated);
-
-        if (!orderPlaced) {
-            orderService.failOrder(orderCreated);
-            checkoutUtil.restockInventory(orderCreated);
-            resMap.put("error", "Order placement failed. Please try again.");
-            return ResponseEntity.badRequest().body(resMap);
-        }
-
-        resMap.put("success", "true");
-        resMap.put("redirect", "/orderconfirmation?orderId=" + orderCreated.getOrderId());
-
+        resMap.put("success", true);
+        resMap.put("redirect", status.getRedirect());
         return ResponseEntity.ok(resMap);
     }
 

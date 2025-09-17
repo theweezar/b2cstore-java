@@ -12,6 +12,10 @@ public class BasketLineItem extends LineItem {
     @JoinColumn(name = "basket_id")
     private Basket basket;
 
+    @Getter
+    @Setter
+    private String uuid;
+
     public OrderLineItem convertToOrderLineItem() {
         OrderLineItem orderItem = new OrderLineItem();
         orderItem.setProductId(getProductId());

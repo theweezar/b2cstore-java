@@ -1,5 +1,6 @@
 <div th:fragment="panel" class="offcanvas offcanvas-end minicart-right" tabindex="-1" id="minicartRight"
-    aria-labelledby="minicartRightLabel">
+    aria-labelledby="minicartRightLabel"
+    th:data-url="@{'~/minicart'}">
     <div class="offcanvas-header border-bottom">
         <h5 id="minicartRightLabel" class="mb-0 fw-bold text-dark">
             <span>Shopping Cart</span>
@@ -11,19 +12,22 @@
     <div class="offcanvas-body p-0 bg-white" style="font-family: 'Segoe UI', Arial, sans-serif;">
         <div class="minicart-list">
             <ul class="list-unstyled mb-0">
-                <li class="product-li py-4 px-2 border-bottom d-flex align-items-center position-relative"
+                <li class="product-li py-4 px-2 border-bottom"
                     th:each="item : ${cartModel.items}" style="gap: 1.25rem;">
-                    <img th:src="@{'~/' + ${item.imageURL}}" alt="Product Image" class="rounded bg-light flex-shrink-0"
-                        style="width:100px; height:100px; object-fit:cover;">
-                    <div class="flex-grow-1">
-                        <div class="fw-bold text-black lh-sm mb-2" style="max-height:2.8em; overflow:hidden;"> <span
-                                th:text="${item.name}">Product Name</span> </div>
-                        <div class="small text-muted mb-2">Qty: <span th:text="${item.ats}">0</span></div>
-                        <div class="fw-semibold text-dark">$<span th:text="${item.price}">0.00</span></div>
+                    <div class="product-li-wrapper d-flex align-items-center position-relative" th:data-pid="${item.productId}" th:data-uuid="${item.uuid}">
+                        <img th:src="@{'~/' + ${item.imageURL}}" alt="Product Image"
+                            class="rounded bg-light flex-shrink-0" style="width:100px; height:100px; object-fit:cover;">
+                        <div class="flex-grow-1 ms-3 text-truncate">
+                            <div class="fw-bold text-black lh-sm mb-2" style="max-height:2.8em; overflow:hidden;"> <span
+                                    th:text="${item.name}">Product Name</span> </div>
+                            <div class="small text-muted mb-2">Qty: <span th:text="${item.ats}">0</span></div>
+                            <div class="fw-semibold text-dark">$<span th:text="${item.price}">0.00</span></div>
+                        </div>
+                        <a th:href="@{'~/removefromcart'}"
+                            class="btn btn-link p-0 ms-2 text-dark minicart-remove-btn p-2" title="Remove">
+                            <i class="bi bi-trash3"></i>
+                        </a>
                     </div>
-                    <a th:href="@{'~/cart/remove/' + ${item.productId}}" class="btn btn-link p-0 ms-2 text-dark minicart-remove-btn p-2" title="Remove">
-                        <i class="bi bi-trash3"></i>
-                    </a>
                 </li>
             </ul>
         </div>
@@ -38,7 +42,8 @@
 
     <div class="offcanvas-action p-3 pt-0 bg-white">
         <div class="d-grid gap-2">
-            <a th:href="@{'~/cart'}" class="btn btn-outline-dark rounded-0 border border-dark border-2 text-uppercase fs-5"
+            <a th:href="@{'~/cart'}"
+                class="btn btn-outline-dark rounded-0 border border-dark border-2 text-uppercase fs-5"
                 style="padding-top: 10px; padding-bottom: 10px;">
                 View Cart
             </a>

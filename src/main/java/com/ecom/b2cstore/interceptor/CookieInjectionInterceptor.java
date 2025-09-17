@@ -1,9 +1,9 @@
 package com.ecom.b2cstore.interceptor;
 
-import java.util.UUID;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 import com.ecom.b2cstore.util.CookieUtil;
+import com.ecom.b2cstore.util.UUIDUtil;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -20,7 +20,7 @@ public class CookieInjectionInterceptor implements HandlerInterceptor {
 
         if (guestUUID == null) {
             // Generate a new UUID for the guest user
-            guestUUID = UUID.randomUUID().toString();
+            guestUUID = UUIDUtil.generateRandomUUID().toString();
             CookieUtil.addCookie(response, "b2c_guest_uuid", guestUUID, 60 * 60 * 24 * 30); // 30 days
         }
 

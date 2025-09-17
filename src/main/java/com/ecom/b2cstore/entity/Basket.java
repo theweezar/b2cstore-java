@@ -86,4 +86,10 @@ public class Basket extends Container {
 
         return order;
     }
+
+    public double getTotalPrice() {
+        return lineItems.stream()
+                .mapToDouble(li -> li.getPrice().doubleValue() * li.getAts())
+                .sum();
+    }
 }

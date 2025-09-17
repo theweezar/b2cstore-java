@@ -1,4 +1,4 @@
-<div class="payment-form-card" th:fragment="paymentForm">
+<div class="payment-form-card my-4" th:fragment="paymentForm">
     <form action="/submitpayment" method="POST" id="paymentForm">
         <h5 class="mb-3 fw-bold">Payment Information</h5>
 
@@ -24,34 +24,21 @@
 
         <hr class="my-4">
 
-        <div class="credit-card-details">
-            <h6 class="fw-bold">Credit Card Details</h6>
-            <div class="row">
-                <div class="form-group mb-4 col-12">
-                    <label for="cardName">Name on Card</label>
-                    <input type="text" id="cardName" name="cardName" class="form-control" placeholder="John Doe">
-                    <div class="error text-danger"></div>
-                </div>
-                <div class="form-group mb-4 col-12">
-                    <label for="cardNumber">Card Number</label>
-                    <input type="text" id="cardNumber" name="cardNumber" class="form-control"
-                        placeholder="1234 5678 9012 3456">
-                    <div class="error text-danger"></div>
-                </div>
-                <div class="form-group col-12 col-md-6">
-                    <label for="expiration">Expiration</label>
-                    <input type="text" id="expiration" name="expiration" class="form-control" placeholder="MM/YY">
-                    <div class="error text-danger"></div>
-                </div>
-                <div class="form-group col-12 col-md-6">
-                    <label for="cvv">CVV</label>
-                    <input type="text" id="cvv" name="cvv" class="form-control" placeholder="123">
-                    <div class="error text-danger"></div>
-                </div>
+        <div class="payment-method-details mb-4">
+            <div id="paymentElement"
+                th:data-create-payment-intent-url="@{'~/create-payment-intent'}"
+                th:data-return-url="@{'~/stripe-return'}"
+                th:data-stripe-api-key="${stripeApiKey}"
+            ></div>
+            <div id="stripeError" class="mt-2 text-danger"></div>
+            <div class="d-grid">
+                <button type="button" class="btn btn-dark btn-lg stripe-submit d-none">
+                    Continue
+                </button>
             </div>
         </div>
 
-        <div class="d-grid mt-4">
+        <div class="d-grid">
             <button type="submit" class="btn btn-dark btn-lg">Continue</button>
         </div>
     </form>

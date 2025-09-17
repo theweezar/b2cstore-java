@@ -9,7 +9,7 @@ import com.ecom.b2cstore.entity.Basket;
 import com.ecom.b2cstore.entity.BasketLineItem;
 import com.ecom.b2cstore.entity.Product;
 import com.ecom.b2cstore.model.CartModel;
-import com.ecom.b2cstore.payload.AddToCartPayload;
+import com.ecom.b2cstore.payload.CartPayload;
 import com.ecom.b2cstore.payload.AddToCartResponsePayload;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -21,7 +21,7 @@ public class CartController extends BaseController {
 
     @PostMapping("/addtocart")
     @ResponseBody
-    public AddToCartResponsePayload addToCart(@RequestBody AddToCartPayload payload) {
+    public AddToCartResponsePayload addToCart(@RequestBody CartPayload payload) {
         Product product = productService.getProductById(payload.getPid());
         AddToCartResponsePayload responsePayload = new AddToCartResponsePayload(false, Product.STATUS_NOT_FOUND);
 
@@ -59,10 +59,29 @@ public class CartController extends BaseController {
 
     @PostMapping("/removefromcart")
     @ResponseBody
-    public CartModel removeFromCart(@RequestBody AddToCartPayload payload) {
+    public CartModel removeFromCart(@RequestBody CartPayload payload) {
         Basket basket = getCurrentBasket();
+        String lineItemUUID = payload.getUuid();
+        String pid = payload.getPid();
 
         if (basket != null) {
+            BasketLineItem itemToRemove = null;
+            for (BasketLineItem item : basket.getLineItems()) {
+                if (item.getUuid().equals(lineItemUUID) && item.getProductId().equals(pid)) {
+                    itemToRemove = item;
+                    break;
+                }
+            }
+
+            if (itemToRemove != null) {
+                basket.getLineItems().remove(itemToRemove);
+                basketService.save(basket);
+            }
+
+            if (basket.getLineItems().isEmpty()) {
+                basketService.deleteBasket(basket);
+                return new CartModel(null);
+            }
         }
 
         return new CartModel(basket);

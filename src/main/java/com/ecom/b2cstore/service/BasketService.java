@@ -7,6 +7,7 @@ import com.ecom.b2cstore.entity.BasketLineItem;
 import com.ecom.b2cstore.entity.Product;
 import com.ecom.b2cstore.form.ShippingForm;
 import com.ecom.b2cstore.repository.BasketRepository;
+import com.ecom.b2cstore.util.UUIDUtil;
 
 @Service
 public class BasketService {
@@ -37,6 +38,7 @@ public class BasketService {
         lineItem.setName(product.getName());
         lineItem.setPrice(product.getPrice());
         lineItem.setAts(1);
+        lineItem.setUuid(UUIDUtil.generateNameUUIDFromCurrentTime().toString());
         return lineItem;
     }
 

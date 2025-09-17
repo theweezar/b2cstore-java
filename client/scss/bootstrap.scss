@@ -46,11 +46,11 @@ $bootstrap-icons-font-dir: "~bootstrap-icons/font/fonts";
 
     &[data-step="2"] {
 
-        .shipping-form-card,
-        .review-summary-card {
+        .shipping-form-card {
             display: none;
         }
 
+        .review-summary-card,
         .payment-form-card {
             display: block;
         }
@@ -73,36 +73,36 @@ $bootstrap-icons-font-dir: "~bootstrap-icons/font/fonts";
         }
     }
 
-    &[data-step="3"] {
+    // &[data-step="3"] {
 
-        .shipping-form-card,
-        .payment-form-card {
-            display: none;
-        }
+    //     .shipping-form-card,
+    //     .payment-form-card {
+    //         display: none;
+    //     }
 
-        .review-summary-card {
-            display: block;
-        }
+    //     .review-summary-card {
+    //         display: block;
+    //     }
 
-        .checkout-progress {
+    //     .checkout-progress {
 
-            .step-2,
-            .step-3 {
-                .rounded-circle {
-                    background-color: $dark !important;
-                    color: $white !important;
-                }
+    //         .step-2,
+    //         .step-3 {
+    //             .rounded-circle {
+    //                 background-color: $dark !important;
+    //                 color: $white !important;
+    //             }
 
-                .small {
-                    font-weight: bold !important;
-                }
+    //             .small {
+    //                 font-weight: bold !important;
+    //             }
 
-                +div.border-top {
-                    border-top: 2px solid $dark !important;
-                }
-            }
-        }
-    }
+    //             +div.border-top {
+    //                 border-top: 2px solid $dark !important;
+    //             }
+    //         }
+    //     }
+    // }
 
     .payment-form-card {
         .payment-method-selection {

@@ -29,10 +29,14 @@ public abstract class LineItem extends BaseEntity {
     @Setter
     private int ats;
 
+    @Getter
+    @Setter
+    private String uuid;
+
     @Override
     public String toString() {
         return String.format(
-                "%s[id=%d, productId='%s', name='%s', price='%s', ats='%d']",
-                this.getClass().getSimpleName(), id, productId, name, price, ats);
+                "%s[id=%d, productId='%s', name='%s', price='%s', ats='%d', uuid='%s']",
+                this.getClass().getSimpleName(), id, productId, name, price, ats, uuid);
     }
 }

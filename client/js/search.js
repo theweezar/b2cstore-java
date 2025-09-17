@@ -5,12 +5,14 @@
  * @param {string} pid - The product ID to add.
  */
 function addToCart(pid) {
+    $('body').spinner().start();
     $.ajax({
         url: '/addtocart',
         method: 'POST',
         data: JSON.stringify({ pid: pid, quantity: 1 }),
         contentType: 'application/json; charset=UTF-8',
         success: function (response) {
+            $('body').spinner().stop();
             if (response.status) {
                 // alert('Product added to cart successfully.');
                 $('.minicart-show .cart-count').text(response.cartModel.itemCount);
@@ -21,6 +23,7 @@ function addToCart(pid) {
             }
         },
         error: function () {
+            $('body').spinner().stop();
             alert('An error occurred while adding the product to cart.');
         }
     });
@@ -36,7 +39,9 @@ function initAddToCartButtons() {
         const self = $(this);
         const pid = self.parents('.product-tile-card').data('pid');
 
-        addToCart(pid);
+        if (pid) {
+            addToCart(pid);
+        }
     });
 }
 

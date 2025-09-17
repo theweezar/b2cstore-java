@@ -17,9 +17,7 @@ public class CartModel extends ContainerModel {
         if (basket != null) {
             setBasket(basket);
             setItemCount(basket.getLineItems().size());
-            total.setTotalPrice(basket.getLineItems().stream()
-                    .mapToDouble(li -> li.getPrice().doubleValue() * li.getAts())
-                    .sum());
+            total.setTotalPrice(basket.getTotalPrice());
             total.setTotalTax(0);
             total.setTotalDiscount(0);
             total.setTotalShipping(0);

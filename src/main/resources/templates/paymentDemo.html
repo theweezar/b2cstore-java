@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{global/htmlHead :: htmlHead('Checkout')}"></head>
+
+<body style="background-color: #f8f9fa;">
+    <div class="container min-vh-100" style="background-color: #f8f9fa;">
+        <div class="d-flex justify-content-center align-items-center min-vh-100">
+            <form id="payment-form" class="w-100" style="max-width: 600px;">
+                <div id="payment-element"></div>
+                <button id="submit" class="btn btn-primary mt-3">Pay now</button>
+                <div id="error-message" class="mt-2 text-danger"></div>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

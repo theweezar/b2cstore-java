@@ -27,11 +27,17 @@ public class LineItemModel {
     @Setter
     private String imageURL;
 
+    @Getter
+    @Setter
+    private String uuid;
+
     public LineItemModel() {
         this.productId = "";
         this.name = "";
         this.price = BigDecimal.ZERO;
         this.ats = 0;
+        this.imageURL = "";
+        this.uuid = "";
     }
 
     public LineItemModel(LineItem lineItem) {
@@ -39,6 +45,7 @@ public class LineItemModel {
         this.name = lineItem.getName();
         this.price = lineItem.getPrice();
         this.ats = lineItem.getAts();
+        this.uuid = lineItem.getUuid();
     }
 
     public void parseProduct(Product product) {

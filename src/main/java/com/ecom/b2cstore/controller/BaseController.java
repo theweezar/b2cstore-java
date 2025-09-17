@@ -1,6 +1,7 @@
 package com.ecom.b2cstore.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import com.ecom.b2cstore.entity.Basket;
@@ -47,6 +48,9 @@ public abstract class BaseController {
 
     @Autowired
     protected OrderUtil orderUtil;
+    
+    @Autowired
+    protected Environment env;
 
     protected void initBaseModel(Model model) {
         Basket basket = getCurrentBasket();

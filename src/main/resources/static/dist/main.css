@@ -20265,10 +20265,10 @@ textarea.form-control-lg {
 .checkout-main[data-step="1"] .review-summary-card {
   display: none;
 }
-.checkout-main[data-step="2"] .shipping-form-card,
-.checkout-main[data-step="2"] .review-summary-card {
+.checkout-main[data-step="2"] .shipping-form-card {
   display: none;
 }
+.checkout-main[data-step="2"] .review-summary-card,
 .checkout-main[data-step="2"] .payment-form-card {
   display: block;
 }
@@ -20280,26 +20280,6 @@ textarea.form-control-lg {
   font-weight: bold !important;
 }
 .checkout-main[data-step="2"] .checkout-progress .step-2 + div.border-top {
-  border-top: 2px solid #212529 !important;
-}
-.checkout-main[data-step="3"] .shipping-form-card,
-.checkout-main[data-step="3"] .payment-form-card {
-  display: none;
-}
-.checkout-main[data-step="3"] .review-summary-card {
-  display: block;
-}
-.checkout-main[data-step="3"] .checkout-progress .step-2 .rounded-circle,
-.checkout-main[data-step="3"] .checkout-progress .step-3 .rounded-circle {
-  background-color: #212529 !important;
-  color: #fff !important;
-}
-.checkout-main[data-step="3"] .checkout-progress .step-2 .small,
-.checkout-main[data-step="3"] .checkout-progress .step-3 .small {
-  font-weight: bold !important;
-}
-.checkout-main[data-step="3"] .checkout-progress .step-2 + div.border-top,
-.checkout-main[data-step="3"] .checkout-progress .step-3 + div.border-top {
   border-top: 2px solid #212529 !important;
 }
 .checkout-main .payment-form-card .payment-method-selection [name=paymentMethod] + img {
