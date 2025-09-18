@@ -12,6 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
+.env
 
 ### IntelliJ IDEA ###
 .idea
@@ -35,3 +36,6 @@ build/
 
 ### Node.js ###
 /node_modules
+
+### Static ###
+src/main/resources/static/dist
