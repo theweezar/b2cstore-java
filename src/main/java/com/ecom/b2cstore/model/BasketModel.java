@@ -3,16 +3,16 @@ package com.ecom.b2cstore.model;
 import com.ecom.b2cstore.entity.Basket;
 import lombok.Setter;
 
-public class CartModel extends ContainerModel {
+public class BasketModel extends ContainerModel {
 
     @Setter
     private Basket basket;
 
-    public CartModel() {
+    public BasketModel() {
         super();
     }
 
-    public CartModel(Basket basket) {
+    public BasketModel(Basket basket) {
         super();
         if (basket != null) {
             setBasket(basket);

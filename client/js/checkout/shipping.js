@@ -1,12 +1,12 @@
 'use strict';
 
-import { switchToStep, fillSummaryWithCartModel } from './util.js';
+import { switchToStep, fillSummary } from './util.js';
 
 /**
  * Handles the submission of the shipping form via AJAX.
  * Displays validation errors next to the corresponding fields.
  */
-function handleShippingFormSubmit() {
+function initShippingForm() {
     $('#shippingForm').on('submit.submitShipping', function (event) {
         event.preventDefault();
 
@@ -23,7 +23,7 @@ function handleShippingFormSubmit() {
                     return;
                 }
                 if (data.success === true) {
-                    fillSummaryWithCartModel(data.cartModel);
+                    fillSummary(data.basketModel);
                     switchToStep(2);
                 } else {
                     form.showErrors(data.errors);
@@ -40,5 +40,5 @@ function handleShippingFormSubmit() {
 }
 
 export default {
-    handleShippingFormSubmit
+    initShippingForm
 };

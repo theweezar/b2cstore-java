@@ -44,4 +44,12 @@ public class OrderService {
     public Order getOrderById(Long id) {
         return orderRepository.findById(id).orElse(null);
     }
+
+    public Order setPaid(Order order) {
+        if (order != null) {
+            order.setPaymentStatus(Order.PAYMENT_STATUS_PAID);
+            orderRepository.save(order);
+        }
+        return order;
+    }
 }

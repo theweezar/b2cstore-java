@@ -4,18 +4,18 @@ import { isMobile } from '../components/view.js';
 
 /**
  * Fills the billing and shipping address data in the summary section.
- * @param {Object} cartModel - The cart model containing billing and shipping data.
+ * @param {Object} basketModel - The cart model containing billing and shipping data.
  */
-export function fillSummaryWithCartModel(cartModel) {
+export function fillSummary(basketModel) {
     const billingCard = $('.review-summary-card .billing-card');
     const shippingCard = $('.review-summary-card .shipping-card');
-    if (cartModel?.billing) {
-        billingCard.fill(cartModel.billing);
-        billingCard.fill(cartModel.billing.address);
+    if (basketModel?.billing) {
+        billingCard.fill(basketModel.billing);
+        billingCard.fill(basketModel.billing.address);
     }
-    if (cartModel?.shipping) {
-        shippingCard.fill(cartModel.shipping);
-        shippingCard.fill(cartModel.shipping.address);
+    if (basketModel?.shipping) {
+        shippingCard.fill(basketModel.shipping);
+        shippingCard.fill(basketModel.shipping.address);
     }
 }
 

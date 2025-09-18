@@ -15,7 +15,7 @@ function addToCart(pid) {
             $('body').spinner().stop();
             if (response.status) {
                 // alert('Product added to cart successfully.');
-                $('.minicart-show .cart-count').text(response.cartModel.itemCount);
+                $('.minicart-show .cart-count').text(response.basketModel.itemCount);
             } else if (response.productStatus) {
                 alert(`Product status: ${response.productStatus}`);
             } else {

@@ -7,32 +7,32 @@ import org.springframework.stereotype.Component;
 
 import com.ecom.b2cstore.entity.Basket;
 import com.ecom.b2cstore.entity.Product;
-import com.ecom.b2cstore.model.CartModel;
+import com.ecom.b2cstore.model.BasketModel;
 
 @Component
 public class CartUtil {
     @Autowired
     private CheckoutUtil checkoutUtil;
 
-    public CartModel createModel(Basket basket) {
+    public BasketModel createModel(Basket basket) {
         if (basket == null) {
-            return new CartModel();
+            return new BasketModel();
         }
-        return new CartModel(basket);
+        return new BasketModel(basket);
     }
 
-    public CartModel createModel(Basket basket, boolean includeItems) {
+    public BasketModel createModel(Basket basket, boolean includeItems) {
         if (basket == null) {
-            return new CartModel();
+            return new BasketModel();
         }
-        CartModel cartModel = new CartModel(basket);
+        BasketModel basketModel = new BasketModel(basket);
         if (basket.getLineItems().isEmpty() || !includeItems) {
-            return cartModel;
+            return basketModel;
         }
         Map<String, Product> productMap = checkoutUtil.getProductMap(basket.getLineItems());
         if (includeItems) {
-            cartModel.setItems(cartModel.createItemList(productMap));
+            basketModel.setItems(basketModel.createItemList(productMap));
         }
-        return cartModel;
+        return basketModel;
     }
 }

@@ -6,14 +6,14 @@
         <div class="col-12 col-lg-6 mb-4 mb-lg-0">
             <div class="card billing-card bg-white text-dark shadow rounded-3 py-4 px-3 h-100">
                 <h6 class="fw-bold text-uppercase">Billing Information</h6>
-                <p class="mb-1 firstName" th:text="${cartModel.billing.firstName}">Jane</p>
-                <p class="mb-1 lastName" th:text="${cartModel.billing.lastName}">Smith</p>
-                <p class="mb-1 email" th:text="${cartModel.billing.email}">jane.smith@example.com</p>
-                <p class="mb-1 address" th:text="${cartModel.billing.address.address}">456 Elm Street</p>
+                <p class="mb-1 firstName" th:text="${basketModel.billing.firstName}">Jane</p>
+                <p class="mb-1 lastName" th:text="${basketModel.billing.lastName}">Smith</p>
+                <p class="mb-1 email" th:text="${basketModel.billing.email}">jane.smith@example.com</p>
+                <p class="mb-1 address" th:text="${basketModel.billing.address.address}">456 Elm Street</p>
                 <p class="mb-1 cityStateZip">
-                    <span class="city" th:text="${cartModel.billing.address.city}">Chicago</span>,
-                    <span class="state" th:text="${cartModel.billing.address.state}">IL</span>
-                    <span class="zipCode" th:text="${cartModel.billing.address.zipCode}">60616</span>
+                    <span class="city" th:text="${basketModel.billing.address.city}">Chicago</span>,
+                    <span class="state" th:text="${basketModel.billing.address.state}">IL</span>
+                    <span class="zipCode" th:text="${basketModel.billing.address.zipCode}">60616</span>
                 </p>
             </div>
         </div>
@@ -22,14 +22,14 @@
         <div class="col-12 col-lg-6">
             <div class="card shipping-card bg-white text-dark shadow rounded-3 py-4 px-3 h-100">
                 <h6 class="fw-bold text-uppercase">Shipping Information</h6>
-                <p class="mb-1 firstName" th:text="${cartModel.shipping.firstName}">John</p>
-                <p class="mb-1 lastName" th:text="${cartModel.shipping.lastName}">Doe</p>
-                <p class="mb-1 phone" th:text="${cartModel.shipping.phone}">(555) 987-6543</p>
-                <p class="mb-1 address" th:text="${cartModel.shipping.address.address}">123 Main Street</p>
+                <p class="mb-1 firstName" th:text="${basketModel.shipping.firstName}">John</p>
+                <p class="mb-1 lastName" th:text="${basketModel.shipping.lastName}">Doe</p>
+                <p class="mb-1 phone" th:text="${basketModel.shipping.phone}">(555) 987-6543</p>
+                <p class="mb-1 address" th:text="${basketModel.shipping.address.address}">123 Main Street</p>
                 <p class="mb-1 cityStateZip">
-                    <span class="city" th:text="${cartModel.shipping.address.city}">Springfield</span>,
-                    <span class="state" th:text="${cartModel.shipping.address.state}">IL</span>
-                    <span class="zipCode" th:text="${cartModel.shipping.address.zipCode}">62704</span>
+                    <span class="city" th:text="${basketModel.shipping.address.city}">Springfield</span>,
+                    <span class="state" th:text="${basketModel.shipping.address.state}">IL</span>
+                    <span class="zipCode" th:text="${basketModel.shipping.address.zipCode}">62704</span>
                 </p>
             </div>
         </div>

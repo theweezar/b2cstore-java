@@ -28,7 +28,7 @@ export function initStripePaymentElement() {
         contentType: 'application/json',
         data: JSON.stringify({}),
         success: function (data) {
-            setupPaymentElement(data.clientSecret);
+            setupPaymentElement(data);
         },
         error: function (xhr, status, error) {
             console.error('Error fetching client secret:', error);
@@ -39,17 +39,32 @@ export function initStripePaymentElement() {
 /**
  * Confirms the payment using Stripe's confirmPayment method
  * @param {object} elements - The Stripe Elements instance
- * @param {object} cartModel - The cart model containing item details
+ * @param {object} basketModel - The cart model containing item details
  */
-async function confirmPayment(elements, cartModel) {
+async function confirmPayment(elements, basketModel) {
     const paymentForm = $('#paymentForm');
     const returnUrl = new URL($('#paymentElement').data('return-url'), window.location.origin);
+    const billing = basketModel.billing;
+    const address = billing.address;
 
     // Confirm the payment with Stripe
     const { error } = await stripe.confirmPayment({
         elements,
         confirmParams: {
-            return_url: returnUrl.href
+            return_url: returnUrl.href,
+            payment_method_data: {
+                billing_details: {
+                    name: `${billing.firstName} ${billing.lastName}`,
+                    email: billing.email,
+                    address: {
+                        line1: address.address,
+                        city: address.city,
+                        state: address.state,
+                        postal_code: address.zipCode,
+                        country: address.country,
+                    }
+                }
+            }
         }
     });
 
@@ -82,6 +97,29 @@ function submitPayment(url, formData) {
 }
 
 /**
+ * Updates the payment intent on the server
+ * @param {string} url - The URL to update the payment intent
+ * @param {object} data - The data to send in the request
+ * @returns {Promise} - A promise that resolves with the server response
+ */
+function updatePaymentIntent(url, data) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: url,
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function (response) {
+                resolve(response);
+            },
+            error: function (xhr, status, error) {
+                reject({ xhr, error });
+            }
+        });
+    });
+}
+
+/**
  * Initializes the payment form submission handler.
  * @param {object} elements - The Stripe Elements instance
  */
@@ -92,37 +130,56 @@ function initPaymentForm(elements) {
         const self = $(this);
         const actionUrl = self.attr('action');
         const formData = self.serialize();
-
         const result = await elements.submit();
+        const paymentEl = $('#paymentElement')
+        const paymentIntentId = paymentEl.data('payment-intent-id');
+        const updatePaymentIntentUrl = paymentEl.data('update-payment-intent-url');
+        const body = $('body');
+
+        body.spinner().start();
 
         if (result.error) {
+            body.spinner().stop();
             self.showErrors({ stripe: result.error.message });
             return;
         }
 
-        const response = await submitPayment(actionUrl, formData);
+        const paymentResponse = await submitPayment(actionUrl, formData);
 
-        if (response.redirect) {
-            window.location.href = response.redirect;
+        if (paymentResponse.redirect) {
+            window.location.href = paymentResponse.redirect;
             return;
         }
 
-        if (response.success === true) {
-            await confirmPayment(elements, response.cartModel);
-        } else {
-            self.showErrors({ stripe: response.error || 'Payment failed. Please try again.' });
+        if (!paymentResponse.success) {
+            body.spinner().stop();
+            self.showErrors({ stripe: paymentResponse.error || 'Payment failed. Please try again.' });
+            return;
         }
+
+        const updateResponse = await updatePaymentIntent(updatePaymentIntentUrl, { paymentIntentId });
+
+        if (updateResponse.error) {
+            body.spinner().stop();
+            self.showErrors({ stripe: updateResponse.error });
+            return;
+        }
+
+        body.spinner().stop();
+
+        // Confirm the payment
+        await confirmPayment(elements, paymentResponse.basketModel);
     });
 }
 
 /**
  * Sets up the Stripe Payment Element and handles form submission
- * @param {string} clientSecret - The client secret obtained from the server
+ * @param {object} paymentIntentData - The payment data obtained from the server
  */
-function setupPaymentElement(clientSecret) {
+function setupPaymentElement(paymentIntentData) {
     // Create an elements instance with options
     const elements = stripe.elements({
-        clientSecret,
+        clientSecret: paymentIntentData.clientSecret,
         appearance: {
             theme: 'stripe',
             variables: {
@@ -133,9 +190,24 @@ function setupPaymentElement(clientSecret) {
 
     // Create and mount the Payment Element
     const paymentElement = elements.create('payment', {
-        layout: 'tabs'
+        layout: 'tabs',
+        business: {
+            name: 'B2C DEMO'
+        },
+        fields: {
+            billingDetails: {
+                name: 'auto',
+                email: 'auto',
+                phone: 'auto',
+                address: 'auto'
+            }
+        }
     });
     paymentElement.mount('#paymentElement');
 
-    initPaymentForm(elements);
+    const paymentIntentId = paymentIntentData.paymentIntentId;
+
+    $('#paymentElement').data('payment-intent-id', paymentIntentId).attr('data-payment-intent-id', paymentIntentId);
+
+    initPaymentForm(elements, paymentIntentId);
 }

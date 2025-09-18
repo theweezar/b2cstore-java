@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
 import com.ecom.b2cstore.entity.Basket;
 import com.ecom.b2cstore.entity.Customer;
-import com.ecom.b2cstore.model.CartModel;
+import com.ecom.b2cstore.model.BasketModel;
 import com.ecom.b2cstore.service.BasketService;
 import com.ecom.b2cstore.service.CategoryService;
 import com.ecom.b2cstore.service.OrderService;
@@ -54,7 +54,7 @@ public abstract class BaseController {
 
     protected void initBaseModel(Model model) {
         Basket basket = getCurrentBasket();
-        CartModel cartModel = cartUtil.createModel(basket);
+        BasketModel basketModel = cartUtil.createModel(basket);
         Customer customer = getCurrentCustomer();
         String username = (customer != null) ? customer.getUsername() : null;
         boolean loggedIn = isLoggedIn();
@@ -63,7 +63,7 @@ public abstract class BaseController {
 
         model.addAttribute("loggedIn", loggedIn);
         model.addAttribute("categories", categoryService.getAllCategories());
-        model.addAttribute("cartModel", cartModel);
+        model.addAttribute("basketModel", basketModel);
     }
 
     protected String getGuestUUID() {

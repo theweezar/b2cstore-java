@@ -27,6 +27,7 @@
         <div class="payment-method-details mb-4">
             <div id="paymentElement"
                 th:data-create-payment-intent-url="@{'~/create-payment-intent'}"
+                th:data-update-payment-intent-url="@{'~/update-payment-intent'}"
                 th:data-return-url="@{'~/stripe-return'}"
                 th:data-stripe-api-key="${stripeApiKey}"
             ></div>

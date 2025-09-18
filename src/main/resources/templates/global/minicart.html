@@ -4,7 +4,7 @@
     <div class="offcanvas-header border-bottom">
         <h5 id="minicartRightLabel" class="mb-0 fw-bold text-dark">
             <span>Shopping Cart</span>
-            <span class="minicart-count" th:text="${'(' + cartModel.itemCount + ')'}">0</span>
+            <span class="minicart-count" th:text="${'(' + basketModel.itemCount + ')'}">0</span>
         </h5>
         <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
@@ -13,7 +13,7 @@
         <div class="minicart-list">
             <ul class="list-unstyled mb-0">
                 <li class="product-li py-4 px-2 border-bottom"
-                    th:each="item : ${cartModel.items}" style="gap: 1.25rem;">
+                    th:each="item : ${basketModel.items}" style="gap: 1.25rem;">
                     <div class="product-li-wrapper d-flex align-items-center position-relative" th:data-pid="${item.productId}" th:data-uuid="${item.uuid}">
                         <img th:src="@{'~/' + ${item.imageURL}}" alt="Product Image"
                             class="rounded bg-light flex-shrink-0" style="width:100px; height:100px; object-fit:cover;">
@@ -36,7 +36,7 @@
     <div class="offcanvas-basket-data border-top p-3 bg-white">
         <div class="d-flex justify-content-between align-items-center">
             <span class="fw-bold text-dark">Subtotal</span>
-            <span class="fw-bold fs-5 text-dark minicart-total" th:text="${'$' + cartModel.total.totalPrice}">$0</span>
+            <span class="fw-bold fs-5 text-dark minicart-total" th:text="${'$' + basketModel.total.totalPrice}">$0</span>
         </div>
     </div>
 

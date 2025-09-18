@@ -1,6 +1,6 @@
 package com.ecom.b2cstore.payload;
 
-import com.ecom.b2cstore.model.CartModel;
+import com.ecom.b2cstore.model.BasketModel;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -16,7 +16,7 @@ public class AddToCartResponsePayload {
 
     @Getter
     @Setter
-    private CartModel cartModel;
+    private BasketModel basketModel;
 
     public AddToCartResponsePayload() {
     }

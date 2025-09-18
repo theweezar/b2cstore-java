@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.ecom.b2cstore.entity.Basket;
 import com.ecom.b2cstore.form.ShippingForm;
-import com.ecom.b2cstore.model.CartModel;
+import com.ecom.b2cstore.model.BasketModel;
 import com.ecom.b2cstore.util.CheckoutUtil;
 import jakarta.validation.Valid;
 
@@ -30,9 +30,9 @@ public class CheckoutController extends BaseController {
         if (basket == null) {
             return "redirect:/";
         }
-        CartModel cartModel = cartUtil.createModel(basket, true);
+        BasketModel basketModel = cartUtil.createModel(basket, true);
 
-        model.addAttribute("cartModel", cartModel);
+        model.addAttribute("basketModel", basketModel);
         model.addAttribute("stripeApiKey", env.getProperty("stripe.api.key"));
         return "checkout";
     }
@@ -56,8 +56,8 @@ public class CheckoutController extends BaseController {
         }
 
         basketService.saveShippingBillingForm(basket, form);
-        CartModel cartModel = cartUtil.createModel(basket, true);
-        resMap.put("cartModel", cartModel);
+        BasketModel basketModel = cartUtil.createModel(basket, true);
+        resMap.put("basketModel", basketModel);
         resMap.put("success", true);
         return ResponseEntity.ok(resMap);
     }
@@ -70,8 +70,8 @@ public class CheckoutController extends BaseController {
             resMap.put("redirect", "/");
             return ResponseEntity.ok(resMap);
         }
-        CartModel cartModel = cartUtil.createModel(basket, true);
-        resMap.put("cartModel", cartModel);
+        BasketModel basketModel = cartUtil.createModel(basket, true);
+        resMap.put("basketModel", basketModel);
         resMap.put("success", true);
         return ResponseEntity.ok(resMap);
     }

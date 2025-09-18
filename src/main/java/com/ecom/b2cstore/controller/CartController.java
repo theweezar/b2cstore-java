@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.ecom.b2cstore.entity.Basket;
 import com.ecom.b2cstore.entity.BasketLineItem;
 import com.ecom.b2cstore.entity.Product;
-import com.ecom.b2cstore.model.CartModel;
+import com.ecom.b2cstore.model.BasketModel;
 import com.ecom.b2cstore.payload.CartPayload;
 import com.ecom.b2cstore.payload.AddToCartResponsePayload;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -52,14 +52,14 @@ public class CartController extends BaseController {
         basketService.save(basket);
 
         responsePayload.setStatus(true);
-        responsePayload.setCartModel(new CartModel(basket));
+        responsePayload.setBasketModel(new BasketModel(basket));
 
         return responsePayload;
     }
 
     @PostMapping("/removefromcart")
     @ResponseBody
-    public CartModel removeFromCart(@RequestBody CartPayload payload) {
+    public BasketModel removeFromCart(@RequestBody CartPayload payload) {
         Basket basket = getCurrentBasket();
         String lineItemUUID = payload.getUuid();
         String pid = payload.getPid();
@@ -80,25 +80,25 @@ public class CartController extends BaseController {
 
             if (basket.getLineItems().isEmpty()) {
                 basketService.deleteBasket(basket);
-                return new CartModel(null);
+                return new BasketModel(null);
             }
         }
 
-        return new CartModel(basket);
+        return new BasketModel(basket);
     }
 
     @GetMapping("/minicart")
     public String showMinicart(Model model) {
         Basket basket = getCurrentBasket();
-        CartModel cartModel = null;
+        BasketModel basketModel = null;
 
         if (basket != null) {
-            cartModel = cartUtil.createModel(basket, true);
+            basketModel = cartUtil.createModel(basket, true);
         } else {
-            cartModel = cartUtil.createModel(null);
+            basketModel = cartUtil.createModel(null);
         }
 
-        model.addAttribute("cartModel", cartModel);
+        model.addAttribute("basketModel", basketModel);
 
         return "global/minicart";
     }

@@ -1,6 +1,6 @@
 'use strict';
 
-import { switchToStep, fillSummaryWithCartModel } from './util.js';
+import { fillSummary } from './util.js';
 
 /**
  * Initializes the "checkout:submitPayment" event to handle payment form submissions.
@@ -48,7 +48,7 @@ function initPaymentForm() {
                     return;
                 }
                 if (data.success === true) {
-                    fillSummaryWithCartModel(data.cartModel);
+                    fillSummary(data.basketModel);
                 } else {
                     self.showErrors(data.errors);
                 }
