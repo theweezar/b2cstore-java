@@ -1,112 +1,105 @@
-<div th:fragment="header">
-    <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm">
-        <div class="container">
-            <!-- Logo Placeholder -->
-            <a class="navbar-brand d-flex align-items-center" th:href="@{'~/'}">
-                <img src="/images/global/logo.png" alt="Logo" width="40" height="40"
-                    class="d-inline-block align-text-top me-2">
-                <span class="fw-bold d-none d-lg-block">
-                    B2C Demo
+<nav class="header navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top" th:fragment="header">
+    <div class="container">
+        <!-- Logo Placeholder -->
+        <div class="navbar-brand d-flex align-items-center col-6 col-lg-3">
+            <a th:href="@{'~/'}" class="d-flex align-items-center text-decoration-none">
+                <img src="/images/global/logo.png" alt="B2C DEMO" class="d-inline-block align-text-top me-2 logo-img">
+                <span class="fw-bold text-black">B2C DEMO</span>
+            </a>
+        </div>
+
+        <div class="mobile-action d-flex d-lg-none align-items-center gap-3">
+            <a class="position-relative minicart-show action-btn" href="#minicartRight" data-bs-toggle="offcanvas"
+                data-bs-target="#minicartRight" aria-controls="minicartRight">
+                <i class="bi bi-cart3 fs-4"></i>
+                <span
+                    class="position-absolute top-25 start-100 translate-middle badge rounded-circle bg-danger cart-badge">
+                    <span class="cart-count" th:text="${basketModel.itemCount}"></span>
                 </span>
             </a>
 
-            <div class="mobile-action d-flex d-lg-none align-items-center gap-3">
-                <a class="position-relative minicart-show text-black" href="#minicartRight"
+            <a class="action-btn" data-bs-toggle="offcanvas" data-bs-target="#navbarNavRight"
+                aria-controls="navbarNavRight">
+                <i class="bi bi-list fs-4"></i>
+            </a>
+        </div>
+
+        <div class="navbar-nav-right offcanvas offcanvas-end d-lg-none" tabindex="-1" id="navbarNavRight"
+            aria-labelledby="navbarNavRightLabel">
+            <div class="offcanvas-header border-bottom">
+                <h5 class="offcanvas-title">Menu</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+                <!-- Categories Section -->
+                <div class="sidebar-section mb-4">
+                    <h6 class="sidebar-section-title">Categories</h6>
+                    <ul class="navbar-nav" th:if="${categories}">
+                        <li class="nav-item" th:each="category : ${categories}">
+                            <a class="nav-link sidebar-nav-link" th:href="@{'~/search/' + ${category.categoryId}}">
+                                <span th:text="${category.name}"></span>
+                                <i class="bi bi-chevron-right ms-auto"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Account Section -->
+                <div class="sidebar-section">
+                    <h6 class="sidebar-section-title">Account</h6>
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link sidebar-nav-link" th:href="@{'~/login'}" th:if="${!loggedIn}">
+                                <span>Login</span>
+                                <i class="bi bi-person ms-auto"></i>
+                            </a>
+                            <a class="nav-link sidebar-nav-link" th:href="@{'~/account'}" th:if="${loggedIn}">
+                                <span>Account</span>
+                                <i class="bi bi-person ms-auto"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link sidebar-nav-link" th:href="@{'~/logout'}" th:if="${loggedIn}">
+                                <span>Logout</span>
+                                <i class="bi bi-box-arrow-in-right ms-auto"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Desktop Navigation -->
+        <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-none d-lg-flex col-lg-6 justify-content-center"
+            th:if="${categories}">
+            <li class="nav-item" th:each="category : ${categories}">
+                <a class="nav-link desktop-nav-link" th:href="@{'~/search/' + ${category.categoryId}}"
+                    th:text="${category.name}">
+                    Category Name
+                </a>
+            </li>
+        </ul>
+
+        <!-- Desktop Actions -->
+        <ul class="navbar-nav ms-3 d-flex flex-row align-items-center d-none d-lg-flex col-lg-3 justify-content-end">
+            <li class="nav-item me-3">
+                <a class="nav-link action-btn" th:href="@{'~/login'}" th:if="${!loggedIn}">
+                    <i class="bi bi-person-circle fs-4"></i>
+                </a>
+                <a class="nav-link action-btn" th:href="@{'~/logout'}" th:if="${loggedIn}">
+                    <i class="bi bi-box-arrow-in-right fs-4"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link position-relative minicart-show action-btn" href="#minicartRight"
                     data-bs-toggle="offcanvas" data-bs-target="#minicartRight" aria-controls="minicartRight">
-                    <i class="bi bi-cart3 fs-2 text-black"></i>
-                    <span class="position-absolute top-25 start-100 translate-middle badge rounded-circle bg-danger"
-                        style="font-size:10px">
+                    <i class="bi bi-cart3 fs-4"></i>
+                    <span
+                        class="position-absolute top-25 start-100 translate-middle badge rounded-circle bg-danger cart-badge">
                         <span class="cart-count" th:text="${basketModel.itemCount}"></span>
                     </span>
                 </a>
-
-                <a class="text-black" data-bs-toggle="offcanvas" data-bs-target="#navbarNavRight"
-                    aria-controls="navbarNavRight">
-                    <i class="bi bi-list fs-2 text-black"></i>
-                </a>
-            </div>
-
-            <div class="navbar-nav-right offcanvas offcanvas-end d-lg-none" tabindex="-1" id="navbarNavRight"
-                aria-labelledby="navbarNavRightLabel">
-                <div class="offcanvas-header"></div>
-                <div class="offcanvas-body text-end fs-1">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0" th:if="${categories}">
-                        <li class="nav-item" th:each="category : ${categories}">
-                            <a class="nav-link text-black fw-bold" th:href="@{'~/search/' + ${category.categoryId}}">
-                                <span class="me-2" th:text="${category.name}"></span>
-                                <span>
-                                    <i class="bi bi-caret-right text-black"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="offcanvas-user text-end fs-1 p-3 mb-5">
-                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link text-black fw-bold" th:href="@{'~/login'}" th:if="${!loggedIn}">
-                                <span class="me-2">Login</span>
-                                <span>
-                                    <i class="bi bi-person text-black"></i>
-                                </span>
-                            </a>
-                            <a class="nav-link text-black fw-bold" th:href="@{'~/account'}" th:if="${loggedIn}">
-                                <span class="me-2">Account</span>
-                                <span>
-                                    <i class="bi bi-person text-black"></i>
-                                </span>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-black fw-bold" th:href="@{'~/logout'}" th:if="${loggedIn}">
-                                <span class="me-2">Logout</span>
-                                <span>
-                                    <i class="bi bi-box-arrow-in-right text-black"></i>
-                                </span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="offcanvas-close text-end p-3 mb-5">
-                    <button type="button" class="btn text-reset ms-auto p-0 fs-3 text-black fw-bold"
-                        data-bs-dismiss="offcanvas" aria-label="Close">
-                        <span>Close</span>
-                    </button>
-                </div>
-            </div>
-
-            <ul class="navbar-nav mx-auto mb-2 mb-lg-0 d-none d-lg-flex" th:if="${categories}">
-                <li class="nav-item" th:each="category : ${categories}">
-                    <a class="nav-link text-black fw-bold" th:href="@{'~/search/' + ${category.categoryId}}"
-                        th:text="${category.name}">
-                        Category Name
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="navbar-nav ms-3 d-flex flex-row align-items-center d-none d-lg-flex">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{'~/login'}" th:if="${!loggedIn}">
-                        <i class="bi bi-person-circle fs-3 text-black"></i>
-                    </a>
-                    <!-- <a class="nav-link" th:href="@{'~/account'}" th:if="${loggedIn}">
-                        <i class="bi bi-person-circle fs-3 text-black"></i>
-                    </a> -->
-                    <a class="nav-link" th:href="@{'~/logout'}" th:if="${loggedIn}">
-                        <i class="bi bi-box-arrow-in-right fs-3 text-black"></i>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link position-relative minicart-show" href="#minicartRight"
-                        data-bs-toggle="offcanvas" data-bs-target="#minicartRight" aria-controls="minicartRight">
-                        <i class="bi bi-cart3 fs-3 text-black"></i>
-                        <span class="position-absolute top-25 start-100 translate-middle badge rounded-circle bg-danger"
-                            style="font-size:12px">
-                            <span class="cart-count" th:text="${basketModel.itemCount}"></span>
-                        </span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </nav>
-</div>
+            </li>
+        </ul>
+    </div>
+</nav>

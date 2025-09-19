@@ -1,0 +1,67 @@
+/* Footer Styles */
+.footer {
+    background-color: var(--secondary-bg) !important;
+    color: white;
+
+    .footer-title {
+        color: white !important;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        font-size: 1.2rem;
+    }
+
+    .footer-description {
+        color: var(--secondary-text);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .footer-links li {
+        margin-bottom: 0.5rem;
+    }
+
+    .footer-link {
+        color: var(--secondary-text);
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+        color: white;
+    }
+
+    .footer-divider {
+        border-color: var(--medium-gray);
+        opacity: 0.3;
+    }
+
+    .footer-copyright {
+        color: var(--secondary-text);
+        margin-bottom: 0;
+        font-size: 0.9rem;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .social-link {
+        color: var(--secondary-text);
+        transition: color 0.3s ease;
+        text-decoration: none;
+    }
+
+    .social-link:hover {
+        color: var(--primary-accent);
+    }
+
+    .payment-methods {
+        display: flex;
+        gap: 1rem;
+    }
+
+    .payment-icon {
+        color: var(--secondary-text);
+    }
+}

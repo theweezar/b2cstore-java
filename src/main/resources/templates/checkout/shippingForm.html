@@ -1,70 +1,135 @@
-<div class="shipping-form-card" th:fragment="shippingForm">
-    <h5 class="mb-3 fw-bold">Customer Info</h5>
-    <form th:action="@{'~/submitshipping'}" method="post" id="shippingForm">
-        <div class="row g-3 mb-4">
-            <div class="col-12 col-md-6">
-                <label for="firstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name">
-                <small class="error text-danger" id="firstNameError"></small>
-            </div>
-            <div class="col-12 col-md-6">
-                <label for="lastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name">
-                <small class="error text-danger" id="lastNameError"></small>
-            </div>
-            <div class="col-12 col-md-6">
-                <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
-                <small class="error text-danger" id="emailError"></small>
-            </div>
-            <div class="col-12 col-md-6">
-                <label for="phone" class="form-label">Phone Number</label>
-                <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number">
-                <small class="error text-danger" id="phoneError"></small>
-            </div>
-        </div>
-        <hr>
-        <h5 class="mb-3 mt-4 fw-bold">Shipping Address</h5>
-        <div class="row g-3 mb-2">
-            <div class="col-12">
-                <label for="shipFirstName" class="form-label">First Name</label>
-                <input type="text" class="form-control" id="shipFirstName" name="shipFirstName"
-                    placeholder="First Name">
-                <small class="error text-danger" id="shipFirstNameError"></small>
-            </div>
-            <div class="col-12">
-                <label for="shipLastName" class="form-label">Last Name</label>
-                <input type="text" class="form-control" id="shipLastName" name="shipLastName" placeholder="Last Name">
-                <small class="error text-danger" id="shipLastNameError"></small>
-            </div>
-            <div class="col-12">
-                <div class="row g-2">
-                    <div class="col-12 col-md-4">
-                        <label for="city" class="form-label">City</label>
-                        <input type="text" class="form-control" id="city" name="city" placeholder="City">
-                        <small class="error text-danger" id="cityError"></small>
+<div class="shipping-form-card card" th:fragment="shippingForm">
+    <div class="card-body">
+        <h4 class="section-title">Shipping Information</h4>
+        
+        <form th:action="@{'~/submitshipping'}" method="post" id="shippingForm">
+            <!-- Customer Information -->
+            <div class="form-section mb-4">
+                <h5 class="subsection-title">Contact Information</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="First Name">
+                            <label for="firstName">First Name *</label>
+                            <div class="error-message" id="firstNameError"></div>
+                        </div>
                     </div>
-                    <div class="col-12 col-md-4">
-                        <label for="state" class="form-label">State</label>
-                        <input type="text" class="form-control" id="state" name="state" placeholder="State">
-                        <small class="error text-danger" id="stateError"></small>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Last Name">
+                            <label for="lastName">Last Name *</label>
+                            <div class="error-message" id="lastNameError"></div>
+                        </div>
                     </div>
-                    <div class="col-12 col-md-4">
-                        <label for="zipCode" class="form-label">Zip Code</label>
-                        <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Zip Code">
-                        <small class="error text-danger" id="zipCodeError"></small>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+                            <label for="email">Email Address *</label>
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="tel" class="form-control" id="phone" name="phone" placeholder="Phone Number">
+                            <label for="phone">Phone Number *</label>
+                            <div class="error-message" id="phoneError"></div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-12">
-                <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" id="address" name="address" placeholder="Address">
-                <small class="error text-danger" id="addressError"></small>
+
+            <!-- Shipping Address -->
+            <div class="form-section mb-4">
+                <h5 class="subsection-title">Shipping Address</h5>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="shipFirstName" name="shipFirstName" placeholder="First Name">
+                            <label for="shipFirstName">First Name *</label>
+                            <div class="error-message" id="shipFirstNameError"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="shipLastName" name="shipLastName" placeholder="Last Name">
+                            <label for="shipLastName">Last Name *</label>
+                            <div class="error-message" id="shipLastNameError"></div>
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="address" name="address" placeholder="Address">
+                            <label for="address">Street Address *</label>
+                            <div class="error-message" id="addressError"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="city" name="city" placeholder="City">
+                            <label for="city">City *</label>
+                            <div class="error-message" id="cityError"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="state" name="state" placeholder="State">
+                            <label for="state">State *</label>
+                            <div class="error-message" id="stateError"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" id="zipCode" name="zipCode" placeholder="Zip Code">
+                            <label for="zipCode">Zip Code *</label>
+                            <div class="error-message" id="zipCodeError"></div>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" id="country" name="country" value="US">
             </div>
-        </div>
-        <input type="hidden" id="country" name="country" value="US">
-        <div class="d-grid mt-4">
-            <button type="submit" class="btn btn-dark btn-lg">Continue</button>
-        </div>
-    </form>
+
+            <!-- Shipping Methods -->
+            <div class="form-section mb-4">
+                <h5 class="subsection-title">Shipping Method</h5>
+                <div class="shipping-methods">
+                    <div class="shipping-option">
+                        <input type="radio" id="standard" name="shippingMethod" value="standard" class="form-check-input" checked>
+                        <label for="standard" class="shipping-option-label">
+                            <div class="shipping-info">
+                                <div class="shipping-name">Standard Shipping</div>
+                                <div class="shipping-delivery">5-7 business days</div>
+                            </div>
+                            <div class="shipping-cost">Free</div>
+                        </label>
+                    </div>
+                    
+                    <div class="shipping-option">
+                        <input type="radio" id="express" name="shippingMethod" value="express" class="form-check-input">
+                        <label for="express" class="shipping-option-label">
+                            <div class="shipping-info">
+                                <div class="shipping-name">Express Shipping</div>
+                                <div class="shipping-delivery">2-3 business days</div>
+                            </div>
+                            <div class="shipping-cost">$9.99</div>
+                        </label>
+                    </div>
+                    
+                    <div class="shipping-option">
+                        <input type="radio" id="overnight" name="shippingMethod" value="overnight" class="form-check-input">
+                        <label for="overnight" class="shipping-option-label">
+                            <div class="shipping-info">
+                                <div class="shipping-name">Overnight Shipping</div>
+                                <div class="shipping-delivery">Next business day</div>
+                            </div>
+                            <div class="shipping-cost">$19.99</div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary btn-lg w-100">Continue to Payment</button>
+            </div>
+        </form>
+    </div>
 </div>

@@ -5,6 +5,7 @@ import ui from './checkout/ui.js';
 import shipping from './checkout/shipping.js';
 import billing from './checkout/billing.js';
 import { initStripePaymentElement } from './stripe/stripe.main.js';
+import "../scss/checkout.scss";
 
 $(document).ready(function () {
     executeFunctions(ui);

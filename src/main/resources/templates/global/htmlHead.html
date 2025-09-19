@@ -8,11 +8,13 @@
     <script defer th:src="@{'~/dist/search.js'}" th:if="${page == 'Search'}"></script>
     <script defer th:src="@{'~/dist/login.js'}" th:if="${page == 'Register'}"></script>
 
+    <!-- Checkout page resources -->
     <script src="https://js.stripe.com/v3/"></script>
     <script defer th:src="@{'~/dist/checkout.js'}" th:if="${page == 'Checkout'}"></script>
+    <link rel="stylesheet" th:href="@{'~/dist/checkout.css'}" th:if="${page == 'Checkout'}"/>
+    <!-- End Checkout page resources -->
 
     <title th:text="${pageTitle}">pageTitle</title>
     <meta name="description" th:content="${pageDescription}" />
-
     <link rel="icon" th:href="@{'~/images/global/favicon.ico'}" type="image/x-icon">
 </head>

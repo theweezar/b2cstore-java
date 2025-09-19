@@ -7,8 +7,8 @@ import { isMobile } from '../components/view.js';
  * @param {Object} basketModel - The cart model containing billing and shipping data.
  */
 export function fillSummary(basketModel) {
-    const billingCard = $('.review-summary-card .billing-card');
-    const shippingCard = $('.review-summary-card .shipping-card');
+    const billingCard = $('.summary-section #billingSummary');
+    const shippingCard = $('.summary-section #shippingSummary');
     if (basketModel?.billing) {
         billingCard.fill(basketModel.billing);
         billingCard.fill(basketModel.billing.address);

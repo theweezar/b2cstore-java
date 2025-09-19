@@ -1,0 +1,89 @@
+<div class="order-summary-sticky" id="orderSummarySticky" th:fragment="orderSummary">
+    <!-- Mobile Toggle -->
+    <div class="d-lg-none mb-3">
+        <button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse"
+            data-bs-target="#orderSummaryMobile" aria-expanded="false">
+            <i class="bi bi-receipt me-2"></i>
+            Show Order Summary
+            <span class="float-end fw-bold" th:text="${'$' + basketModel.total.totalPrice}">$149.98
+            </span>
+        </button>
+    </div>
+
+    <!-- Order Summary -->
+    <div class="card order-summary-card collapse d-lg-block" id="orderSummaryMobile">
+        <div class="card-header">
+            <h5 class="mb-0">Order Summary</h5>
+        </div>
+        <div class="card-body">
+            <!-- Products List -->
+            <div class="order-items">
+                <div class="order-item" th:each="item : ${basketModel.items}">
+                    <div class="item-image">
+                        <img th:src="@{'~/' + ${item.imageURL}}" th:alt="${item.name}" class="product-thumb">
+                        <span class="item-quantity" th:text="${item.ats}">1</span>
+                    </div>
+                    <div class="item-details">
+                        <h6 class="item-name" th:text="${item.name}">Product Name</h6>
+                        <div class="item-price">$<span th:text="${item.price}">49.99</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Promo Code -->
+            <div class="promo-code-section mt-4">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Promo code" id="promoCode">
+                    <button class="btn btn-outline-secondary" type="button" id="applyPromo">Apply
+                    </button>
+                </div>
+            </div>
+
+            <!-- Order Totals -->
+            <div class="order-totals mt-4">
+                <div class="total-row">
+                    <span>Subtotal</span>
+                    <span th:text="${'$' + basketModel.total.totalPrice}">$149.98</span>
+                </div>
+                <div class="total-row">
+                    <span>Shipping</span>
+                    <span class="shipping-cost">Free</span>
+                </div>
+                <div class="total-row discount-row d-none">
+                    <span>Discount</span>
+                    <span class="discount-amount">-$0.00</span>
+                </div>
+                <div class="total-row">
+                    <span>Tax</span>
+                    <span class="tax-amount">$0.00</span>
+                </div>
+                <div class="total-row final-total">
+                    <span>Total</span>
+                    <span class="final-amount" th:text="${'$' + basketModel.total.totalPrice}">$161.98
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Trust & Security -->
+    <div class="trust-section">
+        <div class="support-contact">
+            <h6>Need Help?</h6>
+            <div class="contact-options">
+                <a href="tel:+1234567890" class="contact-link">
+                    <i class="bi bi-telephone"></i>
+                    Call us
+                </a>
+                <a href="mailto:support@b2cdemo.com" class="contact-link">
+                    <i class="bi bi-envelope"></i>
+                    Email us
+                </a>
+                <a href="#" class="contact-link">
+                    <i class="bi bi-chat-dots"></i>
+                    Live chat
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

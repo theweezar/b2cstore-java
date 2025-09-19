@@ -1,34 +1,60 @@
 <!-- Footer Section -->
-<footer class="bg-light text-dark pt-5 pb-3 mt-5 border-top" th:fragment="footer">
+<footer class="footer pt-5 pb-4 bg-dark text-light" th:fragment="footer">
     <div class="container">
-        <div class="row">
+        <div class="row g-4">
             <!-- About Us -->
-            <div class="col-md-4 mb-3">
-                <h5>About Us</h5>
-                <p class="small">B2C Demo is your trusted destination for quality products and exceptional service.
-                    Shop with confidence and discover the latest trends.</p>
-            </div>
-            <!-- Customer Service -->
-            <div class="col-md-4 mb-3">
-                <h5>Customer Service</h5>
-                <ul class="list-unstyled small">
-                    <li><a href="#" class="text-dark text-decoration-none">FAQ</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none">Contact</a></li>
-                    <li><a href="#" class="text-dark text-decoration-none">Returns</a></li>
+            <div class="col-md-3">
+                <h5 class="footer-title text-white">About B2C DEMO</h5>
+                <ul class="list-unstyled footer-links">
+                    <li><a href="#about" class="footer-link">Our Story</a></li>
+                    <li><a href="#careers" class="footer-link">Careers</a></li>
+                    <li><a href="#press" class="footer-link">Press</a></li>
                 </ul>
             </div>
-            <!-- Social Media -->
-            <div class="col-md-4 mb-3">
-                <h5>Follow Us</h5>
-                <a href="#" class="text-dark me-3"><i class="bi bi-facebook fs-4"></i></a>
-                <a href="#" class="text-dark me-3"><i class="bi bi-instagram fs-4"></i></a>
-                <a href="#" class="text-dark me-3"><i class="bi bi-twitter fs-4"></i></a>
-                <a href="#" class="text-dark"><i class="bi bi-youtube fs-4"></i></a>
+
+            <!-- Customer Service -->
+            <div class="col-md-3">
+                <h5 class="footer-title text-white">Customer Service</h5>
+                <ul class="list-unstyled footer-links">
+                    <li><a href="#contact" class="footer-link">Contact Us</a></li>
+                    <li><a href="#faq" class="footer-link">FAQ</a></li>
+                    <li><a href="#returns" class="footer-link">Return Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Legal -->
+            <div class="col-md-3">
+                <h5 class="footer-title text-white">Legal</h5>
+                <ul class="list-unstyled footer-links">
+                    <li><a href="#privacy" class="footer-link">Privacy Policy</a></li>
+                    <li><a href="#terms" class="footer-link">Terms of Service</a></li>
+                    <li><a href="#cookies" class="footer-link">Cookie Policy</a></li>
+                </ul>
+            </div>
+
+            <!-- Follow Us -->
+            <div class="col-md-3">
+                <h5 class="footer-title text-white mb-2">Follow Us</h5>
+                <div class="social-links mb-3">
+                    <a href="#" class="social-link"><i class="bi bi-facebook fs-4"></i></a>
+                    <a href="#" class="social-link"><i class="bi bi-instagram fs-4"></i></a>
+                    <a href="#" class="social-link"><i class="bi bi-twitter fs-4"></i></a>
+                    <a href="#" class="social-link"><i class="bi bi-youtube fs-4"></i></a>
+                </div>
+                <h5 class="footer-title text-white mb-2">Accept</h5>
+                <div class="payment-methods">
+                    <i class="bi bi-credit-card-2-front fs-4 payment-icon"></i>
+                </div>
             </div>
         </div>
+
+        <hr class="footer-divider my-4">
+
         <div class="row">
-            <div class="col-12 text-center mt-3">
-                <small>&copy; 2025 B2C Demo. All rights reserved.</small>
+            <div class="col-12 text-center">
+                <p class="footer-copyright">
+                    &copy; 2025 B2C DEMO. All rights reserved.
+                </p>
             </div>
         </div>
     </div>

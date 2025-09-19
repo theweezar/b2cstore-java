@@ -1,22 +1,86 @@
-<div class="card product-tile-card h-100 shadow-sm" th:data-pid="${assignment.product.productId}"
-    th:fragment="productTile" style="background:#f6f7fa; border:none; border-radius:0;">
-    <div class="thumbnail">
-        <a th:href="@{'~/product/' + ${assignment.product.productId}}">
-            <img th:src="@{'~/' + ${assignment.product.imageURL}}" class="card-img-top" alt="Product Name">
-        </a>
-    </div>
-    <div class="card-body d-flex flex-column p-2">
-        <h5 class="card-title product-name mb-2">
-            <a class="text-decoration-none text-dark" th:href="@{'~/product/' + ${assignment.product.productId}}"
-                th:text="${assignment.product.name}"></a>
-        </h5>
-        <div class="product-price">
-            <div class="fw-bold text-dark me-2" th:text="${assignment.product.priceBook.price}">$0</div>
+<div class="col" th:fragment="productTile">
+    <div class="card product-tile product-tile-card h-100" th:data-pid="${assignment.product.productId}">
+        <!-- Product Image Container -->
+        <div class="product-image-container position-relative">
+            <!-- Badge Overlay -->
+            <!-- <div class="product-badge" th:if="${assignment.product.badge}"
+                th:classappend="${assignment.product.badgeType}">
+                <span th:text="${assignment.product.badge}">New</span>
+            </div> -->
+            <div class="product-badge">
+                <span>New</span>
+            </div>
+
+            <!-- Product Image -->
+            <a th:href="@{'~/product/' + ${assignment.product.productId}}" class="product-image-link">
+                <img th:src="@{'~/' + ${assignment.product.imageURL}}" class="card-img-top product-image"
+                    th:alt="${assignment.product.name}">
+            </a>
         </div>
-    </div>
-    <div class="card-footer p-0">
-        <button class="btn btn-atc d-block w-100"
-            style="background:#000; color:#fff; border:none; border-radius:0; min-width:120px;" type="button">Add to
-            Cart</button>
+
+        <!-- Product Info -->
+        <div class="card-body product-info">
+            <!-- Product Name -->
+            <h5 class="product-name">
+                <a th:href="@{'~/product/' + ${assignment.product.productId}}" class="product-name-link"
+                    th:text="${assignment.product.name}">
+                    Product Name
+                </a>
+            </h5>
+
+            <!-- Rating -->
+            <div class="product-rating mb-2" th:if="${assignment.product.rating}">
+                <div class="stars">
+                    <i class="bi bi-star-fill"
+                        th:classappend="${assignment.product.rating >= 1 ? '' : 'star-empty'}"></i>
+                    <i class="bi bi-star-fill"
+                        th:classappend="${assignment.product.rating >= 2 ? '' : 'star-empty'}"></i>
+                    <i class="bi bi-star-fill"
+                        th:classappend="${assignment.product.rating >= 3 ? '' : 'star-empty'}"></i>
+                    <i class="bi bi-star-fill"
+                        th:classappend="${assignment.product.rating >= 4 ? '' : 'star-empty'}"></i>
+                    <i class="bi bi-star-fill"
+                        th:classappend="${assignment.product.rating >= 5 ? '' : 'star-empty'}"></i>
+                </div>
+                <span class="review-count" th:if="${assignment.product.reviewCount}">
+                    (<span th:text="${assignment.product.reviewCount}">24</span>)
+                </span>
+            </div>
+
+            <!-- Price Section -->
+            <div class="product-price mb-3">
+                <!-- Default Price (No Discount) -->
+                <!-- <div class="price-default" th:if="${!assignment.product.onSale}">
+                    <span class="current-price" th:text="${assignment.product.priceBook.price}">$299.99</span>
+                </div> -->
+
+                <div class="price-default">
+                    <span class="current-price" th:text="${assignment.product.priceBook.price}">$299.99</span>
+                </div>
+
+                <!-- Discounted Price -->
+                <!-- <div class="price-discounted d-flex align-items-center flex-wrap" th:if="${assignment.product.onSale}">
+                    <span class="sale-price me-2" th:text="${assignment.product.priceBook.salePrice}">$199.99</span>
+                    <span class="original-price me-2" th:text="${assignment.product.priceBook.price}">$299.99</span>
+                    <span class="discount-percentage"
+                        th:text="'-' + ${assignment.product.discountPercentage} + '%'">-33%</span>
+                </div> -->
+            </div>
+        </div>
+
+        <!-- Product Actions -->
+        <div class="card-footer product-actions">
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary add-to-cart-btn flex-grow-1" type="button"
+                    th:data-pid="${assignment.product.productId}">
+                    <i class="bi bi-cart-plus me-1"></i>
+                    Add to Cart
+                </button>
+                <button class="btn btn-outline-secondary wishlist-btn" type="button"
+                    th:data-pid="${assignment.product.productId}">
+                    <i class="bi bi-heart"></i>
+                </button>
+            </div>
+        </div>
     </div>
 </div>

@@ -1,3 +1,45 @@
 :root {
-    --bs-body-font-family: 'Comfortaa', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    // --bs-body-font-family: 'Comfortaa', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    
+    // Luxury + Neutral Color Scheme
+    --primary-bg: #FFFFFF;
+    --secondary-bg: #111827;
+    --primary-text: #1E1E1E;
+    --secondary-text: #9CA3AF;
+    --primary-accent: #D97706;
+    --secondary-accent: #F43F5E;
+    --light-gray: #F3F4F6;
+    --medium-gray: #6B7280;
+    --border-color: #E5E7EB;
+    
+    // Bootstrap 5 overrides
+    --bs-primary: #D97706;
+    --bs-primary-rgb: 217, 119, 6;
+    --bs-secondary: #F43F5E;
+    --bs-secondary-rgb: 244, 63, 94;
+    --bs-success: #10B981;
+    --bs-success-rgb: 16, 185, 129;
+    --bs-info: #3B82F6;
+    --bs-info-rgb: 59, 130, 246;
+    --bs-warning: #F59E0B;
+    --bs-warning-rgb: 245, 158, 11;
+    --bs-danger: #EF4444;
+    --bs-danger-rgb: 239, 68, 68;
+    --bs-light: #F3F4F6;
+    --bs-light-rgb: 243, 244, 246;
+    --bs-dark: #111827;
+    --bs-dark-rgb: 17, 24, 39;
+    
+    --bs-body-color: #1E1E1E;
+    --bs-body-color-rgb: 30, 30, 30;
+    --bs-body-bg: #FFFFFF;
+    --bs-body-bg-rgb: 255, 255, 255;
+    
+    --bs-border-color: #E5E7EB;
+    --bs-border-color-translucent: rgba(229, 231, 235, 0.175);
+    
+    --bs-link-color: #D97706;
+    --bs-link-color-rgb: 217, 119, 6;
+    --bs-link-hover-color: #B45309;
+    --bs-link-hover-color-rgb: 180, 83, 9;
 }

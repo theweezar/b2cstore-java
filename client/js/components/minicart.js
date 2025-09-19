@@ -1,6 +1,17 @@
 'use strict';
 
 /**
+ * Replaces the target element with the corresponding element from the source.
+ * @param {JQuery<HTMLElement>} source - The source element containing the new content.
+ * @param {JQuery<HTMLElement>} target - The target element to be replaced.
+ * @param {string} selector - The selector to find the specific element within the source.
+ */
+function reloadWith(source, target, selector) {
+    const newElement = source.find(selector);
+    target.find(selector).replaceWith(newElement);
+}
+
+/**
  * Triggers the loading of the mini cart content.
  * @param {string} url - The URL to fetch the mini cart content from.
  */
@@ -16,9 +27,11 @@ function triggerMiniCartLoad(url) {
             if (typeof response === 'string') {
                 const html = $(response);
                 const minicartRight = $('#minicartRight');
-                minicartRight.find('.offcanvas-header').replaceWith(html.find('.offcanvas-header'));
-                minicartRight.find('.offcanvas-body').replaceWith(html.find('.offcanvas-body'));
-                minicartRight.find('.offcanvas-basket-data').replaceWith(html.find('.offcanvas-basket-data'));
+                reloadWith(html, minicartRight, '.offcanvas-header');
+                reloadWith(html, minicartRight, '.offcanvas-body');
+                reloadWith(html, minicartRight, '.minicart-summary');
+                reloadWith(html, minicartRight, '.minicart-actions');
+                reloadWith(html, minicartRight, '.minicart-footer');
             }
         },
         error: function () {
@@ -68,10 +81,10 @@ function removeFromCart(pid, uuid) {
  * Initializes event listeners for "Remove from Cart" buttons.
  */
 export function initRemoveFromCartButtons() {
-    $('body').on('click.removeFromCart', 'a.minicart-remove-btn', function (event) {
+    $('body').on('click.removeFromCart', '.minicart-remove-btn', function (event) {
         event.preventDefault();
         const self = $(this);
-        const wrapper = self.parents('.product-li-wrapper');
+        const wrapper = self.parents('.minicart-item');
         const pid = wrapper.data('pid');
         const uuid = wrapper.data('uuid');
         const minicartRight = $('#minicartRight');

@@ -6,7 +6,7 @@ import { switchToStep } from './util.js';
  * Initializes the checkout progress bar, allowing users to navigate to previous steps.
  */
 function initCheckoutProgress() {
-    $('.checkout-progress .step').on('click', function () {
+    $('.checkout-progress .progress-step').on('click', function () {
         const step = parseInt($(this).data('step'), 10);
         const currentStep = parseInt($('#checkoutMain').data('step'), 10);
         if (step < currentStep) {
@@ -24,12 +24,12 @@ function fillShippingFormWithFakeData() {
         console.warn('Faker library is not loaded.');
         return;
     }
-    $('#firstName').val(faker.name.firstName());
-    $('#lastName').val(faker.name.lastName());
+    $('#firstName').val(faker.person.firstName());
+    $('#lastName').val(faker.person.lastName());
     $('#email').val(faker.internet.email());
     $('#phone').val(faker.phone.number({ style: 'international' }));
-    $('#shipFirstName').val(faker.name.firstName());
-    $('#shipLastName').val(faker.name.lastName());
+    $('#shipFirstName').val(faker.person.firstName());
+    $('#shipLastName').val(faker.person.lastName());
     $('#city').val(faker.location.city());
     $('#state').val(faker.location.state());
     $('#zipCode').val(faker.location.zipCode('#####'));

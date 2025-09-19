@@ -33,8 +33,7 @@ function addToCart(pid) {
  * Initializes event listeners for "Add to Cart" buttons.
  */
 function initAddToCartButtons() {
-    const addToCartBtn = $('.btn.btn-atc');
-    addToCartBtn.on('click.addToCart', function (event) {
+    $('.add-to-cart-btn').on('click.addToCart', function (event) {
         event.preventDefault();
         const self = $(this);
         const pid = self.parents('.product-tile-card').data('pid');

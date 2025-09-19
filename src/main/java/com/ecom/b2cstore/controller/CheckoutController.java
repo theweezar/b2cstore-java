@@ -31,7 +31,8 @@ public class CheckoutController extends BaseController {
             return "redirect:/";
         }
         BasketModel basketModel = cartUtil.createModel(basket, true);
-
+        model.addAttribute("pageTitle", "Checkout");
+        model.addAttribute("pageDescription", "Checkout page for your order.");
         model.addAttribute("basketModel", basketModel);
         model.addAttribute("stripeApiKey", env.getProperty("stripe.api.key"));
         return "checkout";

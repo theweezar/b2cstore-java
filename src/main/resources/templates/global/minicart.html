@@ -1,57 +1,124 @@
 <div th:fragment="panel" class="offcanvas offcanvas-end minicart-right" tabindex="-1" id="minicartRight"
-    aria-labelledby="minicartRightLabel"
-    th:data-url="@{'~/minicart'}">
-    <div class="offcanvas-header border-bottom">
-        <h5 id="minicartRightLabel" class="mb-0 fw-bold text-dark">
-            <span>Shopping Cart</span>
-            <span class="minicart-count" th:text="${'(' + basketModel.itemCount + ')'}">0</span>
-        </h5>
-        <button type="button" class="btn-close ms-auto" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    aria-labelledby="minicartRightLabel" th:data-url="@{'~/minicart'}">
+
+    <!-- Minicart Header -->
+    <div class="offcanvas-header minicart-header">
+        <div class="minicart-title-wrapper">
+            <h5 id="minicartRightLabel" class="minicart-title">
+                Your Cart
+            </h5>
+            <span class="minicart-count" th:text="${basketModel.itemCount + ' items'}">3 items</span>
+        </div>
+        <button type="button" class="btn-close minicart-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
 
-    <div class="offcanvas-body p-0 bg-white" style="font-family: 'Segoe UI', Arial, sans-serif;">
-        <div class="minicart-list">
-            <ul class="list-unstyled mb-0">
-                <li class="product-li py-4 px-2 border-bottom"
-                    th:each="item : ${basketModel.items}" style="gap: 1.25rem;">
-                    <div class="product-li-wrapper d-flex align-items-center position-relative" th:data-pid="${item.productId}" th:data-uuid="${item.uuid}">
-                        <img th:src="@{'~/' + ${item.imageURL}}" alt="Product Image"
-                            class="rounded bg-light flex-shrink-0" style="width:100px; height:100px; object-fit:cover;">
-                        <div class="flex-grow-1 ms-3 text-truncate">
-                            <div class="fw-bold text-black lh-sm mb-2" style="max-height:2.8em; overflow:hidden;"> <span
-                                    th:text="${item.name}">Product Name</span> </div>
-                            <div class="small text-muted mb-2">Qty: <span th:text="${item.ats}">0</span></div>
-                            <div class="fw-semibold text-dark">$<span th:text="${item.price}">0.00</span></div>
+    <!-- Cart Items List (Scrollable) -->
+    <div class="offcanvas-body minicart-body p-0">
+        <div class="minicart-items-container">
+            <!-- Empty Cart Message -->
+            <div class="empty-cart-message text-center py-5" th:if="${basketModel.itemCount == 0}">
+                <div class="empty-cart-icon mb-3">
+                    <i class="bi bi-cart3 fs-1"></i>
+                </div>
+                <h6 class="empty-cart-title">Your cart is empty</h6>
+                <p class="empty-cart-text">Add some products to get started</p>
+            </div>
+
+            <!-- Cart Items List -->
+            <div class="minicart-items-list" th:if="${basketModel.itemCount > 0}">
+                <div class="minicart-item" th:each="item : ${basketModel.items}" th:data-pid="${item.productId}"
+                    th:data-uuid="${item.uuid}">
+                    <div class="minicart-item-content">
+                        <!-- Product Thumbnail -->
+                        <div class="minicart-item-image">
+                            <img th:src="@{'~/' + ${item.imageURL}}" th:alt="${item.name}" class="minicart-thumbnail">
                         </div>
-                        <a th:href="@{'~/removefromcart'}"
-                            class="btn btn-link p-0 ms-2 text-dark minicart-remove-btn p-2" title="Remove">
-                            <i class="bi bi-trash3"></i>
-                        </a>
+
+                        <!-- Product Details -->
+                        <div class="minicart-item-details">
+                            <h6 class="minicart-item-name">
+                                <a th:href="@{'~/product/' + ${item.productId}}" class="minicart-item-link"
+                                    th:text="${item.name}">
+                                    Product Name
+                                </a>
+                            </h6>
+
+                            <!-- Quantity and Price Row -->
+                            <div class="minicart-item-info">
+                                <div class="minicart-quantity">
+                                    <span class="quantity-label">Qty:</span>
+                                    <span class="quantity-value" th:text="${item.ats}">1</span>
+                                </div>
+                                <!-- <div class="minicart-price">
+                                    <span class="unit-price">$<span th:text="${item.price}">29.99</span></span>
+                                </div> -->
+                            </div>
+
+                            <!-- Subtotal -->
+                            <div class="minicart-subtotal">
+                                $<span th:text="${item.price * item.ats}">29.99</span>
+                            </div>
+                        </div>
+
+                        <!-- Remove Button -->
+                        <div class="minicart-item-actions">
+                            <button type="button" class="btn minicart-remove-btn" th:data-url="@{'~/removefromcart'}"
+                                title="Remove item">
+                                <i class="bi bi-trash3"></i>
+                            </button>
+                        </div>
                     </div>
-                </li>
-            </ul>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="offcanvas-basket-data border-top p-3 bg-white">
-        <div class="d-flex justify-content-between align-items-center">
-            <span class="fw-bold text-dark">Subtotal</span>
-            <span class="fw-bold fs-5 text-dark minicart-total" th:text="${'$' + basketModel.total.totalPrice}">$0</span>
+    <!-- Cart Summary -->
+    <div class="minicart-summary">
+        <div class="summary-content">
+            <!-- Subtotal -->
+            <div class="summary-row">
+                <span class="summary-label">Subtotal:</span>
+                <span class="summary-value" th:text="${'$' + basketModel.total.totalPrice}">$89.97</span>
+            </div>
+
+            <!-- Shipping Note -->
+            <div class="summary-note">
+                <i class="bi bi-truck me-1"></i>
+                <span class="note-text">Free shipping on orders over $75</span>
+            </div>
         </div>
     </div>
 
-    <div class="offcanvas-action p-3 pt-0 bg-white">
-        <div class="d-grid gap-2">
-            <a th:href="@{'~/cart'}"
-                class="btn btn-outline-dark rounded-0 border border-dark border-2 text-uppercase fs-5"
-                style="padding-top: 10px; padding-bottom: 10px;">
+    <!-- Action Buttons -->
+    <div class="minicart-actions">
+        <div class="actions-content">
+            <a th:href="@{'~/cart'}" class="btn btn-outline-primary minicart-view-cart w-100 mb-2">
+                <i class="bi bi-cart me-2"></i>
                 View Cart
             </a>
-            <a th:href="@{'~/checkout'}" class="btn btn-dark rounded-0 border border-dark border-2 text-uppercase fs-5"
-                style="padding-top: 10px; padding-bottom: 10px;">
-                <i class="bi bi-cart-fill me-1"></i>
-                <span>Checkout</span>
+            <a th:href="@{'~/checkout'}" class="btn btn-primary minicart-checkout w-100">
+                <i class="bi bi-lock me-2"></i>
+                Secure Checkout
             </a>
+        </div>
+    </div>
+
+    <!-- Trust Badges Footer -->
+    <div class="minicart-footer">
+        <div class="trust-badges row">
+            <div class="trust-badge col-4">
+                <i class="bi bi-shield-check"></i>
+                <span>Secure</span>
+            </div>
+            <div class="trust-badge col-4">
+                <i class="bi bi-truck"></i>
+                <span>Fast Delivery</span>
+            </div>
+            <div class="trust-badge col-4">
+                <i class="bi bi-arrow-clockwise"></i>
+                <span>Easy Returns</span>
+            </div>
         </div>
     </div>
 </div>

@@ -1,37 +1,109 @@
-<div class="review-summary-card mb-4" th:fragment="reviewSummary">
-    <h5 class="mb-3 fw-bold">Order Summary</h5>
+<div class="review-summary-card card mb-4" th:fragment="reviewSummary">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4 class="section-title mb-0">Review Your Information</h4>
+            <small class="text-muted">Step 2 of 3</small>
+        </div>
 
-    <div class="row">
-        <!-- Billing Information -->
-        <div class="col-12 col-lg-6 mb-4 mb-lg-0">
-            <div class="card billing-card bg-white text-dark shadow rounded-3 py-4 px-3 h-100">
-                <h6 class="fw-bold text-uppercase">Billing Information</h6>
-                <p class="mb-1 firstName" th:text="${basketModel.billing.firstName}">Jane</p>
-                <p class="mb-1 lastName" th:text="${basketModel.billing.lastName}">Smith</p>
-                <p class="mb-1 email" th:text="${basketModel.billing.email}">jane.smith@example.com</p>
-                <p class="mb-1 address" th:text="${basketModel.billing.address.address}">456 Elm Street</p>
-                <p class="mb-1 cityStateZip">
-                    <span class="city" th:text="${basketModel.billing.address.city}">Chicago</span>,
-                    <span class="state" th:text="${basketModel.billing.address.state}">IL</span>
-                    <span class="zipCode" th:text="${basketModel.billing.address.zipCode}">60616</span>
-                </p>
+        <!-- Shipping Information Summary -->
+        <div class="summary-section mb-4">
+            <div class="summary-header" data-bs-toggle="collapse" data-bs-target="#shippingSummary" aria-expanded="true"
+                role="button">
+                <h5 class="summary-title">
+                    <i class="bi bi-truck me-2"></i>
+                    Shipping Information
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </h5>
+            </div>
+            <div class="collapse show" id="shippingSummary">
+                <div class="summary-content">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="address-info">
+                                <div class="recipient-name">
+                                    <span class="firstName" th:text="${basketModel.shipping.firstName}">John</span>
+                                    <span class="lastName" th:text="${basketModel.shipping.lastName}">Doe</span>
+                                </div>
+                                <div class="address-line address" th:text="${basketModel.shipping.address.address}">
+                                    123 Main Street
+                                </div>
+                                <div class="city-state-zip">
+                                    <span class="city"
+                                        th:text="${basketModel.shipping.address.city}">Springfield</span>,
+                                    <span class="state" th:text="${basketModel.shipping.address.state}">IL</span>
+                                    <span class="zipCode" th:text="${basketModel.shipping.address.zipCode}">62704</span>
+                                </div>
+                                <div class="contact-info">
+                                    <span class="phone" th:text="${basketModel.shipping.phone}">(555) 987-6543</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-md-end">
+                            <div class="shipping-method-info">
+                                <div class="method-name">Standard Shipping</div>
+                                <div class="method-cost text-success">Free</div>
+                                <div class="delivery-estimate">5-7 business days</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="summary-actions mt-3">
+                        <button class="btn btn-outline-secondary btn-sm edit-shipping">
+                            <i class="bi bi-pencil me-1"></i>
+                            Edit Shipping
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
 
-        <!-- Shipping Information -->
-        <div class="col-12 col-lg-6">
-            <div class="card shipping-card bg-white text-dark shadow rounded-3 py-4 px-3 h-100">
-                <h6 class="fw-bold text-uppercase">Shipping Information</h6>
-                <p class="mb-1 firstName" th:text="${basketModel.shipping.firstName}">John</p>
-                <p class="mb-1 lastName" th:text="${basketModel.shipping.lastName}">Doe</p>
-                <p class="mb-1 phone" th:text="${basketModel.shipping.phone}">(555) 987-6543</p>
-                <p class="mb-1 address" th:text="${basketModel.shipping.address.address}">123 Main Street</p>
-                <p class="mb-1 cityStateZip">
-                    <span class="city" th:text="${basketModel.shipping.address.city}">Springfield</span>,
-                    <span class="state" th:text="${basketModel.shipping.address.state}">IL</span>
-                    <span class="zipCode" th:text="${basketModel.shipping.address.zipCode}">62704</span>
-                </p>
+        <!-- Billing Information Summary -->
+        <div class="summary-section mb-4">
+            <div class="summary-header" data-bs-toggle="collapse" data-bs-target="#billingSummary" aria-expanded="false"
+                role="button">
+                <h5 class="summary-title collapsed">
+                    <i class="bi bi-credit-card me-2"></i>
+                    Billing Information
+                    <i class="bi bi-chevron-down ms-auto"></i>
+                </h5>
+            </div>
+            <div class="collapse" id="billingSummary">
+                <div class="summary-content">
+                    <div class="address-info">
+                        <div class="recipient-name">
+                            <span class="firstName" th:text="${basketModel.billing.firstName}">John</span>
+                            <span class="lastName" th:text="${basketModel.billing.lastName}">Doe</span>
+                        </div>
+                        <div class="address-line address" th:text="${basketModel.billing.address.address}">
+                            456 Elm Street
+                        </div>
+                        <div class="city-state-zip">
+                            <span class="city" th:text="${basketModel.billing.address.city}">Chicago</span>,
+                            <span class="state" th:text="${basketModel.billing.address.state}">IL</span>
+                            <span class="zipCode" th:text="${basketModel.billing.address.zipCode}">60616</span>
+                        </div>
+                        <div class="contact-info email">
+                            <span th:text="${basketModel.billing.email}">jane.smith@example.com</span>
+                        </div>
+                    </div>
+                    <div class="summary-actions mt-3">
+                        <button class="btn btn-outline-secondary btn-sm edit-billing">
+                            <i class="bi bi-pencil me-1"></i>
+                            Edit Billing
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- <div class="form-actions">
+            <button type="button" class="btn btn-outline-secondary me-2 back-to-shipping">
+                <i class="bi bi-arrow-left me-1"></i>
+                Back to Shipping
+            </button>
+            <button type="button" class="btn btn-primary continue-to-payment">
+                Continue to Payment
+                <i class="bi bi-arrow-right ms-1"></i>
+            </button>
+        </div> -->
     </div>
 </div>

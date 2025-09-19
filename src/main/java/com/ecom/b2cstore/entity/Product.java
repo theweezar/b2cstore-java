@@ -55,6 +55,14 @@ public class Product extends BaseEntity {
 
     @Getter
     @Setter
+    private int rating;
+
+    @Getter
+    @Setter
+    private int reviewCount;
+
+    @Getter
+    @Setter
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CategoryAssignment> assignments = new HashSet<>();
 

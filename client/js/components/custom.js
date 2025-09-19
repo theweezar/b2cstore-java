@@ -26,7 +26,9 @@ export function initCustomFn() {
         this.each(function () {
             const self = $(this);
             for (let key in data) {
-                $(`.${key}`, self).text(data[key]);
+                if (data[key] && typeof data[key] !== 'object') {
+                    $(`.${key}`, self).text(data[key]);
+                }
             }
         });
     }

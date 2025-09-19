@@ -1,46 +1,75 @@
-<div class="payment-form-card my-4" th:fragment="paymentForm">
-    <form action="/submitpayment" method="POST" id="paymentForm">
-        <h5 class="mb-3 fw-bold">Payment Information</h5>
-
-        <div class="payment-method-selection">
-            <h6 class="fw-bold">Select Payment Method</h6>
-            <div class="d-flex gap-4">
-                <div class="form-check w-auto p-0">
-                    <label style="display: flex; align-items: center;">
-                        <input type="radio" name="paymentMethod" value="creditCard" checked style="display: none;">
-                        <img th:src="@{'~/images/payment/creditcard.jpg'}" alt="Credit Card" class="payment-method-icon"
-                            style="width: 100px; height: 100px; ">
-                    </label>
-                </div>
-                <div class="form-check w-auto p-0">
-                    <label style="display: flex; align-items: center;">
-                        <input type="radio" name="paymentMethod" value="paypal" style="display: none;">
-                        <img th:src="@{'~/images/payment/paypal.png'}" alt="Paypal" class="payment-method-icon"
-                            style="width: 100px; height: 100px; ">
-                    </label>
-                </div>
-            </div>
+<div class="payment-form-card card" th:fragment="paymentForm">
+    <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h4 class="section-title mb-0">Payment Information</h4>
+            <small class="text-muted">Step 3 of 3</small>
         </div>
 
-        <hr class="my-4">
+        <form th:action="@{'~/submitpayment'}" method="POST" id="paymentForm">
+            <!-- Payment Method Selection -->
+            <div class="form-section mb-4">
+                <h5 class="subsection-title">Select Payment Method</h5>
+                <div class="payment-methods">
+                    <div class="payment-method-option">
+                        <input type="radio" name="paymentMethod" value="creditCard" id="creditCard" checked class="payment-method-radio">
+                        <label for="creditCard" class="payment-method-label">
+                            <div class="payment-method-content">
+                                <div class="payment-method-icon">
+                                    <i class="bi bi-credit-card fs-2"></i>
+                                </div>
+                                <div class="payment-method-info">
+                                    <div class="method-name">Credit Card</div>
+                                    <div class="method-description">Visa, Mastercard, American Express</div>
+                                </div>
+                            </div>
+                            <div class="payment-icons">
+                                <i class="bi bi-credit-card-2-front"></i>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
 
-        <div class="payment-method-details mb-4">
-            <div id="paymentElement"
-                th:data-create-payment-intent-url="@{'~/create-payment-intent'}"
-                th:data-update-payment-intent-url="@{'~/update-payment-intent'}"
-                th:data-return-url="@{'~/stripe-return'}"
-                th:data-stripe-api-key="${stripeApiKey}"
-            ></div>
-            <div id="stripeError" class="mt-2 text-danger"></div>
-            <div class="d-grid">
-                <button type="button" class="btn btn-dark btn-lg stripe-submit d-none">
-                    Continue
+            <!-- Payment Details -->
+            <div class="form-section mb-4">
+                <h5 class="subsection-title">Payment Details</h5>
+                <div class="payment-details">
+                    <!-- Stripe Payment Element -->
+                    <div id="paymentElement"
+                        th:data-create-payment-intent-url="@{'~/create-payment-intent'}"
+                        th:data-update-payment-intent-url="@{'~/update-payment-intent'}"
+                        th:data-return-url="@{'~/stripe-return'}"
+                        th:data-stripe-api-key="${stripeApiKey}"
+                        class="stripe-element">
+                    </div>
+                    <div id="stripeError" class="error-message mt-2"></div>
+                    
+                    <!-- Stripe Submit Button (Hidden by default) -->
+                    <button type="button" class="btn btn-primary btn-lg w-100 mt-3 stripe-submit d-none">
+                        <i class="bi bi-lock me-2"></i>
+                        Complete Secure Payment
+                    </button>
+                </div>
+            </div>
+
+            <!-- Security Notice -->
+            <div class="security-notice mb-4">
+                <div class="notice-content">
+                    <i class="bi bi-shield-check text-success me-2"></i>
+                    <span>Your payment information is encrypted and secure</span>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="button" class="btn btn-outline-secondary me-2 back-to-review">
+                    <i class="bi bi-arrow-left me-1"></i>
+                    Back to Review
+                </button>
+                <button type="submit" class="btn btn-primary btn-lg">
+                    <i class="bi bi-lock me-2"></i>
+                    Complete Order
                 </button>
             </div>
-        </div>
-
-        <div class="d-grid">
-            <button type="submit" class="btn btn-dark btn-lg">Continue</button>
-        </div>
-    </form>
+        </form>
+    </div>
 </div>

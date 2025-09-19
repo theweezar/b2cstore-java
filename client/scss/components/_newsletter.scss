@@ -1,0 +1,55 @@
+/* Newsletter Styles */
+.newsletter {
+    background-color: var(--secondary-bg) !important;
+    color: white;
+
+    .newsletter-title {
+        color: white !important;
+        font-weight: 700;
+        font-size: 2rem;
+    }
+
+    .newsletter-description {
+        color: var(--secondary-text);
+        font-size: 1.1rem;
+    }
+
+    .newsletter-input {
+        border: none;
+        padding: 1rem;
+        border-radius: 8px 0 0 8px;
+        font-size: 1rem;
+    }
+
+    .newsletter-input:focus {
+        box-shadow: none;
+        border-color: var(--primary-accent);
+    }
+
+    .newsletter-btn {
+        background-color: var(--primary-accent);
+        color: white;
+        border: none;
+        padding: 1rem 1.5rem;
+        border-radius: 0 8px 8px 0;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+    }
+
+    .newsletter-btn:hover {
+        background-color: #B45309;
+    }
+}
+
+/* Responsive Design for Newsletter */
+@media (max-width: 767.98px) {
+    .newsletter {
+        .newsletter-title {
+            font-size: 1.5rem;
+        }
+
+        .newsletter-description {
+            font-size: 1rem;
+        }
+    }
+}

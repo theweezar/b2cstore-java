@@ -10,7 +10,9 @@
         },
         "priceBook": {
             "price": 59.99
-        }
+        },
+        "rating": 4,
+        "reviewCount": 87
     },
     {
         "productId": "product-2",
@@ -23,7 +25,9 @@
         },
         "priceBook": {
             "price": 399.49
-        }
+        },
+        "rating": 3,
+        "reviewCount": 12
     },
     {
         "productId": "product-3",
@@ -36,7 +40,9 @@
         },
         "inventory": {
             "ats": 40
-        }
+        },
+        "rating": 5,
+        "reviewCount": 256
     },
     {
         "productId": "product-4",
@@ -49,7 +55,9 @@
         },
         "priceBook": {
             "price": 4.99
-        }
+        },
+        "rating": 2,
+        "reviewCount": 5
     },
     {
         "productId": "product-5",
@@ -62,7 +70,9 @@
         },
         "priceBook": {
             "price": 149.95
-        }
+        },
+        "rating": 4,
+        "reviewCount": 64
     },
     {
         "productId": "product-6",
@@ -75,7 +85,9 @@
         },
         "priceBook": {
             "price": 9.49
-        }
+        },
+        "rating": 5,
+        "reviewCount": 150
     },
     {
         "productId": "product-7",
@@ -88,7 +100,9 @@
         },
         "priceBook": {
             "price": 299.00
-        }
+        },
+        "rating": 4,
+        "reviewCount": 22
     },
     {
         "productId": "product-8",
@@ -101,7 +115,9 @@
         },
         "priceBook": {
             "price": 249.99
-        }
+        },
+        "rating": 5,
+        "reviewCount": 134
     },
     {
         "productId": "product-9",
@@ -114,7 +130,9 @@
         },
         "priceBook": {
             "price": 19.99
-        }
+        },
+        "rating": 3,
+        "reviewCount": 8
     },
     {
         "productId": "product-10",
@@ -127,6 +145,8 @@
         },
         "priceBook": {
             "price": 28999.00
-        }
+        },
+        "rating": 4,
+        "reviewCount": 45
     }
 ]
