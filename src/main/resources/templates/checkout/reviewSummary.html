@@ -21,8 +21,9 @@
                         <div class="col-md-8">
                             <div class="address-info">
                                 <div class="recipient-name">
-                                    <span class="firstName" th:text="${basketModel.shipping.firstName}">John</span>
-                                    <span class="lastName" th:text="${basketModel.shipping.lastName}">Doe</span>
+                                    <span class="firstName"
+                                        th:text="${basketModel.shipping.address.firstName}">John</span>
+                                    <span class="lastName" th:text="${basketModel.shipping.address.lastName}">Doe</span>
                                 </div>
                                 <div class="address-line address" th:text="${basketModel.shipping.address.address}">
                                     123 Main Street
@@ -34,7 +35,8 @@
                                     <span class="zipCode" th:text="${basketModel.shipping.address.zipCode}">62704</span>
                                 </div>
                                 <div class="contact-info">
-                                    <span class="phone" th:text="${basketModel.shipping.phone}">(555) 987-6543</span>
+                                    <span class="phone" th:text="${basketModel.shipping.address.phone}">(555)
+                                        987-6543</span>
                                 </div>
                             </div>
                         </div>
@@ -45,12 +47,6 @@
                                 <div class="delivery-estimate">5-7 business days</div>
                             </div>
                         </div>
-                    </div>
-                    <div class="summary-actions mt-3">
-                        <button class="btn btn-outline-secondary btn-sm edit-shipping">
-                            <i class="bi bi-pencil me-1"></i>
-                            Edit Shipping
-                        </button>
                     </div>
                 </div>
             </div>
@@ -66,12 +62,12 @@
                     <i class="bi bi-chevron-down ms-auto"></i>
                 </h5>
             </div>
-            <div class="collapse" id="billingSummary">
+            <div class="collapse show" id="billingSummary">
                 <div class="summary-content">
                     <div class="address-info">
                         <div class="recipient-name">
-                            <span class="firstName" th:text="${basketModel.billing.firstName}">John</span>
-                            <span class="lastName" th:text="${basketModel.billing.lastName}">Doe</span>
+                            <span class="firstName" th:text="${basketModel.billing.address.firstName}">John</span>
+                            <span class="lastName" th:text="${basketModel.billing.address.lastName}">Doe</span>
                         </div>
                         <div class="address-line address" th:text="${basketModel.billing.address.address}">
                             456 Elm Street
@@ -82,7 +78,7 @@
                             <span class="zipCode" th:text="${basketModel.billing.address.zipCode}">60616</span>
                         </div>
                         <div class="contact-info email">
-                            <span th:text="${basketModel.billing.email}">jane.smith@example.com</span>
+                            <span th:text="${basketModel.billing.address.email}">jane.smith@example.com</span>
                         </div>
                     </div>
                     <div class="summary-actions mt-3">
@@ -92,18 +88,9 @@
                         </button>
                     </div>
                 </div>
+
+                <div th:replace="~{fragments/billingForm :: billingForm}"></div>
             </div>
         </div>
-
-        <!-- <div class="form-actions">
-            <button type="button" class="btn btn-outline-secondary me-2 back-to-shipping">
-                <i class="bi bi-arrow-left me-1"></i>
-                Back to Shipping
-            </button>
-            <button type="button" class="btn btn-primary continue-to-payment">
-                Continue to Payment
-                <i class="bi bi-arrow-right ms-1"></i>
-            </button>
-        </div> -->
     </div>
 </div>

@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.ecom.b2cstore.entity.Basket;
 import com.ecom.b2cstore.entity.BasketLineItem;
 import com.ecom.b2cstore.entity.Product;
+import com.ecom.b2cstore.form.BillingForm;
 import com.ecom.b2cstore.form.ShippingForm;
 import com.ecom.b2cstore.repository.BasketRepository;
 import com.ecom.b2cstore.util.UUIDUtil;
@@ -42,18 +43,30 @@ public class BasketService {
         return lineItem;
     }
 
-    public void saveShippingBillingForm(Basket basket, ShippingForm form) {
+    public void setCustomerInfo(Basket basket, ShippingForm form) {
         basket.setFirstName(form.getFirstName());
         basket.setLastName(form.getLastName());
         basket.setEmail(form.getEmail());
         basket.setPhone(form.getPhone());
-        basket.setShipFirstName(form.getShipFirstName());
-        basket.setShipLastName(form.getShipLastName());
-        basket.setAddress(form.getAddress());
-        basket.setCity(form.getCity());
-        basket.setState(form.getState());
-        basket.setCountry(form.getCountry());
-        basket.setZipCode(form.getZipCode());
-        save(basket);
+    }
+
+    public void setShippingAddress(Basket basket, ShippingForm form) {
+        basket.getShippingAddress().setFirstName(form.getShippingAddress().getFirstName());
+        basket.getShippingAddress().setLastName(form.getShippingAddress().getLastName());
+        basket.getShippingAddress().setAddress(form.getShippingAddress().getAddress());
+        basket.getShippingAddress().setCity(form.getShippingAddress().getCity());
+        basket.getShippingAddress().setState(form.getShippingAddress().getState());
+        basket.getShippingAddress().setCountry(form.getShippingAddress().getCountry());
+        basket.getShippingAddress().setZipCode(form.getShippingAddress().getZipCode());
+    }
+
+    public void setBillingAddress(Basket basket, BillingForm form) {
+        basket.getBillingAddress().setFirstName(form.getBillingAddress().getFirstName());
+        basket.getBillingAddress().setLastName(form.getBillingAddress().getLastName());
+        basket.getBillingAddress().setAddress(form.getBillingAddress().getAddress());
+        basket.getBillingAddress().setCity(form.getBillingAddress().getCity());
+        basket.getBillingAddress().setState(form.getBillingAddress().getState());
+        basket.getBillingAddress().setCountry(form.getBillingAddress().getCountry());
+        basket.getBillingAddress().setZipCode(form.getBillingAddress().getZipCode());
     }
 }

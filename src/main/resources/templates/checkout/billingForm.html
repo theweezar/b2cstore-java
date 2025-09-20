@@ -1,0 +1,68 @@
+<div class="billing-form-container rounded-0 border-0 d-none" th:fragment="billingForm">
+    <form th:action="@{'~/updatebilling'}" id="billingForm" method="post" th:object="${billingForm}"
+        class="billing-form">
+        <div class="row g-3">
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="text" id="billingAddressFirstName" class="form-control"
+                        th:field="*{billingAddress.firstName}" placeholder="First Name" required>
+                    <label for="billingAddressFirstName">First Name *</label>
+                    <div class="error error-message" id="billingAddressFirstNameError"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="text" id="billingAddressLastName" class="form-control"
+                        th:field="*{billingAddress.lastName}" placeholder="Last Name" required>
+                    <label for="billingAddressLastName">Last Name *</label>
+                    <div class="error error-message" id="billingAddressLastNameError"></div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="form-floating">
+                    <input type="text" id="billingAddressAddress" class="form-control"
+                        th:field="*{billingAddress.address}" placeholder="Street Address" required>
+                    <label for="billingAddressAddress">Street Address *</label>
+                    <div class="error error-message" id="billingAddressAddressError"></div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-floating">
+                    <input type="text" id="billingAddressCity" class="form-control" th:field="*{billingAddress.city}"
+                        placeholder="City" required>
+                    <label for="billingAddressCity">City *</label>
+                    <div class="error error-message" id="billingAddressCityError"></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-floating">
+                    <input type="text" id="billingAddressState" class="form-control" th:field="*{billingAddress.state}"
+                        placeholder="State" required>
+                    <label for="billingAddressState">State *</label>
+                    <div class="error error-message" id="billingAddressStateError"></div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="form-floating">
+                    <input type="text" id="billingAddressZipCode" class="form-control"
+                        th:field="*{billingAddress.zipCode}" placeholder="Zip Code" required>
+                    <label for="billingAddressZipCode">Zip Code *</label>
+                    <div class="error error-message" id="billingAddressZipCodeError"></div>
+                </div>
+            </div>
+        </div>
+        <input type="hidden" id="billingAddressEmail" name="billingAddress.email" th:field="*{billingAddress.email}">
+        <input type="hidden" id="billingAddressPhone" name="billingAddress.phone" th:field="*{billingAddress.phone}">
+
+        <div class="billing-form-actions mt-4">
+            <button type="button" class="btn btn-outline-secondary me-2 cancel-billing-edit">
+                <i class="bi bi-x-circle me-1"></i>
+                Cancel
+            </button>
+            <button type="submit" class="btn btn-primary save-billing-btn">
+                <i class="bi bi-check-circle me-1"></i>
+                Save Billing Information
+            </button>
+        </div>
+    </form>
+</div>

@@ -1,61 +1,55 @@
 package com.ecom.b2cstore.entity;
 
 import java.util.Set;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+@Getter
+@Setter
 @MappedSuperclass
 public abstract class Container extends BaseEntity {
-    @Getter
-    @Setter
     private String firstName;
-
-    @Getter
-    @Setter
     private String lastName;
-
-    @Getter
-    @Setter
     private String email;
-
-    @Getter
-    @Setter
     private String phone;
 
-    @Getter
-    @Setter
-    private String shipFirstName;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "firstName", column = @Column(name = "shipping_first_name")),
+            @AttributeOverride(name = "lastName", column = @Column(name = "shipping_last_name")),
+            @AttributeOverride(name = "email", column = @Column(name = "shipping_email")),
+            @AttributeOverride(name = "phone", column = @Column(name = "shipping_phone")),
+            @AttributeOverride(name = "country", column = @Column(name = "shipping_country")),
+            @AttributeOverride(name = "address", column = @Column(name = "shipping_address")),
+            @AttributeOverride(name = "city", column = @Column(name = "shipping_city")),
+            @AttributeOverride(name = "state", column = @Column(name = "shipping_state")),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "shipping_zip_code"))
+    })
+    private AddressEmbeddable shippingAddress;
 
-    @Getter
-    @Setter
-    private String shipLastName;
-
-    @Getter
-    @Setter
-    private String country;
-
-    @Getter
-    @Setter
-    private String address;
-
-    @Getter
-    @Setter
-    private String city;
-
-    @Getter
-    @Setter
-    private String state;
-
-    @Getter
-    @Setter
-    private String zipCode;
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "firstName", column = @Column(name = "billing_first_name")),
+            @AttributeOverride(name = "lastName", column = @Column(name = "billing_last_name")),
+            @AttributeOverride(name = "email", column = @Column(name = "billing_email")),
+            @AttributeOverride(name = "phone", column = @Column(name = "billing_phone")),
+            @AttributeOverride(name = "country", column = @Column(name = "billing_country")),
+            @AttributeOverride(name = "address", column = @Column(name = "billing_address")),
+            @AttributeOverride(name = "city", column = @Column(name = "billing_city")),
+            @AttributeOverride(name = "state", column = @Column(name = "billing_state")),
+            @AttributeOverride(name = "zipCode", column = @Column(name = "billing_zip_code"))
+    })
+    private AddressEmbeddable billingAddress;
 
     public Container() {
+        this.firstName = "";
+        this.lastName = "";
+        this.email = "";
+        this.phone = "";
+        this.shippingAddress = new AddressEmbeddable();
+        this.billingAddress = new AddressEmbeddable();
     }
-
-    public abstract String toString();
 
     public abstract Set<? extends LineItem> getContainerLineItems();
 }

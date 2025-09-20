@@ -1,11 +1,10 @@
 @import "~bootstrap/scss/bootstrap";
-@import "fonts";
-@import "variables";
-@import "animations";
+@import "./utilities/fonts";
+@import "./utilities/variables";
+@import "./utilities/animations";
 
 $bootstrap-icons-font-dir: "~bootstrap-icons/font/fonts";
 
 @import "~bootstrap-icons/font/bootstrap-icons.scss";
-@import "global";
+
 @import "homepage";
-@import "search";

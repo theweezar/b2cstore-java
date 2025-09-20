@@ -7,7 +7,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "orders") // "order" is a reserved keyword in SQL
+@Table(name = "Orders") // "order" is a reserved keyword in SQL
 public class Order extends Container {
 
     public static final int STATUS_CREATED = 0;
@@ -45,49 +45,26 @@ public class Order extends Container {
 
     @Getter
     @Setter
-    private int status; // e.g., 0 = pending, 1 = completed, 2 = shipped, etc.
+    private int status;
 
     @Getter
     @Setter
-    private int confirmationStatus; // e.g., 0 = unconfirmed, 1 = confirmed, etc.
+    private int confirmationStatus;
 
     @Getter
     @Setter
-    private int paymentStatus; // e.g., 0 = unpaid, 1 = paid, 2 = refunded, etc.
+    private int paymentStatus;
 
     @Getter
     @Setter
-    private int shippingStatus; // e.g., 0 = not shipped, 1 = shipped, 2 = delivered, etc.
+    private int shippingStatus;
 
     public Order() {
+        super();
     }
 
     @Override
     public Set<? extends LineItem> getContainerLineItems() {
         return lineItems;
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-                "Order[id=%d, customerId=%s, status=%d, confirmationStatus=%d, paymentStatus=%d, shippingStatus=%d, firstName=%s, lastName=%s, email=%s, phone=%s, shipFirstName=%s, shipLastName=%s, country=%s, address=%s, city=%s, state=%s, zipCode=%s, lineItems=%d]",
-                orderId,
-                customer != null ? customer.getCustomerId() : null,
-                status,
-                confirmationStatus,
-                paymentStatus,
-                shippingStatus,
-                getFirstName(),
-                getLastName(),
-                getEmail(),
-                getPhone(),
-                getShipFirstName(),
-                getShipLastName(),
-                getCountry(),
-                getAddress(),
-                getCity(),
-                getState(),
-                getZipCode(),
-                lineItems != null ? lineItems.size() : 0);
     }
 }

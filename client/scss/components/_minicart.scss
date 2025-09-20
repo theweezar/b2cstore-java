@@ -283,12 +283,6 @@
         padding: 1rem 1.5rem;
     }
 
-    .trust-badges {
-        display: flex;
-        justify-content: space-evenly;
-        margin-bottom: 1rem;
-    }
-
     .trust-badge {
         display: flex;
         flex-direction: column;
@@ -403,10 +397,6 @@
         .minicart-thumbnail {
             width: 60px;
             height: 60px;
-        }
-
-        .trust-badges {
-            gap: 0.5rem;
         }
 
         .trust-badge {

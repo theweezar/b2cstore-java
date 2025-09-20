@@ -1,5 +1,7 @@
 'use strict';
 
+import '../scss/search.scss';
+
 /**
  * Adds a product to the shopping cart.
  * @param {string} pid - The product ID to add.

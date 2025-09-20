@@ -8,24 +8,17 @@ import lombok.Getter;
 import lombok.Setter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
+@Setter
 @Entity
 public class Category extends BaseEntity {
 
     @Id
     @Column(name = "category_id")
-    @Getter
     private String categoryId;
-
-    @Getter
-    @Setter
     private String name;
-
-    @Getter
-    @Setter
     private String description;
 
-    @Getter
-    @Setter
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<CategoryAssignment> assignments = new HashSet<>();
 

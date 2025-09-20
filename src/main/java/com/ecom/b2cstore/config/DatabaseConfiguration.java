@@ -2,31 +2,52 @@ package com.ecom.b2cstore.config;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.sql.DataSource;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
-
 import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
 public class DatabaseConfiguration {
 
+    @Autowired
+    Environment env;
+
     @Bean
     DataSource dataSource() {
-        // Using H2 Database
-        // Document: https://docs.spring.io/spring-boot/how-to/data-access.html
-        DataSourceBuilder<?> dataSource = DataSourceBuilder.create().type(org.h2.jdbcx.JdbcDataSource.class);
-        dataSource.driverClassName(org.h2.Driver.class.getName());
-        dataSource.url("jdbc:h2:~/b2cstore");
-        dataSource.username("sa");
-        dataSource.password("123");
+        String dbMode = env.getProperty("datasource.mode", "h2");
+        String sourceType = env.getProperty("datasource." + dbMode + ".source-type-class-name");
+        String driver = env.getProperty("datasource." + dbMode + ".driver-class-name");
+        String url = env.getProperty("datasource." + dbMode + ".url");
+        String username = env.getProperty("datasource." + dbMode + ".username");
+        String password = env.getProperty("datasource." + dbMode + ".password");
+
+        DataSourceBuilder<?> dataSource = DataSourceBuilder.create();
+
+        if (sourceType != null) {
+            try {
+                dataSource.type((Class<? extends DataSource>) Class.forName(sourceType));
+            } catch (ClassNotFoundException e) {
+                throw new IllegalStateException("Invalid datasource type: " + sourceType, e);
+            }
+        }
+
+        if (driver != null) {
+            dataSource.driverClassName(driver);
+        }
+
+        dataSource.url(url);
+        dataSource.username(username);
+        dataSource.password(password);
+
         return dataSource.build();
     }
 

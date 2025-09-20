@@ -1,6 +1,7 @@
 'use strict';
 
 import '../scss/bootstrap.scss';
+import '../scss/global.scss';
 import 'bootstrap';
 import $ from "jquery";
 import { faker } from '@faker-js/faker';

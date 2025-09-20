@@ -12,6 +12,11 @@ function initShippingForm() {
 
         const form = $(this);
 
+        $('[name="shippingAddress.email"', form).val($('[name="email"', form).val());
+        $('[name="shippingAddress.phone"', form).val($('[name="phone"', form).val());
+
+        form.clearErrors();
+
         $.ajax({
             url: form.attr('action'),
             method: 'POST',
@@ -39,6 +44,28 @@ function initShippingForm() {
     });
 }
 
+/**
+ * Fills the shipping form with random data using faker-js.
+ */
+function fillShippingFormWithFakeData() {
+    const faker = window.faker;
+    if (!faker) {
+        console.warn('Faker library is not loaded.');
+        return;
+    }
+    $('[name="firstName"]').val(faker.person.firstName());
+    $('[name="lastName"]').val(faker.person.lastName());
+    $('[name="email"]').val(faker.internet.email());
+    $('[name="phone"]').val(faker.phone.number({ style: 'international' }));
+    $('[name="shippingAddress.firstName"]').val(faker.person.firstName());
+    $('[name="shippingAddress.lastName"]').val(faker.person.lastName());
+    $('[name="shippingAddress.city"]').val(faker.location.city());
+    $('[name="shippingAddress.state"]').val(faker.location.state());
+    $('[name="shippingAddress.zipCode"]').val(faker.location.zipCode('#####'));
+    $('[name="shippingAddress.address"]').val(faker.location.streetAddress());
+}
+
 export default {
-    initShippingForm
+    initShippingForm,
+    fillShippingFormWithFakeData
 };

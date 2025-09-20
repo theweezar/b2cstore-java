@@ -11,8 +11,16 @@
     <!-- Checkout page resources -->
     <script src="https://js.stripe.com/v3/"></script>
     <script defer th:src="@{'~/dist/checkout.js'}" th:if="${page == 'Checkout'}"></script>
-    <link rel="stylesheet" th:href="@{'~/dist/checkout.css'}" th:if="${page == 'Checkout'}"/>
+    <link rel="stylesheet" th:href="@{'~/dist/checkout.css'}" th:if="${page == 'Checkout'}" />
     <!-- End Checkout page resources -->
+
+    <!-- Search page resources -->
+    <link rel="stylesheet" th:href="@{'~/dist/search.css'}" th:if="${page == 'Search'}" />
+    <!-- End Search page resources -->
+
+    <!-- Confirmation page resources -->
+    <link rel="stylesheet" th:href="@{'~/dist/confirmation.css'}" th:if="${page == 'Confirmation'}" />
+    <!-- End Confirmation page resources -->
 
     <title th:text="${pageTitle}">pageTitle</title>
     <meta name="description" th:content="${pageDescription}" />

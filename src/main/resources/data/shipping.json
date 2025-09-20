@@ -1,0 +1,9 @@
+[
+    {
+        "code": "standardShipping",
+        "name": "Standard Shipping",
+        "description": "Delivery within 5-7 business days.",
+        "price": 25,
+        "enable": true
+    }
+]

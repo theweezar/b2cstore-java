@@ -1,0 +1,513 @@
+.confirmation-page {
+    background-color: var(--light-gray);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+
+    /* Brand Logo Header */
+    .confirmation-header {
+        background-color: var(--primary-bg);
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand-logo {
+        height: 60px;
+        width: auto;
+        transition: transform 0.3s ease;
+    }
+
+    .brand-logo:hover {
+        transform: scale(1.05);
+    }
+
+    /* Main Container */
+    .confirmation-main {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 1rem;
+    }
+
+    /* Confirmation Header */
+    .confirmation-message {
+        background-color: var(--primary-bg);
+        padding: 3rem 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .success-icon {
+        color: var(--bs-success);
+        font-size: 4rem;
+    }
+
+    .confirmation-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        color: var(--primary-text);
+        margin-bottom: 0.5rem;
+    }
+
+    .order-confirmed-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--primary-accent);
+        margin-bottom: 1rem;
+    }
+
+    .confirmation-subtitle {
+        font-size: 1.1rem;
+        color: var(--secondary-text);
+        margin: 0;
+        line-height: 1.6;
+    }
+
+    /* Card Styles */
+    .card {
+        border: none;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        background-color: var(--primary-bg);
+    }
+
+    .card-header {
+        background-color: var(--light-gray);
+        border-bottom: 1px solid var(--border-color);
+        border-radius: 12px 12px 0 0 !important;
+        padding: 1.5rem;
+    }
+
+    .card-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--primary-text);
+        margin: 0;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    /* Order Summary Section */
+    .order-summary-section {
+        margin-bottom: 2rem;
+    }
+
+    .summary-item {
+        text-align: center;
+    }
+
+    .summary-label {
+        display: block;
+        font-size: 0.9rem;
+        font-weight: 500;
+        color: var(--secondary-text);
+        margin-bottom: 0.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    .summary-value {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--primary-text);
+    }
+
+    .order-number {
+        color: var(--primary-accent);
+        font-weight: 700;
+    }
+
+    /* Address Section */
+    .addresses-section {
+        margin-bottom: 2rem;
+    }
+
+    .address-card {
+        height: 100%;
+    }
+
+    .address-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--primary-text);
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .address-details {
+        line-height: 1.8;
+    }
+
+    .recipient-name {
+        font-weight: 600;
+        color: var(--primary-text);
+        margin-bottom: 0.5rem;
+        font-size: 1.05rem;
+    }
+
+    .address-line,
+    .city-state-zip,
+    .country,
+    .phone-number,
+    .email-address {
+        color: var(--secondary-text);
+        margin-bottom: 0.25rem;
+    }
+
+    .phone-number,
+    .email-address {
+        font-weight: 500;
+        color: var(--primary-text);
+    }
+
+    /* Payment Section */
+    .payment-section {
+        margin-bottom: 2rem;
+    }
+
+    .payment-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--primary-text);
+        margin: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .payment-details {
+        display: flex;
+        justify-content: center;
+    }
+
+    .payment-method {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 1rem;
+        background-color: var(--light-gray);
+        border-radius: 8px;
+        border: 1px solid var(--border-color);
+    }
+
+    .payment-icon {
+        color: var(--primary-accent);
+        font-size: 1.5rem;
+    }
+
+    .payment-info {
+        text-align: left;
+    }
+
+    .method-name {
+        font-weight: 600;
+        color: var(--primary-text);
+        margin-bottom: 0.25rem;
+    }
+
+    .method-details {
+        font-size: 0.9rem;
+        color: var(--secondary-text);
+    }
+
+    /* Order Items Section */
+    .order-items-section {
+        margin-bottom: 2rem;
+    }
+
+    .items-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--primary-text);
+        margin: 0;
+    }
+
+    .items-list {
+        margin-bottom: 1.5rem;
+    }
+
+    .order-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem 0;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .order-item:last-child {
+        border-bottom: none;
+    }
+
+    .item-image {
+        flex-shrink: 0;
+    }
+
+    .product-thumbnail {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 8px;
+        background-color: var(--light-gray);
+    }
+
+    .item-details {
+        flex-grow: 1;
+        min-width: 0;
+    }
+
+    .item-name {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--primary-text);
+        margin-bottom: 0.5rem;
+        line-height: 1.3;
+    }
+
+    .item-meta {
+        display: flex;
+        gap: 1rem;
+        font-size: 0.9rem;
+        color: var(--secondary-text);
+    }
+
+    .item-quantity,
+    .item-price {
+        font-weight: 500;
+    }
+
+    /* Order Total */
+    .order-total {
+        border-top: 2px solid var(--border-color);
+        padding-top: 1rem;
+        margin-top: 1rem;
+    }
+
+    .total-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .total-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .subtotal-row,
+    .shipping-row,
+    .tax-row {
+        .total-label {
+            font-weight: 500;
+            color: var(--secondary-text);
+        }
+
+        .total-amount {
+            font-weight: 600;
+            color: var(--primary-text);
+        }
+    }
+
+    .shipping-amount {
+        color: var(--bs-success) !important;
+        font-weight: 600;
+    }
+
+    .final-total-row {
+        border-top: 1px solid var(--border-color);
+        padding-top: 0.75rem;
+        margin-top: 0.75rem;
+
+        .total-label {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-text);
+        }
+
+        .total-amount {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-accent);
+        }
+    }
+
+    /* Next Steps Section */
+    .next-steps-section {
+        margin-bottom: 2rem;
+    }
+
+    .next-steps-title {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--primary-text);
+        margin-bottom: 1rem;
+    }
+
+    .next-steps-description {
+        color: var(--secondary-text);
+        margin-bottom: 1.5rem;
+        line-height: 1.6;
+    }
+
+    .tracking-info {
+        background-color: var(--light-gray);
+        padding: 1rem;
+        border-radius: 8px;
+        border-left: 4px solid var(--primary-accent);
+    }
+
+    .tracking-text {
+        color: var(--primary-text);
+        margin: 0;
+        font-weight: 500;
+    }
+
+    /* Footer */
+    .confirmation-footer {
+        background-color: var(--primary-bg);
+        border-top: 1px solid var(--border-color);
+        margin-top: 2rem;
+    }
+
+    .back-home-btn {
+        background-color: var(--primary-accent);
+        border-color: var(--primary-accent);
+        color: white;
+        font-weight: 600;
+        padding: 1rem 3rem;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-flex;
+        align-items: center;
+    }
+
+    .back-home-btn:hover {
+        background-color: #B45309;
+        border-color: #B45309;
+        color: white;
+        transform: translateY(-2px);
+        text-decoration: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 991.98px) {
+        .confirmation-title {
+            font-size: 2rem;
+        }
+
+        .order-confirmed-title {
+            font-size: 1.25rem;
+        }
+
+        .confirmation-subtitle {
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 767.98px) {
+        .confirmation-main {
+            padding: 0 0.5rem;
+        }
+
+        .confirmation-message {
+            padding: 2rem 1rem;
+        }
+
+        .confirmation-title {
+            font-size: 1.75rem;
+        }
+
+        .order-confirmed-title {
+            font-size: 1.1rem;
+        }
+
+        .success-icon {
+            font-size: 3rem;
+        }
+
+        .card-header,
+        .card-body {
+            padding: 1rem;
+        }
+
+        .order-item {
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 0.75rem;
+            text-align: left;
+        }
+
+        .item-details {
+            width: auto;
+            text-align: left;
+        }
+
+        .item-meta {
+            justify-content: flex-start;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .product-thumbnail {
+            width: 60px;
+            height: 60px;
+        }
+
+        .total-row {
+            flex-direction: row;
+            gap: 0;
+            text-align: left;
+        }
+
+        .final-total-row {
+            .total-label {
+                font-size: 1.1rem;
+            }
+
+            .total-amount {
+                font-size: 1.3rem;
+            }
+        }
+
+        .back-home-btn {
+            padding: 0.875rem 2rem;
+            font-size: 1rem;
+        }
+    }
+
+    @media (max-width: 575.98px) {
+        .summary-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .summary-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .addresses-section .row {
+            gap: 1rem;
+        }
+
+        .brand-logo {
+            height: 50px;
+        }
+    }
+
+    /* Print Styles */
+    @media print {
+        .confirmation-footer {
+            display: none;
+        }
+
+        .card {
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+
+        .confirmation-message {
+            box-shadow: none;
+            border: 1px solid #ddd;
+        }
+    }
+}

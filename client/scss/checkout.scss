@@ -684,6 +684,174 @@
     border-color: #B45309;
 }
 
+/* Billing Form */
+.billing-form-container {
+    background-color: var(--light-gray);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    transition: all 0.3s ease;
+}
+
+.billing-form-container.show {
+    display: block !important;
+    animation: slideDown 0.3s ease-out;
+}
+
+.billing-form {
+    margin: 0;
+}
+
+.billing-form .form-floating {
+    position: relative;
+    margin-bottom: 0;
+}
+
+.billing-form .form-floating>.form-control {
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+    background-color: var(--primary-bg);
+}
+
+.billing-form .form-floating>.form-control:focus {
+    border-color: var(--primary-accent);
+    box-shadow: none;
+    background-color: var(--primary-bg);
+}
+
+.billing-form .form-floating>label {
+    color: var(--secondary-text);
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.billing-form .error-message {
+    color: var(--bs-danger);
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+    display: none;
+}
+
+.billing-form .error-message.show {
+    display: block;
+}
+
+.billing-form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-color);
+}
+
+.cancel-billing-edit {
+    border-color: var(--border-color);
+    color: var(--secondary-text);
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.cancel-billing-edit:hover {
+    border-color: var(--bs-danger);
+    color: var(--bs-danger);
+    background-color: rgba(239, 68, 68, 0.05);
+}
+
+.save-billing-btn {
+    background-color: var(--primary-accent);
+    border-color: var(--primary-accent);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.save-billing-btn:hover {
+    background-color: #B45309;
+    border-color: #B45309;
+    transform: translateY(-1px);
+}
+
+/* Edit Button Enhancement */
+.edit-billing {
+    transition: all 0.3s ease;
+}
+
+.edit-billing:hover {
+    background-color: var(--primary-accent);
+    border-color: var(--primary-accent);
+    color: white;
+    transform: translateY(-1px);
+}
+
+/* Animation for form show/hide */
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.billing-form-container.hide {
+    animation: slideUp 0.3s ease-out forwards;
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+}
+
+/* Form validation states */
+.billing-form .form-floating>.form-control.is-invalid {
+    border-color: var(--bs-danger);
+}
+
+.billing-form .form-floating>.form-control.is-valid {
+    border-color: var(--bs-success);
+}
+
+/* Loading state for billing form */
+.billing-form.loading {
+    opacity: 0.7;
+    pointer-events: none;
+}
+
+.billing-form.loading .save-billing-btn {
+    position: relative;
+}
+
+.billing-form.loading .save-billing-btn::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 16px;
+    height: 16px;
+    margin: -8px 0 0 -8px;
+    border: 2px solid transparent;
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
 /* Responsive Design */
 @media (max-width: 991.98px) {
     .checkout-progress {
@@ -783,6 +951,21 @@
     .contact-options {
         flex-direction: row;
         justify-content: space-around;
+    }
+
+    .billing-form-container {
+        padding: 1rem;
+    }
+
+    .billing-form-actions {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .cancel-billing-edit,
+    .save-billing-btn {
+        width: 100%;
+        padding: 0.875rem 1rem;
     }
 }
 

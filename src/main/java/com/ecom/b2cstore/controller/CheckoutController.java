@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.ecom.b2cstore.entity.Basket;
+import com.ecom.b2cstore.form.BillingForm;
 import com.ecom.b2cstore.form.ShippingForm;
 import com.ecom.b2cstore.model.BasketModel;
 import com.ecom.b2cstore.util.CheckoutUtil;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class CheckoutController extends BaseController {
@@ -26,7 +28,6 @@ public class CheckoutController extends BaseController {
     public String start(Model model) {
         Basket basket = getCurrentBasket();
 
-        // If no basket exists, redirect to home page
         if (basket == null) {
             return "redirect:/";
         }
@@ -35,6 +36,11 @@ public class CheckoutController extends BaseController {
         model.addAttribute("pageDescription", "Checkout page for your order.");
         model.addAttribute("basketModel", basketModel);
         model.addAttribute("stripeApiKey", env.getProperty("stripe.api.key"));
+
+        // Initialize forms
+        model.addAttribute("shippingForm", new ShippingForm());
+        model.addAttribute("billingForm", new BillingForm());
+
         return "checkout";
     }
 
@@ -56,7 +62,46 @@ public class CheckoutController extends BaseController {
             return ResponseEntity.badRequest().body(resMap);
         }
 
-        basketService.saveShippingBillingForm(basket, form);
+        basketService.setCustomerInfo(basket, form);
+        basketService.setShippingAddress(basket, form);
+
+        // Set billing address same as shipping address initially
+        BillingForm billingForm = new BillingForm();
+        billingForm.setBillingAddress(form.getShippingAddress());
+
+        // Copy customer info first name and last name to billing form
+        billingForm.getBillingAddress().setFirstName(form.getFirstName());
+        billingForm.getBillingAddress().setLastName(form.getLastName());
+        basketService.setBillingAddress(basket, billingForm);
+
+        basketService.save(basket);
+
+        BasketModel basketModel = cartUtil.createModel(basket, true);
+        resMap.put("basketModel", basketModel);
+        resMap.put("success", true);
+        return ResponseEntity.ok(resMap);
+    }
+
+    @PostMapping("/updatebilling")
+    public ResponseEntity<?> updateBilling(@Valid @ModelAttribute BillingForm form,
+            BindingResult result) {
+        Basket basket = getCurrentBasket();
+        Map<String, Object> resMap = new HashMap<>();
+
+        if (basket == null) {
+            resMap.put("redirect", "/");
+            return ResponseEntity.ok(resMap);
+        }
+
+        if (result.hasErrors()) {
+            result.getFieldErrors().forEach(error -> resMap.put(error.getField(),
+                    error.getDefaultMessage()));
+            return ResponseEntity.badRequest().body(resMap);
+        }
+
+        basketService.setBillingAddress(basket, form);
+        basketService.save(basket);
+
         BasketModel basketModel = cartUtil.createModel(basket, true);
         resMap.put("basketModel", basketModel);
         resMap.put("success", true);

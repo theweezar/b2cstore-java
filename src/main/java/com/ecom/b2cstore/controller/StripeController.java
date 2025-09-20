@@ -55,54 +55,54 @@ public class StripeController extends BaseController {
         }
     }
 
-    @PostMapping("/update-payment-intent")
-    public ResponseEntity<Object> updatePaymentIntent(@RequestBody Map<String, Object> requestBody) {
-        StripeClient client = new StripeClient(env.getProperty("stripe.api.secret"));
-        Basket basket = getCurrentBasket();
-        if (basket == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "No active basket found."));
-        }
+    // @PostMapping("/update-payment-intent")
+    // public ResponseEntity<Object> updatePaymentIntent(@RequestBody Map<String, Object> requestBody) {
+    //     StripeClient client = new StripeClient(env.getProperty("stripe.api.secret"));
+    //     Basket basket = getCurrentBasket();
+    //     if (basket == null) {
+    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "No active basket found."));
+    //     }
 
-        try {
-            // Retrieve the payment intent
-            String paymentIntentId = (String) requestBody.get("paymentIntentId");
+    //     try {
+    //         // Retrieve the payment intent
+    //         String paymentIntentId = (String) requestBody.get("paymentIntentId");
 
-            if (paymentIntentId == null || paymentIntentId.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-                        .body(Map.of("error", "Payment Intent ID is required."));
-            }
+    //         if (paymentIntentId == null || paymentIntentId.isEmpty()) {
+    //             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+    //                     .body(Map.of("error", "Payment Intent ID is required."));
+    //         }
 
-            PaymentIntent paymentIntent = client.paymentIntents().retrieve(paymentIntentId);
+    //         PaymentIntent paymentIntent = client.paymentIntents().retrieve(paymentIntentId);
 
-            // Update the payment intent with shipping data from the basket
-            PaymentIntentUpdateParams params = PaymentIntentUpdateParams
-                    .builder()
-                    .setShipping(
-                            PaymentIntentUpdateParams.Shipping
-                                    .builder()
-                                    .setName(basket.getShipFirstName() + " " + basket.getShipLastName())
-                                    .setAddress(
-                                            PaymentIntentUpdateParams.Shipping.Address.builder()
-                                                    .setLine1(basket.getAddress())
-                                                    .setCity(basket.getCity())
-                                                    .setState(basket.getState())
-                                                    .setPostalCode(basket.getZipCode())
-                                                    .setCountry(basket.getCountry())
-                                                    .build())
-                                    .build())
-                    .build();
+    //         // Update the payment intent with shipping data from the basket
+    //         PaymentIntentUpdateParams params = PaymentIntentUpdateParams
+    //                 .builder()
+    //                 .setShipping(
+    //                         PaymentIntentUpdateParams.Shipping
+    //                                 .builder()
+    //                                 .setName(basket.getShipFirstName() + " " + basket.getShipLastName())
+    //                                 .setAddress(
+    //                                         PaymentIntentUpdateParams.Shipping.Address.builder()
+    //                                                 .setLine1(basket.getAddress())
+    //                                                 .setCity(basket.getCity())
+    //                                                 .setState(basket.getState())
+    //                                                 .setPostalCode(basket.getZipCode())
+    //                                                 .setCountry(basket.getCountry())
+    //                                                 .build())
+    //                                 .build())
+    //                 .build();
 
-            PaymentIntent updatedPaymentIntent = paymentIntent.update(params);
+    //         PaymentIntent updatedPaymentIntent = paymentIntent.update(params);
 
-            return ResponseEntity.ok(Map.of(
-                    "success", true,
-                    "updatedPaymentIntentId", updatedPaymentIntent.getId()));
-        } catch (StripeException e) {
-            e.printStackTrace();
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(Map.of("error", "Error updating payment intent"));
-        }
-    }
+    //         return ResponseEntity.ok(Map.of(
+    //                 "success", true,
+    //                 "updatedPaymentIntentId", updatedPaymentIntent.getId()));
+    //     } catch (StripeException e) {
+    //         e.printStackTrace();
+    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+    //                 .body(Map.of("error", "Error updating payment intent"));
+    //     }
+    // }
 
     @GetMapping("/stripe-return")
     public String processStripeReturn(@RequestParam("payment_intent") String paymentIntentId, Model model) {

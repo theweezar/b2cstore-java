@@ -1,0 +1,8 @@
+[
+    {
+        "code": "creditCard",
+        "name": "Credit Card",
+        "imageURL": "https://example.com/images/creditcard.png",
+        "enable": true
+    }
+]

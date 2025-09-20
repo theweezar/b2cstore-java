@@ -7,15 +7,13 @@ import { isMobile } from '../components/view.js';
  * @param {Object} basketModel - The cart model containing billing and shipping data.
  */
 export function fillSummary(basketModel) {
-    const billingCard = $('.summary-section #billingSummary');
     const shippingCard = $('.summary-section #shippingSummary');
-    if (basketModel?.billing) {
-        billingCard.fill(basketModel.billing);
-        billingCard.fill(basketModel.billing.address);
-    }
-    if (basketModel?.shipping) {
-        shippingCard.fill(basketModel.shipping);
+    const billingCard = $('.summary-section #billingSummary');
+    if (basketModel?.shipping?.address) {
         shippingCard.fill(basketModel.shipping.address);
+    }
+    if (basketModel?.billing?.address) {
+        billingCard.fill(basketModel.billing.address);
     }
 }
 

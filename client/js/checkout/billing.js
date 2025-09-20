@@ -108,9 +108,25 @@ function handlePlaceOrder() {
     });
 }
 
+/**
+ * Initializes the billing form toggle functionality.
+ */
+function initBillingForm() {
+    $('.edit-billing').on('click', function () {
+        $('.billing-form-container').toggleClass('d-none');
+        $('.summary-content').toggleClass('d-none');
+    });
+
+    $('.cancel-billing-edit').on('click', function () {
+        $('.billing-form-container').addClass('d-none');
+        $('.summary-content').removeClass('d-none');
+    });
+}
+
 export default {
     initPaymentTrigger,
     initPaymentForm,
     initPlaceOrderTrigger,
-    handlePlaceOrder
+    handlePlaceOrder,
+    initBillingForm
 };
