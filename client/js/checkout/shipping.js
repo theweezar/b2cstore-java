@@ -1,6 +1,6 @@
 'use strict';
 
-import { switchToStep, fillSummary } from './util.js';
+import { switchToStep, updateView } from './util.js';
 
 /**
  * Handles the submission of the shipping form via AJAX.
@@ -28,7 +28,7 @@ function initShippingForm() {
                     return;
                 }
                 if (data.success === true) {
-                    fillSummary(data.basketModel);
+                    updateView(data.basketModel);
                     switchToStep(2);
                 } else {
                     form.showErrors(data.errors);

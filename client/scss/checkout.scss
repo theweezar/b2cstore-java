@@ -11,7 +11,7 @@
 }
 
 .checkout-logo {
-    height: 40px;
+    height: 75px;
     width: auto;
 }
 
@@ -710,7 +710,6 @@
 .billing-form .form-floating>.form-control {
     border: 2px solid var(--border-color);
     border-radius: 8px;
-    padding: 1rem;
     font-size: 1rem;
     transition: border-color 0.3s ease;
     background-color: var(--primary-bg);
@@ -922,18 +921,6 @@
         background-color: var(--border-color);
         z-index: 1;
     }
-
-    // .progress-step:last-child .progress-line {
-    //     display: none;
-    // }
-
-    // .progress-step.active~.progress-step .progress-line {
-    //     background-color: var(--border-color);
-    // }
-
-    // .progress-step.completed .progress-line {
-    //     background-color: var(--primary-accent);
-    // }
 
     .form-actions {
         flex-direction: column;

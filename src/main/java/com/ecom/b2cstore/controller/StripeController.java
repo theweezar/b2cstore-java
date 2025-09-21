@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import com.ecom.b2cstore.entity.AddressEmbeddable;
 import com.ecom.b2cstore.entity.Basket;
 import com.ecom.b2cstore.entity.Order;
 import com.ecom.b2cstore.util.CheckoutUtil;
@@ -55,54 +57,61 @@ public class StripeController extends BaseController {
         }
     }
 
-    // @PostMapping("/update-payment-intent")
-    // public ResponseEntity<Object> updatePaymentIntent(@RequestBody Map<String, Object> requestBody) {
-    //     StripeClient client = new StripeClient(env.getProperty("stripe.api.secret"));
-    //     Basket basket = getCurrentBasket();
-    //     if (basket == null) {
-    //         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "No active basket found."));
-    //     }
+    @PostMapping("/update-payment-intent")
+    public ResponseEntity<Object> updatePaymentIntent(@RequestBody Map<String, Object> requestBody) {
+        StripeClient client = new StripeClient(env.getProperty("stripe.api.secret"));
+        Basket basket = getCurrentBasket();
+        if (basket == null) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", "No active basket found."));
+        }
 
-    //     try {
-    //         // Retrieve the payment intent
-    //         String paymentIntentId = (String) requestBody.get("paymentIntentId");
+        try {
+            // Retrieve the payment intent
+            String paymentIntentId = (String) requestBody.get("paymentIntentId");
 
-    //         if (paymentIntentId == null || paymentIntentId.isEmpty()) {
-    //             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
-    //                     .body(Map.of("error", "Payment Intent ID is required."));
-    //         }
+            if (paymentIntentId == null || paymentIntentId.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("error", "Payment Intent ID is required."));
+            }
 
-    //         PaymentIntent paymentIntent = client.paymentIntents().retrieve(paymentIntentId);
+            PaymentIntent paymentIntent = client.paymentIntents().retrieve(paymentIntentId);
 
-    //         // Update the payment intent with shipping data from the basket
-    //         PaymentIntentUpdateParams params = PaymentIntentUpdateParams
-    //                 .builder()
-    //                 .setShipping(
-    //                         PaymentIntentUpdateParams.Shipping
-    //                                 .builder()
-    //                                 .setName(basket.getShipFirstName() + " " + basket.getShipLastName())
-    //                                 .setAddress(
-    //                                         PaymentIntentUpdateParams.Shipping.Address.builder()
-    //                                                 .setLine1(basket.getAddress())
-    //                                                 .setCity(basket.getCity())
-    //                                                 .setState(basket.getState())
-    //                                                 .setPostalCode(basket.getZipCode())
-    //                                                 .setCountry(basket.getCountry())
-    //                                                 .build())
-    //                                 .build())
-    //                 .build();
+            if (paymentIntent == null) {
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body(Map.of("error", "Invalid Payment Intent ID."));
+            }
 
-    //         PaymentIntent updatedPaymentIntent = paymentIntent.update(params);
+            AddressEmbeddable shippingAddress = basket.getShippingAddress();
 
-    //         return ResponseEntity.ok(Map.of(
-    //                 "success", true,
-    //                 "updatedPaymentIntentId", updatedPaymentIntent.getId()));
-    //     } catch (StripeException e) {
-    //         e.printStackTrace();
-    //         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-    //                 .body(Map.of("error", "Error updating payment intent"));
-    //     }
-    // }
+            // Update the payment intent with shipping data from the basket
+            PaymentIntentUpdateParams params = PaymentIntentUpdateParams
+                    .builder()
+                    .setShipping(
+                            PaymentIntentUpdateParams.Shipping
+                                    .builder()
+                                    .setName(shippingAddress.getFirstName() + " " + shippingAddress.getLastName())
+                                    .setAddress(
+                                            PaymentIntentUpdateParams.Shipping.Address.builder()
+                                                    .setLine1(shippingAddress.getAddress())
+                                                    .setCity(shippingAddress.getCity())
+                                                    .setState(shippingAddress.getState())
+                                                    .setPostalCode(shippingAddress.getZipCode())
+                                                    .setCountry(shippingAddress.getCountry())
+                                                    .build())
+                                    .build())
+                    .build();
+
+            PaymentIntent updatedPaymentIntent = paymentIntent.update(params);
+
+            return ResponseEntity.ok(Map.of(
+                    "success", true,
+                    "updatedPaymentIntentId", updatedPaymentIntent.getId()));
+        } catch (StripeException e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Error updating payment intent"));
+        }
+    }
 
     @GetMapping("/stripe-return")
     public String processStripeReturn(@RequestParam("payment_intent") String paymentIntentId, Model model) {
@@ -131,7 +140,7 @@ public class StripeController extends BaseController {
                 return "redirect:" + placeOrderStatus.getRedirect();
             } else if ("requires_payment_method".equals(status)) {
                 paymentIntent.cancel();
-                model.addAttribute("error", "Payment failed. Please try again.");
+                model.addAttribute("error", "Missing or invalid payment method. Please try again.");
             } else {
                 paymentIntent.cancel();
                 model.addAttribute("error", "Unexpected payment status: " + status);

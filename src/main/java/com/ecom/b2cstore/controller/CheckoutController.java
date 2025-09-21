@@ -69,11 +69,13 @@ public class CheckoutController extends BaseController {
         BillingForm billingForm = new BillingForm();
         billingForm.setBillingAddress(form.getShippingAddress());
 
-        // Copy customer info first name and last name to billing form
+        // Copy customer info to billing form
         billingForm.getBillingAddress().setFirstName(form.getFirstName());
         billingForm.getBillingAddress().setLastName(form.getLastName());
-        basketService.setBillingAddress(basket, billingForm);
+        billingForm.getBillingAddress().setEmail(form.getEmail());
+        billingForm.getBillingAddress().setPhone(form.getPhone());
 
+        basketService.setBillingAddress(basket, billingForm);
         basketService.save(basket);
 
         BasketModel basketModel = cartUtil.createModel(basket, true);

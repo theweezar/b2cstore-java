@@ -5,7 +5,7 @@
 
 <body class="confirmation-page">
     <!-- Brand Logo Header -->
-    <header class="confirmation-header py-4 mb-4">
+    <header class="confirmation-header py-2 mb-4">
         <div class="container text-center">
             <a th:href="@{'/'}">
                 <img th:src="@{'/images/global/logo.png'}" alt="B2C DEMO" class="brand-logo">
@@ -41,7 +41,7 @@
                         <div class="card-body">
                             <div class="address-details">
                                 <div class="recipient-name"
-                                    th:text="${orderModel.shipping.firstName + ' ' + orderModel.shipping.lastName}">
+                                    th:text="${orderModel.shipping.address.firstName + ' ' + orderModel.shipping.address.lastName}">
                                     John Doe
                                 </div>
                                 <div class="address-line" th:text="${orderModel.shipping.address.address}">
@@ -54,7 +54,7 @@
                                 </div>
                                 <div class="country" th:text="${orderModel.shipping.address.country}">United States
                                 </div>
-                                <div class="phone-number" th:text="${orderModel.shipping.phone}">+1 (555)
+                                <div class="phone-number" th:text="${orderModel.shipping.address.phone}">+1 (555)
                                     123-4567</div>
                             </div>
                         </div>
@@ -73,7 +73,7 @@
                         <div class="card-body">
                             <div class="address-details">
                                 <div class="recipient-name"
-                                    th:text="${orderModel.billing.firstName + ' ' + orderModel.billing.lastName}">
+                                    th:text="${orderModel.billing.address.firstName + ' ' + orderModel.billing.address.lastName}">
                                     Jane Smith
                                 </div>
                                 <div class="address-line" th:text="${orderModel.billing.address.address}">
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="country" th:text="${orderModel.billing.address.country}">United States
                                 </div>
-                                <div class="email-address" th:text="${orderModel.billing.email}">jane.smith@example.com
+                                <div class="email-address" th:text="${orderModel.billing.address.email}">jane.smith@example.com
                                 </div>
                             </div>
                         </div>
@@ -112,7 +112,6 @@
                             </div>
                             <div class="payment-info">
                                 <div class="method-name">Credit Card</div>
-                                <div class="method-details">Ending in ••••1234</div>
                             </div>
                         </div>
                     </div>

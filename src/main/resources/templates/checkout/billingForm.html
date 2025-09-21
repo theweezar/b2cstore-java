@@ -2,22 +2,6 @@
     <form th:action="@{'~/updatebilling'}" id="billingForm" method="post" th:object="${billingForm}"
         class="billing-form">
         <div class="row g-3">
-            <div class="col-md-6">
-                <div class="form-floating">
-                    <input type="text" id="billingAddressFirstName" class="form-control"
-                        th:field="*{billingAddress.firstName}" placeholder="First Name" required>
-                    <label for="billingAddressFirstName">First Name *</label>
-                    <div class="error error-message" id="billingAddressFirstNameError"></div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="form-floating">
-                    <input type="text" id="billingAddressLastName" class="form-control"
-                        th:field="*{billingAddress.lastName}" placeholder="Last Name" required>
-                    <label for="billingAddressLastName">Last Name *</label>
-                    <div class="error error-message" id="billingAddressLastNameError"></div>
-                </div>
-            </div>
             <div class="col-12">
                 <div class="form-floating">
                     <input type="text" id="billingAddressAddress" class="form-control"
@@ -51,8 +35,12 @@
                 </div>
             </div>
         </div>
-        <input type="hidden" id="billingAddressEmail" name="billingAddress.email" th:field="*{billingAddress.email}">
-        <input type="hidden" id="billingAddressPhone" name="billingAddress.phone" th:field="*{billingAddress.phone}">
+
+        <!-- Hidden customer information fields. Go back to step 1 to edit -->
+        <input type="hidden" id="billingAddressFirstName" th:field="*{billingAddress.firstName}">
+        <input type="hidden" id="billingAddressLastName" th:field="*{billingAddress.lastName}">
+        <input type="hidden" id="billingAddressEmail" th:field="*{billingAddress.email}">
+        <input type="hidden" id="billingAddressPhone" th:field="*{billingAddress.phone}">
 
         <div class="billing-form-actions mt-4">
             <button type="button" class="btn btn-outline-secondary me-2 cancel-billing-edit">

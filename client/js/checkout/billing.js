@@ -1,6 +1,6 @@
 'use strict';
 
-import { fillSummary } from './util.js';
+import { updateView } from './util.js';
 
 /**
  * Initializes the "checkout:submitPayment" event to handle payment form submissions.
@@ -48,7 +48,7 @@ function initPaymentForm() {
                     return;
                 }
                 if (data.success === true) {
-                    fillSummary(data.basketModel);
+                    updateView(data.basketModel);
                 } else {
                     self.showErrors(data.errors);
                 }

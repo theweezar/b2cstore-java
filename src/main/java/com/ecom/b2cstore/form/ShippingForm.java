@@ -31,4 +31,6 @@ public class ShippingForm {
     @Valid
     @NotNull(message = "Shipping address is required")
     private AddressForm shippingAddress;
+
+    private String shippingMethod;
 }

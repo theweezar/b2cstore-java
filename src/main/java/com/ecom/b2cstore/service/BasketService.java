@@ -53,6 +53,8 @@ public class BasketService {
     public void setShippingAddress(Basket basket, ShippingForm form) {
         basket.getShippingAddress().setFirstName(form.getShippingAddress().getFirstName());
         basket.getShippingAddress().setLastName(form.getShippingAddress().getLastName());
+        basket.getShippingAddress().setEmail(form.getShippingAddress().getEmail());
+        basket.getShippingAddress().setPhone(form.getShippingAddress().getPhone());
         basket.getShippingAddress().setAddress(form.getShippingAddress().getAddress());
         basket.getShippingAddress().setCity(form.getShippingAddress().getCity());
         basket.getShippingAddress().setState(form.getShippingAddress().getState());
@@ -63,6 +65,8 @@ public class BasketService {
     public void setBillingAddress(Basket basket, BillingForm form) {
         basket.getBillingAddress().setFirstName(form.getBillingAddress().getFirstName());
         basket.getBillingAddress().setLastName(form.getBillingAddress().getLastName());
+        basket.getBillingAddress().setEmail(form.getBillingAddress().getEmail());
+        basket.getBillingAddress().setPhone(form.getBillingAddress().getPhone());
         basket.getBillingAddress().setAddress(form.getBillingAddress().getAddress());
         basket.getBillingAddress().setCity(form.getBillingAddress().getCity());
         basket.getBillingAddress().setState(form.getBillingAddress().getState());

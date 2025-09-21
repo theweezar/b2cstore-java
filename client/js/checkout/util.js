@@ -3,17 +3,25 @@
 import { isMobile } from '../components/view.js';
 
 /**
- * Fills the billing and shipping address data in the summary section.
+ * Updates the view with the latest basket model data.
  * @param {Object} basketModel - The cart model containing billing and shipping data.
  */
-export function fillSummary(basketModel) {
+export function updateView(basketModel) {
     const shippingCard = $('.summary-section #shippingSummary');
     const billingCard = $('.summary-section #billingSummary');
+    const billingForm = $('#billingForm');
     if (basketModel?.shipping?.address) {
         shippingCard.fill(basketModel.shipping.address);
     }
     if (basketModel?.billing?.address) {
-        billingCard.fill(basketModel.billing.address);
+        const billingAddress = basketModel.billing.address;
+        billingCard.fill(billingAddress);
+
+        if (billingForm.length === 0) return;
+
+        for (let key in billingAddress) {
+            $(`[name$="${key}"]`, billingForm).val(billingAddress[key]);
+        }
     }
 }
 

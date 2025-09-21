@@ -10,7 +10,7 @@
     }
 
     .brand-logo {
-        height: 60px;
+        height: 75px;
         width: auto;
         transition: transform 0.3s ease;
     }
@@ -21,9 +21,8 @@
 
     /* Main Container */
     .confirmation-main {
-        max-width: 800px;
+        max-width: 600px;
         margin: 0 auto;
-        padding: 0 1rem;
     }
 
     /* Confirmation Header */
@@ -406,10 +405,6 @@
     }
 
     @media (max-width: 767.98px) {
-        .confirmation-main {
-            padding: 0 0.5rem;
-        }
-
         .confirmation-message {
             padding: 2rem 1rem;
         }
@@ -487,10 +482,6 @@
 
         .addresses-section .row {
             gap: 1rem;
-        }
-
-        .brand-logo {
-            height: 50px;
         }
     }
 

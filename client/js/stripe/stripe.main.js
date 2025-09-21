@@ -44,8 +44,19 @@ export function initStripePaymentElement() {
 async function confirmPayment(elements, basketModel) {
     const paymentForm = $('#paymentForm');
     const returnUrl = new URL($('#paymentElement').data('return-url'), window.location.origin);
-    const billing = basketModel.billing;
-    const address = billing.address;
+    const billingAddress = basketModel.billing.address;
+    const billingDetails = {
+        name: `${billingAddress.firstName} ${billingAddress.lastName}`,
+        email: billingAddress.email,
+        address: {
+            line1: billingAddress.address,
+            city: billingAddress.city,
+            state: billingAddress.state,
+            postal_code: billingAddress.zipCode,
+            country: billingAddress.country,
+        }
+    };
+    console.log('Billing Details:', billingDetails);
 
     // Confirm the payment with Stripe
     const { error } = await stripe.confirmPayment({
@@ -53,17 +64,7 @@ async function confirmPayment(elements, basketModel) {
         confirmParams: {
             return_url: returnUrl.href,
             payment_method_data: {
-                billing_details: {
-                    name: `${billing.firstName} ${billing.lastName}`,
-                    email: billing.email,
-                    address: {
-                        line1: address.address,
-                        city: address.city,
-                        state: address.state,
-                        postal_code: address.zipCode,
-                        country: address.country,
-                    }
-                }
+                billing_details: billingDetails
             }
         }
     });
