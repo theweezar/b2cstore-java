@@ -2,6 +2,8 @@ package com.ecom.b2cstore.form;
 
 import lombok.Getter;
 import lombok.Setter;
+import com.ecom.b2cstore.entity.Address;
+import com.ecom.b2cstore.model.AddressModel;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -45,4 +47,73 @@ public class AddressForm {
     @NotBlank(message = "Zip code is required")
     @Pattern(regexp = "\\d{4,6}?", message = "Invalid zip code format")
     private String zipCode;
+
+    public AddressForm() {
+        this.id = null;
+        this.defaultAddress = false;
+        this.firstName = "";
+        this.lastName = "";
+        this.email = "";
+        this.phone = "";
+        this.country = "";
+        this.address = "";
+        this.city = "";
+        this.state = "";
+        this.zipCode = "";
+    }
+
+    public AddressForm(Long id, boolean defaultAddress, String firstName, String lastName, String email, String phone,
+            String country, String address, String city, String state, String zipCode) {
+        this.id = id;
+        this.defaultAddress = defaultAddress;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phone = phone;
+        this.country = country;
+        this.address = address;
+        this.city = city;
+        this.state = state;
+        this.zipCode = zipCode;
+    }
+
+    public AddressForm(Address address) {
+        copy(address);
+    }
+
+    public AddressForm(AddressModel model) {
+        copy(model);
+    }
+
+    public void copy(Address address) {
+        if (address != null) {
+            this.id = address.getId();
+            this.defaultAddress = address.isDefaultAddress();
+            this.firstName = address.getFirstName();
+            this.lastName = address.getLastName();
+            this.email = address.getEmail();
+            this.phone = address.getPhone();
+            this.country = address.getCountry();
+            this.address = address.getAddress();
+            this.city = address.getCity();
+            this.state = address.getState();
+            this.zipCode = address.getZipCode();
+        }
+    }
+
+    public void copy(AddressModel model) {
+        if (model != null) {
+            this.id = null;
+            this.defaultAddress = model.isDefaultAddress();
+            this.firstName = model.getFirstName();
+            this.lastName = model.getLastName();
+            this.email = model.getEmail();
+            this.phone = model.getPhone();
+            this.country = model.getCountry();
+            this.address = model.getAddress();
+            this.city = model.getCity();
+            this.state = model.getState();
+            this.zipCode = model.getZipCode();
+        }
+    }
 }

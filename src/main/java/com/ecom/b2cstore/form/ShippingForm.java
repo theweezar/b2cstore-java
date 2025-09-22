@@ -33,4 +33,8 @@ public class ShippingForm {
     private AddressForm shippingAddress;
 
     private String shippingMethod;
+
+    public ShippingForm() {
+        this.shippingAddress = new AddressForm();
+    }
 }

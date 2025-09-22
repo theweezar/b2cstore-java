@@ -33,7 +33,7 @@ function initRegisterForm() {
 /**
  * Fills the registration form with dummy data for testing purposes.
  */
-function fillRegisterFormWithDummyData() {
+function setFakeRegistration() {
     const faker = window.faker;
     if (!faker) {
         console.warn('Faker library is not loaded.');
@@ -66,9 +66,9 @@ function fillRegisterFormWithDummyData() {
     $("#phone").val(fakerData.phone);
 }
 
-window.fillRegisterFormWithDummyData = fillRegisterFormWithDummyData;
+if (window.fk) window.fk.setFakeRegistration = setFakeRegistration;
 
 $(document).ready(function () {
     initRegisterForm();
-    fillRegisterFormWithDummyData();
+    setFakeRegistration();
 });

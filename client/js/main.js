@@ -13,6 +13,7 @@ import { initMiniCartButtons, initRemoveFromCartButtons } from './components/min
 window.$ = $;
 window.jQuery = $;
 window.faker = faker;
+window.fk = {};
 
 $(document).ready(function () {
     initSpinnerHandler();

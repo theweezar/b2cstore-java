@@ -18,6 +18,11 @@ public class AddressService {
         return addressRepository.save(address);
     }
 
+    public Address create(Customer customer, Address address) {
+        address.setCustomer(customer);
+        return addressRepository.save(address);
+    }
+
     public Address update(Address address) {
         return addressRepository.save(address);
     }

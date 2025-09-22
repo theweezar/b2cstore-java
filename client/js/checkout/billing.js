@@ -173,7 +173,7 @@ function setFakeBilling() {
     $('[name="billingAddress.address"]').val(faker.location.streetAddress());
 }
 
-window.setFakeBilling = setFakeBilling; // Expose to global scope for testing purposes
+if (window.fk) window.fk.setFakeBilling = setFakeBilling;
 
 export default {
     initPaymentTrigger,

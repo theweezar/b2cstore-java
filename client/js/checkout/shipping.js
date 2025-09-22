@@ -34,6 +34,30 @@ function initShippingForm() {
 }
 
 /**
+ * Shows or hides the shipping address section.
+ * @param {boolean} show 
+ */
+function showShippingAddressSection(show) {
+    const shippingAddressSection = $('.shipping-address-section');
+    const savedAddressSection = $('.saved-address-list');
+    shippingAddressSection.toggleClass('d-none', !show);
+    savedAddressSection.toggleClass('d-none', show);
+}
+
+/**
+ * Initializes the handler for the "Use New Address" checkbox.
+ */
+function initNewAddressHandler() {
+    $('#useNewAddress').on('change', function () {
+        if ($(this).is(':checked')) {
+            showShippingAddressSection(true);
+        } else {
+            showShippingAddressSection(false);
+        }
+    });
+}
+
+/**
  * Fills the shipping form with random data using faker-js.
  */
 function setFakeShipping() {
@@ -42,10 +66,11 @@ function setFakeShipping() {
         console.warn('Faker library is not loaded.');
         return;
     }
-    $('[name="firstName"]').val(faker.person.firstName());
-    $('[name="lastName"]').val(faker.person.lastName());
-    $('[name="email"]').val(faker.internet.email());
-    $('[name="phone"]').val(faker.phone.number({ style: 'international' }));
+    $('[name="firstName"]:not([readonly="readonly"])').val(faker.person.firstName());
+    $('[name="lastName"]:not([readonly="readonly"])').val(faker.person.lastName());
+    $('[name="email"]:not([readonly="readonly"])').val(faker.internet.email());
+    $('[name="phone"]:not([readonly="readonly"])').val(faker.phone.number({ style: 'international' }));
+
     $('[name="shippingAddress.firstName"]').val(faker.person.firstName());
     $('[name="shippingAddress.lastName"]').val(faker.person.lastName());
     $('[name="shippingAddress.city"]').val(faker.location.city());
@@ -54,9 +79,9 @@ function setFakeShipping() {
     $('[name="shippingAddress.address"]').val(faker.location.streetAddress());
 }
 
-window.setFakeShipping = setFakeShipping; // Expose to global scope for testing purposes
+if (window.fk) window.fk.setFakeShipping = setFakeShipping;
 
 export default {
     initShippingForm,
-    setFakeShipping
+    initNewAddressHandler
 };

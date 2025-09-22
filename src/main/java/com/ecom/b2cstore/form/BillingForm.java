@@ -11,4 +11,8 @@ public class BillingForm {
     @Valid
     @NotNull(message = "Billing address is required")
     private AddressForm billingAddress;
+
+    public BillingForm() {
+        this.billingAddress = new AddressForm();
+    }
 }

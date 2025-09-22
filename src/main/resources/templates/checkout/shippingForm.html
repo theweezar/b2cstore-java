@@ -4,13 +4,13 @@
 
         <form th:action="@{'~/submitshipping'}" method="post" id="shippingForm" th:object="${shippingForm}">
             <!-- Customer Information -->
-            <div class="form-section mb-4">
+            <div class="form-section mb-4 customer-info-section">
                 <h5 class="subsection-title">Contact Information</h5>
                 <div class="row g-3">
                     <div class="col-md-6">
                         <div class="form-floating">
                             <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
-                                placeholder="First Name">
+                                th:value="*{firstName}" th:readonly="${isLoggedIn}" placeholder="First Name">
                             <label for="firstName">First Name *</label>
                             <div class="error error-message" id="firstNameError"></div>
                         </div>
@@ -18,22 +18,23 @@
                     <div class="col-md-6">
                         <div class="form-floating">
                             <input type="text" class="form-control" th:field="*{lastName}" id="lastName"
-                                placeholder="Last Name">
+                                th:value="*{lastName}" th:readonly="${isLoggedIn}" placeholder="Last Name">
                             <label for="lastName">Last Name *</label>
                             <div class="error error-message" id="lastNameError"></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Email">
+                            <input type="email" class="form-control" th:field="*{email}" id="email" placeholder="Email"
+                                th:value="*{email}" th:readonly="${isLoggedIn}">
                             <label for="email">Email Address *</label>
                             <div class="error error-message" id="emailError"></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="tel" class="form-control" th:field="*{phone}" id="phone"
-                                placeholder="Phone Number">
+                            <input type="tel" class="form-control" th:field="*{phone}" id="phone" th:value="*{phone}"
+                                th:readonly="${isLoggedIn}" placeholder="Phone Number">
                             <label for="phone">Phone Number *</label>
                             <div class="error error-message" id="phoneError"></div>
                         </div>
@@ -42,13 +43,16 @@
             </div>
 
             <!-- Shipping Address -->
-            <div class="form-section mb-4">
+            <div class="form-section mb-4 shipping-address-section"
+                th:classappend="${(customerModel == null or #lists.isEmpty(customerModel.addresses))} ? '' : 'd-none'"
+                id="newAddressSection">
                 <h5 class="subsection-title">Shipping Address</h5>
                 <div class="row g-3">
                     <div class="col-md-6">
                         <div class="form-floating">
                             <input type="text" class="form-control" th:field="*{shippingAddress.firstName}"
-                                id="shippingAddressFirstName" placeholder="First Name">
+                                th:value="*{shippingAddress.firstName}" id="shippingAddressFirstName"
+                                placeholder="First Name">
                             <label for="shippingAddressFirstName">First Name *</label>
                             <div class="error error-message" id="shippingAddressFirstNameError"></div>
                         </div>
@@ -56,7 +60,8 @@
                     <div class="col-md-6">
                         <div class="form-floating">
                             <input type="text" class="form-control" th:field="*{shippingAddress.lastName}"
-                                id="shippingAddressLastName" placeholder="Last Name">
+                                th:value="*{shippingAddress.lastName}" id="shippingAddressLastName"
+                                placeholder="Last Name">
                             <label for="shippingAddressLastName">Last Name *</label>
                             <div class="error error-message" id="shippingAddressLastNameError"></div>
                         </div>
@@ -64,7 +69,7 @@
                     <div class="col-md-6 d-none">
                         <div class="form-floating">
                             <input type="email" class="form-control" th:field="*{shippingAddress.email}"
-                                id="shippingAddressEmail" placeholder="Email">
+                                th:value="*{shippingAddress.email}" id="shippingAddressEmail" placeholder="Email">
                             <label for="shippingAddressEmail">Email Address *</label>
                             <div class="error error-message" id="shippingAddressEmailError"></div>
                         </div>
@@ -72,7 +77,8 @@
                     <div class="col-md-6 d-none">
                         <div class="form-floating">
                             <input type="tel" class="form-control" th:field="*{shippingAddress.phone}"
-                                id="shippingAddressPhone" placeholder="Phone Number">
+                                th:value="*{shippingAddress.phone}" id="shippingAddressPhone"
+                                placeholder="Phone Number">
                             <label for="shippingAddressPhone">Phone Number *</label>
                             <div class="error error-message" id="shippingAddressPhoneError"></div>
                         </div>
@@ -80,7 +86,7 @@
                     <div class="col-12">
                         <div class="form-floating">
                             <input type="text" class="form-control" th:field="*{shippingAddress.address}"
-                                id="shippingAddressAddress" placeholder="Address">
+                                th:value="*{shippingAddress.address}" id="shippingAddressAddress" placeholder="Address">
                             <label for="shippingAddressAddress">Street Address *</label>
                             <div class="error error-message" id="shippingAddressAddressError"></div>
                         </div>
@@ -88,7 +94,7 @@
                     <div class="col-md-6">
                         <div class="form-floating">
                             <input type="text" class="form-control" th:field="*{shippingAddress.city}"
-                                id="shippingAddressCity" placeholder="City">
+                                th:value="*{shippingAddress.city}" id="shippingAddressCity" placeholder="City">
                             <label for="shippingAddressCity">City *</label>
                             <div class="error error-message" id="shippingAddressCityError"></div>
                         </div>
@@ -96,7 +102,7 @@
                     <div class="col-md-3">
                         <div class="form-floating">
                             <input type="text" class="form-control" th:field="*{shippingAddress.state}"
-                                id="shippingAddressState" placeholder="State">
+                                th:value="*{shippingAddress.state}" id="shippingAddressState" placeholder="State">
                             <label for="shippingAddressState">State *</label>
                             <div class="error error-message" id="shippingAddressStateError"></div>
                         </div>
@@ -104,7 +110,8 @@
                     <div class="col-md-3">
                         <div class="form-floating">
                             <input type="text" class="form-control" th:field="*{shippingAddress.zipCode}"
-                                id="shippingAddressZipCode" placeholder="Zip Code">
+                                th:value="*{shippingAddress.zipCode}" id="shippingAddressZipCode"
+                                placeholder="Zip Code">
                             <label for="shippingAddressZipCode">Zip Code *</label>
                             <div class="error error-message" id="shippingAddressZipCodeError"></div>
                         </div>

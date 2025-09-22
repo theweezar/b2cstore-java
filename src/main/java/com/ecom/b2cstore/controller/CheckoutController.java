@@ -15,7 +15,9 @@ import com.ecom.b2cstore.entity.Basket;
 import com.ecom.b2cstore.entity.Customer;
 import com.ecom.b2cstore.form.BillingForm;
 import com.ecom.b2cstore.form.ShippingForm;
+import com.ecom.b2cstore.model.AddressModel;
 import com.ecom.b2cstore.model.BasketModel;
+import com.ecom.b2cstore.model.CustomerModel;
 import com.ecom.b2cstore.util.CheckoutUtil;
 import com.ecom.b2cstore.util.ErrorUtil;
 import jakarta.validation.Valid;
@@ -30,19 +32,39 @@ public class CheckoutController extends BaseController {
     @GetMapping("/checkout")
     public String start(Model model) {
         Basket basket = getCurrentBasket();
-
         if (basket == null) {
             return "redirect:/";
         }
         BasketModel basketModel = cartUtil.createModel(basket, true);
+        CustomerModel customerModel = getCurrentCustomerModel();
         model.addAttribute("pageTitle", "Checkout");
         model.addAttribute("pageDescription", "Checkout page for your order.");
         model.addAttribute("basketModel", basketModel);
-        model.addAttribute("customerModel", getCurrentCustomerModel());
+        model.addAttribute("customerModel", customerModel);
+        model.addAttribute("isLoggedIn", customerModel != null);
         model.addAttribute("stripeApiKey", env.getProperty("stripe.api.key"));
 
-        // Initialize forms
-        model.addAttribute("shippingForm", new ShippingForm());
+        // Initialize customer and shipping forms
+        ShippingForm shippingForm = new ShippingForm();
+        AddressModel billingAddress = basketModel.getBilling().getAddress();
+        AddressModel shippingAddress = basketModel.getShipping().getAddress();
+        shippingForm.getShippingAddress().copy(shippingAddress);
+
+        if (customerModel != null) {
+            // Pre-fill customer info if logged in
+            shippingForm.setFirstName(customerModel.getFirstName());
+            shippingForm.setLastName(customerModel.getLastName());
+            shippingForm.setEmail(customerModel.getEmail());
+            shippingForm.setPhone(customerModel.getPhone());
+        } else {
+            // Pre-fill from billing address if user is guest
+            shippingForm.setFirstName(billingAddress.getFirstName());
+            shippingForm.setLastName(billingAddress.getLastName());
+            shippingForm.setEmail(billingAddress.getEmail());
+            shippingForm.setPhone(shippingAddress.getPhone());
+        }
+
+        model.addAttribute("shippingForm", shippingForm);
         model.addAttribute("billingForm", new BillingForm());
 
         return "checkout";
@@ -83,9 +105,7 @@ public class CheckoutController extends BaseController {
 
         Customer customer = getCurrentCustomer();
         if (customer != null) {
-            Address newAddress = new Address(form.getShippingAddress());
-            newAddress.setCustomer(customer);
-            addressService.create(newAddress);
+            addressService.create(customer, new Address(form.getShippingAddress()));
         }
 
         BasketModel basketModel = cartUtil.createModel(basket, true);

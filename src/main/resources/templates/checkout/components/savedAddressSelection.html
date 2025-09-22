@@ -1,4 +1,4 @@
-<div class="form-section mb-4" th:if="${customerModel} and ${not #lists.isEmpty(customerModel.addresses)}" th:fragment="savedAddressSelection">
+<div class="form-section mb-4 saved-address-list" th:if="${(customerModel != null and not #lists.isEmpty(customerModel.addresses))}" th:fragment="savedAddressSelection">
     <h5 class="subsection-title">Choose Shipping Address</h5>
     <div class="saved-addresses-container">
         <div class="saved-addresses-list">
