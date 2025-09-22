@@ -1,53 +1,42 @@
 'use strict';
 
 import { switchToStep, updateView } from './util.js';
+import { postForm } from '../components/ajax.js';
 
 /**
  * Handles the submission of the shipping form via AJAX.
  * Displays validation errors next to the corresponding fields.
  */
 function initShippingForm() {
-    $('#shippingForm').on('submit.submitShipping', function (event) {
+    $('#shippingForm').on('submit.submitShipping', async function (event) {
         event.preventDefault();
 
         const form = $(this);
+        form.clearErrors();
 
         $('[name="shippingAddress.email"', form).val($('[name="email"', form).val());
         $('[name="shippingAddress.phone"', form).val($('[name="phone"', form).val());
 
-        form.clearErrors();
+        const submitShipping = await postForm(form.attr('action'), form.serialize());
 
-        $.ajax({
-            url: form.attr('action'),
-            method: 'POST',
-            data: form.serialize(),
-            contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-            success: function (data) {
-                if (data.redirect) {
-                    window.location.href = data.redirect;
-                    return;
-                }
-                if (data.success === true) {
-                    updateView(data.basketModel);
-                    switchToStep(2);
-                } else {
-                    form.showErrors(data.errors);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error('Error submitting form:', error);
-                if (xhr.status === 400 && xhr.responseJSON) {
-                    form.showErrors(xhr.responseJSON);
-                }
-            }
-        });
+        if (submitShipping.redirect) {
+            window.location.href = submitShipping.redirect;
+            return;
+        }
+        if (!submitShipping.success) {
+            form.showErrors(submitShipping.error);
+            return;
+        }
+
+        updateView(submitShipping.basketModel);
+        switchToStep(2);
     });
 }
 
 /**
  * Fills the shipping form with random data using faker-js.
  */
-function fillShippingFormWithFakeData() {
+function setFakeShipping() {
     const faker = window.faker;
     if (!faker) {
         console.warn('Faker library is not loaded.');
@@ -65,7 +54,9 @@ function fillShippingFormWithFakeData() {
     $('[name="shippingAddress.address"]').val(faker.location.streetAddress());
 }
 
+window.setFakeShipping = setFakeShipping; // Expose to global scope for testing purposes
+
 export default {
     initShippingForm,
-    fillShippingFormWithFakeData
+    setFakeShipping
 };

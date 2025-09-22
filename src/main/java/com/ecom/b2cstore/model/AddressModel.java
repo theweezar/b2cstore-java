@@ -17,6 +17,7 @@ public class AddressModel {
     private String city;
     private String state;
     private String zipCode;
+    private boolean defaultAddress;
 
     public AddressModel() {
         this.firstName = "";
@@ -28,10 +29,11 @@ public class AddressModel {
         this.city = "";
         this.state = "";
         this.zipCode = "";
+        this.defaultAddress = false;
     }
 
     public AddressModel(String firstName, String lastName, String email, String phone, String country, String address,
-            String city, String state, String zipCode) {
+            String city, String state, String zipCode, boolean defaultAddress) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -41,6 +43,15 @@ public class AddressModel {
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
+        this.defaultAddress = defaultAddress;
+    }
+
+    public AddressModel(Address address) {
+        copy(address);
+    }
+
+    public AddressModel(AddressEmbeddable address) {
+        copy(address);
     }
 
     public void copy(Address other) {
@@ -54,6 +65,7 @@ public class AddressModel {
             this.city = other.getCity();
             this.state = other.getState();
             this.zipCode = other.getZipCode();
+            this.defaultAddress = other.isDefaultAddress();
         }
     }
 
@@ -68,6 +80,7 @@ public class AddressModel {
             this.city = other.getCity();
             this.state = other.getState();
             this.zipCode = other.getZipCode();
+            this.defaultAddress = false;
         }
     }
 }

@@ -1,7 +1,5 @@
 'use strict';
 
-import { showErrors } from './components/error.js';
-
 /**
  * Initializes the registration form submission handler.
  */
@@ -11,7 +9,8 @@ function initRegisterForm() {
 
         const self = $(this);
         const formData = self.serialize();
-        $(".error").text("");
+
+        self.clearErrors();
 
         $.ajax({
             url: self.attr("action"),
@@ -20,13 +19,12 @@ function initRegisterForm() {
             success: function (response) {
                 if (response.success) {
                     window.location.href = response.redirect;
-                } else if (response.errors) {
-                    showErrors(response.errors);
+                } else {
+                    self.showErrors(response.error);
                 }
             },
             error: function (xhr) {
-                const errors = xhr.responseJSON?.errors || { general: "An unexpected error occurred." };
-                showErrors(errors);
+                self.showErrors(xhr.responseJSON?.error || { general: "An unexpected error occurred." });
             }
         });
     });
@@ -67,6 +65,8 @@ function fillRegisterFormWithDummyData() {
     $("#confirmPassword").val(fakerData.confirmPassword);
     $("#phone").val(fakerData.phone);
 }
+
+window.fillRegisterFormWithDummyData = fillRegisterFormWithDummyData;
 
 $(document).ready(function () {
     initRegisterForm();

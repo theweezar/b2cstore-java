@@ -9,13 +9,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import com.ecom.b2cstore.entity.Address;
 import com.ecom.b2cstore.entity.Basket;
+import com.ecom.b2cstore.entity.Customer;
 import com.ecom.b2cstore.form.BillingForm;
 import com.ecom.b2cstore.form.ShippingForm;
 import com.ecom.b2cstore.model.BasketModel;
 import com.ecom.b2cstore.util.CheckoutUtil;
+import com.ecom.b2cstore.util.ErrorUtil;
 import jakarta.validation.Valid;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 public class CheckoutController extends BaseController {
@@ -35,6 +38,7 @@ public class CheckoutController extends BaseController {
         model.addAttribute("pageTitle", "Checkout");
         model.addAttribute("pageDescription", "Checkout page for your order.");
         model.addAttribute("basketModel", basketModel);
+        model.addAttribute("customerModel", getCurrentCustomerModel());
         model.addAttribute("stripeApiKey", env.getProperty("stripe.api.key"));
 
         // Initialize forms
@@ -57,8 +61,7 @@ public class CheckoutController extends BaseController {
         }
 
         if (result.hasErrors()) {
-            result.getFieldErrors().forEach(error -> resMap.put(error.getField(),
-                    error.getDefaultMessage()));
+            resMap.put("error", ErrorUtil.getBindingResultErrors(result));
             return ResponseEntity.badRequest().body(resMap);
         }
 
@@ -78,8 +81,16 @@ public class CheckoutController extends BaseController {
         basketService.setBillingAddress(basket, billingForm);
         basketService.save(basket);
 
+        Customer customer = getCurrentCustomer();
+        if (customer != null) {
+            Address newAddress = new Address(form.getShippingAddress());
+            newAddress.setCustomer(customer);
+            addressService.create(newAddress);
+        }
+
         BasketModel basketModel = cartUtil.createModel(basket, true);
         resMap.put("basketModel", basketModel);
+        resMap.put("customerModel", getCurrentCustomerModel());
         resMap.put("success", true);
         return ResponseEntity.ok(resMap);
     }
@@ -96,8 +107,7 @@ public class CheckoutController extends BaseController {
         }
 
         if (result.hasErrors()) {
-            result.getFieldErrors().forEach(error -> resMap.put(error.getField(),
-                    error.getDefaultMessage()));
+            resMap.put("error", ErrorUtil.getBindingResultErrors(result));
             return ResponseEntity.badRequest().body(resMap);
         }
 

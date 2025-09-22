@@ -28,6 +28,10 @@ public class CustomerService implements UserDetailsService {
         return customerRepository.save(customer);
     }
 
+    public Customer findById(Long customerId) {
+        return customerRepository.findById(customerId).orElse(null);
+    }
+
     public Customer findByUsername(String username) {
         return customerRepository.findByUsername(username).orElse(null);
     }

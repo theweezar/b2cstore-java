@@ -31,6 +31,7 @@ public abstract class ContainerModel {
     private int itemCount;
     private ShippingModel shipping;
     private BillingModel billing;
+    private CustomerModel customer;
     private List<LineItemModel> items = new ArrayList<>();
 
     protected abstract Container getContainerInstance();

@@ -9,7 +9,8 @@ export function initCustomFn() {
             const form = $(this);
             for (let field in errors) {
                 if (errors[field]) {
-                    $("#" + field + "Error", form).text(errors[field]);
+                    // $("#" + field + "Error", form).text(errors[field]);
+                    $(`[name="${field}"] ~ .error`, form).text(errors[field]);
                 }
             }
         });

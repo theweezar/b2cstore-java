@@ -1,6 +1,7 @@
 'use strict';
 
 import { updateView } from './util.js';
+import { postForm } from '../components/ajax.js';
 
 /**
  * Initializes the "checkout:submitPayment" event to handle payment form submissions.
@@ -109,19 +110,70 @@ function handlePlaceOrder() {
 }
 
 /**
+ * Toggles the visibility of the billing form container and summary content.
+ * @param {boolean} show - If true, shows the billing form; otherwise, shows the summary content.
+ */
+function toggleBillingFormVisibility(show) {
+    $('.billing-form-container').toggleClass('d-none', !show);
+    $('.summary-content').toggleClass('d-none', show);
+}
+
+/**
  * Initializes the billing form toggle functionality.
  */
 function initBillingForm() {
     $('.edit-billing').on('click', function () {
-        $('.billing-form-container').toggleClass('d-none');
-        $('.summary-content').toggleClass('d-none');
+        toggleBillingFormVisibility(true);
     });
 
     $('.cancel-billing-edit').on('click', function () {
-        $('.billing-form-container').addClass('d-none');
-        $('.summary-content').removeClass('d-none');
+        toggleBillingFormVisibility(false);
+    });
+
+    $('#billingForm').on('submit', async function (event) {
+        event.preventDefault();
+
+        const self = $(this);
+        const actionUrl = self.attr('action');
+        const formData = self.serialize();
+        const updateBilling = await postForm(actionUrl, formData);
+
+        if (updateBilling.redirect) {
+            window.location.href = updateBilling.redirect;
+            return;
+        }
+        if (!updateBilling.success) {
+            self.showErrors(updateBilling?.error);
+            return;
+        }
+
+        updateView(updateBilling.basketModel);
+        toggleBillingFormVisibility(false);
     });
 }
+
+/**
+ * Fills the billing form with random data using faker-js.
+ */
+function setFakeBilling() {
+    const faker = window.faker;
+    if (!faker) {
+        console.warn('Faker library is not loaded.');
+        return;
+    }
+
+    // Note: Keeping firstName, lastName, email, and phone in sync with customer information.
+    // $('[name="billingAddress.firstName"]').val(faker.person.firstName());
+    // $('[name="billingAddress.lastName"]').val(faker.person.lastName());
+    // $('[name="billingAddress.email"]').val(faker.internet.email());
+    // $('[name="billingAddress.phone"]').val(faker.phone.number({ style: 'international' }));
+    $('[name="billingAddress.city"]').val(faker.location.city());
+    $('[name="billingAddress.state"]').val(faker.location.state());
+    $('[name="billingAddress.zipCode"]').val(faker.location.zipCode('#####'));
+    $('[name="billingAddress.address"]').val(faker.location.streetAddress());
+}
+
+window.setFakeBilling = setFakeBilling; // Expose to global scope for testing purposes
 
 export default {
     initPaymentTrigger,

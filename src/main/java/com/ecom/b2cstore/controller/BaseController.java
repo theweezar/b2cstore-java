@@ -7,8 +7,11 @@ import org.springframework.ui.Model;
 import com.ecom.b2cstore.entity.Basket;
 import com.ecom.b2cstore.entity.Customer;
 import com.ecom.b2cstore.model.BasketModel;
+import com.ecom.b2cstore.model.CustomerModel;
+import com.ecom.b2cstore.service.AddressService;
 import com.ecom.b2cstore.service.BasketService;
 import com.ecom.b2cstore.service.CategoryService;
+import com.ecom.b2cstore.service.CustomerService;
 import com.ecom.b2cstore.service.OrderService;
 import com.ecom.b2cstore.service.ProductService;
 import com.ecom.b2cstore.util.CartUtil;
@@ -41,6 +44,12 @@ public abstract class BaseController {
     protected OrderService orderService;
 
     @Autowired
+    protected AddressService addressService;
+
+    @Autowired
+    protected CustomerService customerService;
+
+    @Autowired
     protected CheckoutUtil checkoutUtil;
 
     @Autowired
@@ -48,7 +57,7 @@ public abstract class BaseController {
 
     @Autowired
     protected OrderUtil orderUtil;
-    
+
     @Autowired
     protected Environment env;
 
@@ -74,6 +83,16 @@ public abstract class BaseController {
         HttpSession session = request.getSession(false);
         if (session != null) {
             return (Customer) session.getAttribute("customer");
+        }
+        return null;
+    }
+
+    protected CustomerModel getCurrentCustomerModel() {
+        Customer customer = getCurrentCustomer();
+        if (customer != null) {
+            customer = customerService.findById(customer.getCustomerId());
+            CustomerModel model = new CustomerModel(customer);
+            return model;
         }
         return null;
     }

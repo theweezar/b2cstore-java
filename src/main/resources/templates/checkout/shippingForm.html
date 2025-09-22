@@ -1,7 +1,7 @@
 <div class="shipping-form-card card" th:fragment="shippingForm">
     <div class="card-body">
         <h4 class="section-title">Shipping Information</h4>
-        
+
         <form th:action="@{'~/submitshipping'}" method="post" id="shippingForm" th:object="${shippingForm}">
             <!-- Customer Information -->
             <div class="form-section mb-4">
@@ -9,14 +9,16 @@
                 <div class="row g-3">
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control" th:field="*{firstName}" id="firstName" placeholder="First Name">
+                            <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
+                                placeholder="First Name">
                             <label for="firstName">First Name *</label>
                             <div class="error error-message" id="firstNameError"></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control" th:field="*{lastName}" id="lastName" placeholder="Last Name">
+                            <input type="text" class="form-control" th:field="*{lastName}" id="lastName"
+                                placeholder="Last Name">
                             <label for="lastName">Last Name *</label>
                             <div class="error error-message" id="lastNameError"></div>
                         </div>
@@ -30,7 +32,8 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="tel" class="form-control" th:field="*{phone}" id="phone" placeholder="Phone Number">
+                            <input type="tel" class="form-control" th:field="*{phone}" id="phone"
+                                placeholder="Phone Number">
                             <label for="phone">Phone Number *</label>
                             <div class="error error-message" id="phoneError"></div>
                         </div>
@@ -44,56 +47,64 @@
                 <div class="row g-3">
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control" th:field="*{shippingAddress.firstName}" id="shippingAddressFirstName" placeholder="First Name">
+                            <input type="text" class="form-control" th:field="*{shippingAddress.firstName}"
+                                id="shippingAddressFirstName" placeholder="First Name">
                             <label for="shippingAddressFirstName">First Name *</label>
                             <div class="error error-message" id="shippingAddressFirstNameError"></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control" th:field="*{shippingAddress.lastName}" id="shippingAddressLastName" placeholder="Last Name">
+                            <input type="text" class="form-control" th:field="*{shippingAddress.lastName}"
+                                id="shippingAddressLastName" placeholder="Last Name">
                             <label for="shippingAddressLastName">Last Name *</label>
                             <div class="error error-message" id="shippingAddressLastNameError"></div>
                         </div>
                     </div>
                     <div class="col-md-6 d-none">
                         <div class="form-floating">
-                            <input type="email" class="form-control" th:field="*{shippingAddress.email}" id="shippingAddressEmail" placeholder="Email">
+                            <input type="email" class="form-control" th:field="*{shippingAddress.email}"
+                                id="shippingAddressEmail" placeholder="Email">
                             <label for="shippingAddressEmail">Email Address *</label>
                             <div class="error error-message" id="shippingAddressEmailError"></div>
                         </div>
                     </div>
                     <div class="col-md-6 d-none">
                         <div class="form-floating">
-                            <input type="tel" class="form-control" th:field="*{shippingAddress.phone}" id="shippingAddressPhone" placeholder="Phone Number">
+                            <input type="tel" class="form-control" th:field="*{shippingAddress.phone}"
+                                id="shippingAddressPhone" placeholder="Phone Number">
                             <label for="shippingAddressPhone">Phone Number *</label>
                             <div class="error error-message" id="shippingAddressPhoneError"></div>
                         </div>
                     </div>
                     <div class="col-12">
                         <div class="form-floating">
-                            <input type="text" class="form-control" th:field="*{shippingAddress.address}" id="shippingAddressAddress" placeholder="Address">
+                            <input type="text" class="form-control" th:field="*{shippingAddress.address}"
+                                id="shippingAddressAddress" placeholder="Address">
                             <label for="shippingAddressAddress">Street Address *</label>
                             <div class="error error-message" id="shippingAddressAddressError"></div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-floating">
-                            <input type="text" class="form-control" th:field="*{shippingAddress.city}" id="shippingAddressCity" placeholder="City">
+                            <input type="text" class="form-control" th:field="*{shippingAddress.city}"
+                                id="shippingAddressCity" placeholder="City">
                             <label for="shippingAddressCity">City *</label>
                             <div class="error error-message" id="shippingAddressCityError"></div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-floating">
-                            <input type="text" class="form-control" th:field="*{shippingAddress.state}" id="shippingAddressState" placeholder="State">
+                            <input type="text" class="form-control" th:field="*{shippingAddress.state}"
+                                id="shippingAddressState" placeholder="State">
                             <label for="shippingAddressState">State *</label>
                             <div class="error error-message" id="shippingAddressStateError"></div>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="form-floating">
-                            <input type="text" class="form-control" th:field="*{shippingAddress.zipCode}" id="shippingAddressZipCode" placeholder="Zip Code">
+                            <input type="text" class="form-control" th:field="*{shippingAddress.zipCode}"
+                                id="shippingAddressZipCode" placeholder="Zip Code">
                             <label for="shippingAddressZipCode">Zip Code *</label>
                             <div class="error error-message" id="shippingAddressZipCodeError"></div>
                         </div>
@@ -102,33 +113,11 @@
                 <input type="hidden" name="shippingAddress.country" id="shippingAddressCountry" value="US">
             </div>
 
+            <!-- Shipping Saved Address -->
+            <div th:replace="checkout/components/savedAddressSelection.html :: savedAddressSelection"></div>
+
             <!-- Shipping Methods -->
-            <div class="form-section mb-4">
-                <h5 class="subsection-title">Shipping Method</h5>
-                <div class="shipping-methods">
-                    <div class="shipping-option">
-                        <input type="radio" id="standard" name="shippingMethod" value="standard" class="form-check-input" checked>
-                        <label for="standard" class="shipping-option-label">
-                            <div class="shipping-info">
-                                <div class="shipping-name">Standard Shipping</div>
-                                <div class="shipping-delivery">5-7 business days</div>
-                            </div>
-                            <div class="shipping-cost">Free</div>
-                        </label>
-                    </div>
-                    
-                    <!-- <div class="shipping-option">
-                        <input type="radio" id="express" name="shippingMethod" value="express" class="form-check-input">
-                        <label for="express" class="shipping-option-label">
-                            <div class="shipping-info">
-                                <div class="shipping-name">Express Shipping</div>
-                                <div class="shipping-delivery">2-3 business days</div>
-                            </div>
-                            <div class="shipping-cost">$9.99</div>
-                        </label>
-                    </div> -->
-                </div>
-            </div>
+            <div th:replace="checkout/components/shippingMethodSelection.html :: shippingMethodSelection"></div>
 
             <div class="form-actions">
                 <button type="submit" class="btn btn-primary btn-lg w-100">Continue to Payment</button>

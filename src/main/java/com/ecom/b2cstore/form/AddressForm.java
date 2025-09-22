@@ -10,6 +10,9 @@ import jakarta.validation.constraints.Size;
 @Getter
 @Setter
 public class AddressForm {
+    private Long id;
+    private boolean defaultAddress;
+
     @NotBlank(message = "First name is required")
     @Size(max = 50, message = "First name must not exceed 50 characters")
     private String firstName;

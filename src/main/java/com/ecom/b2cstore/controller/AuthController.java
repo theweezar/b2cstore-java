@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ecom.b2cstore.entity.Customer;
 import com.ecom.b2cstore.form.CustomerForm;
 import com.ecom.b2cstore.service.CustomerService;
+import com.ecom.b2cstore.util.ErrorUtil;
 import jakarta.validation.Valid;
 
 @Controller
@@ -47,37 +48,27 @@ public class AuthController extends BaseController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @ModelAttribute CustomerForm form, BindingResult result) {
         Map<String, Object> resMap = new HashMap<>();
+
         if (result.hasErrors()) {
-            result.getFieldErrors().forEach(error -> resMap.put(error.getField(),
-                    error.getDefaultMessage()));
+            resMap.put("error", ErrorUtil.getBindingResultErrors(result));
             return ResponseEntity.badRequest().body(resMap);
         }
-
         if (!form.isPasswordConfirmed()) {
             resMap.put("confirmPassword", "Passwords do not match");
             return ResponseEntity.badRequest().body(resMap);
         }
-
         if (customerService.existsByUsername(form.getUsername())) {
             resMap.put("username", "Username is already taken");
             return ResponseEntity.badRequest().body(resMap);
         }
-
         if (customerService.existsByEmail(form.getEmail())) {
             resMap.put("email", "Email is already registered");
             return ResponseEntity.badRequest().body(resMap);
         }
+
         // Proceed with registration
-        Customer customer = new Customer();
-
-        customer.setFirstName(form.getFirstName());
-        customer.setLastName(form.getLastName());
-        customer.setEmail(form.getEmail());
-        customer.setUsername(form.getUsername());
+        Customer customer = new Customer(form);
         customer.setPassword(passwordEncoder.encode(form.getPassword()));
-        customer.setPhone(form.getPhone());
-        customer.setCountry(form.getCountry());
-
         customer = customerService.registerCustomer(customer);
 
         if (customer == null) {

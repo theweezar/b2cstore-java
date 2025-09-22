@@ -37,10 +37,11 @@
         </div>
 
         <!-- Hidden customer information fields. Go back to step 1 to edit -->
-        <input type="hidden" id="billingAddressFirstName" th:field="*{billingAddress.firstName}">
-        <input type="hidden" id="billingAddressLastName" th:field="*{billingAddress.lastName}">
-        <input type="hidden" id="billingAddressEmail" th:field="*{billingAddress.email}">
-        <input type="hidden" id="billingAddressPhone" th:field="*{billingAddress.phone}">
+        <input type="hidden" id="billingAddressFirstName" readonly th:field="*{billingAddress.firstName}">
+        <input type="hidden" id="billingAddressLastName" readonly th:field="*{billingAddress.lastName}">
+        <input type="hidden" id="billingAddressEmail" readonly th:field="*{billingAddress.email}">
+        <input type="hidden" id="billingAddressPhone" readonly th:field="*{billingAddress.phone}">
+        <input type="hidden" id="billingAddressCountry" readonly th:field="*{billingAddress.country}">
 
         <div class="billing-form-actions mt-4">
             <button type="button" class="btn btn-outline-secondary me-2 cancel-billing-edit">

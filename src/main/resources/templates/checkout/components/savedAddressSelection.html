@@ -1,0 +1,57 @@
+<div class="form-section mb-4" th:if="${customerModel} and ${not #lists.isEmpty(customerModel.addresses)}" th:fragment="savedAddressSelection">
+    <h5 class="subsection-title">Choose Shipping Address</h5>
+    <div class="saved-addresses-container">
+        <div class="saved-addresses-list">
+            <div class="saved-address-card" th:each="address, addressStat : ${customerModel.addresses}">
+                <input type="radio" th:id="'savedAddress' + ${addressStat.index}" name="selectedAddressId"
+                    class="saved-address-radio" th:checked="${addressStat.first}">
+                <label th:for="'savedAddress' + ${addressStat.index}" class="saved-address-label">
+                    <div class="address-card-content">
+                        <div class="address-header">
+                            <div class="recipient-info">
+                                <span class="recipient-name"
+                                    th:text="${address.firstName + ' ' + address.lastName}">John Doe</span>
+                                <span class="recipient-phone" th:text="${address.phone}">+1 (555)
+                                    123-4567</span>
+                            </div>
+                            <!-- <div class="address-badge" th:if="${address.isDefault}">
+                                            <span>Default</span>
+                                        </div> -->
+                        </div>
+                        <div class="address-details">
+                            <div class="street-address" th:text="${address.address}">123 Main Street</div>
+                            <div class="location-info">
+                                <span th:text="${address.city}">Springfield</span>,
+                                <span th:text="${address.state}">IL</span>
+                                <span th:text="${address.zipCode}">62704</span>
+                            </div>
+                            <div class="country-info" th:text="${address.country}">United States</div>
+                        </div>
+                    </div>
+                    <div class="selection-indicator">
+                        <i class="bi bi-check-circle-fill"></i>
+                    </div>
+                </label>
+            </div>
+        </div>
+
+        <!-- Use New Address Button -->
+        <div class="new-address-option">
+            <input type="radio" id="useNewAddress" name="selectedAddressId" value="new" class="saved-address-radio">
+            <label for="useNewAddress" class="new-address-label">
+                <div class="new-address-content">
+                    <div class="new-address-icon">
+                        <i class="bi bi-plus-circle"></i>
+                    </div>
+                    <div class="new-address-text">
+                        <span class="new-address-title">Use New Address</span>
+                        <span class="new-address-subtitle">Enter a different shipping address</span>
+                    </div>
+                </div>
+                <div class="selection-indicator">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+            </label>
+        </div>
+    </div>
+</div>

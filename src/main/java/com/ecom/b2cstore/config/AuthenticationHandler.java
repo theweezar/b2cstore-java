@@ -31,7 +31,10 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
         Customer existingCustomer = (Customer) session.getAttribute("customer");
         if (session != null && existingCustomer == null) {
             session.setAttribute("customer", customer);
+            session.setAttribute("username", customer.getUsername());
         }
+
+        // Merge basket if exists in session
 
         response.sendRedirect("/");
     }
