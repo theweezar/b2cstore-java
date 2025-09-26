@@ -173,6 +173,15 @@ function setFakeBilling() {
     $('[name="billingAddress.address"]').val(faker.location.streetAddress());
 }
 
+/**
+ * Initializes the faker button to fill the billing form with random data.
+ */
+function initBillingFakerButton() {
+    $('.faker-billing').on('click', function () {
+        setFakeBilling();
+    });
+}
+
 if (window.fk) window.fk.setFakeBilling = setFakeBilling;
 
 export default {
@@ -180,5 +189,6 @@ export default {
     initPaymentForm,
     initPlaceOrderTrigger,
     handlePlaceOrder,
-    initBillingForm
+    initBillingForm,
+    initBillingFakerButton
 };

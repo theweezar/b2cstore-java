@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{global/htmlHead :: htmlHead (page='Address')}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+    <div th:replace="~{global/header :: header}"></div>
+
+    <div class="page address-page container py-4 flex-grow-1">
+        <!-- Page Header -->
+        <div class="address-header mb-4">
+            <h1 class="page-title">My Addresses</h1>
+            <p class="page-description">Manage your shipping and billing addresses for faster checkout</p>
+        </div>
+
+        <!-- Address Management Container -->
+        <div class="address-container">
+            <!-- Create New Address Button -->
+            <div class="create-address-section mb-4">
+                <a th:href="@{'~/address/create'}" class="btn btn-primary create-address-btn">
+                    <i class="bi bi-plus-circle me-2"></i>
+                    Create New Address
+                </a>
+            </div>
+
+            <!-- Address List -->
+            <div class="address-list">
+                <!-- Empty State -->
+                <div class="empty-addresses text-center py-5" th:if="${customerModel == null or #lists.isEmpty(customerModel.addresses)}">
+                    <div class="empty-icon mb-3">
+                        <i class="bi bi-geo-alt fs-1"></i>
+                    </div>
+                    <h5 class="empty-title">No addresses saved yet</h5>
+                    <p class="empty-description">Add your first address to make checkout faster and easier.</p>
+                </div>
+
+                <!-- Address Cards -->
+                <div class="row g-4" th:if="${(customerModel != null and not #lists.isEmpty(customerModel.addresses))}">
+                    <div class="col-12" th:each="address, addressStat : ${customerModel.addresses}">
+                        <div class="card address-card" th:data-address-id="${address.id}">
+                            <!-- Address Badge -->
+                            <div class="address-badge" th:if="${address.isDefault}">
+                                <span class="badge-text">Default</span>
+                            </div>
+
+                            <div class="card-body">
+                                <!-- Recipient Information -->
+                                <div class="recipient-section mb-3">
+                                    <h5 class="recipient-name" th:text="${address.firstName + ' ' + address.lastName}">
+                                        John Doe
+                                    </h5>
+                                    <div class="recipient-phone" th:if="${address.phone}">
+                                        <i class="bi bi-telephone me-1"></i>
+                                        <span th:text="${address.phone}">+1 (555) 123-4567</span>
+                                    </div>
+                                </div>
+
+                                <!-- Address Details -->
+                                <div class="address-details">
+                                    <div class="address-line" th:text="${address.address}">
+                                        123 Main Street, Apt 4B
+                                    </div>
+                                    <div class="location-info">
+                                        <span th:text="${address.city}">Springfield</span>,
+                                        <span th:text="${address.state}">IL</span>
+                                        <span th:text="${address.zipCode}">62704</span>
+                                    </div>
+                                    <div class="country-info" th:text="${address.country}">
+                                        United States
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Card Footer with Actions -->
+                            <div class="card-footer address-actions">
+                                <div class="d-flex gap-2">
+                                    <button type="button" class="btn btn-outline-secondary edit-address-btn flex-grow-1"
+                                            th:data-address-id="${address.id}">
+                                        <i class="bi bi-pencil me-1"></i>
+                                        Edit
+                                    </button>
+                                    <button type="button" class="btn btn-outline-danger delete-address-btn"
+                                            th:data-address-id="${address.id}"
+                                            th:disabled="${address.isDefault}">
+                                        <i class="bi bi-trash me-1"></i>
+                                        Delete
+                                    </button>
+                                    <button type="button" class="btn btn-outline-primary set-default-btn"
+                                            th:data-address-id="${address.id}"
+                                            th:if="${not address.isDefault}">
+                                        <i class="bi bi-star me-1"></i>
+                                        Set Default
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{global/minicart :: panel}"></div>
+    <div th:replace="~{global/footer :: footer}"></div>
+</body>
+
+</html>

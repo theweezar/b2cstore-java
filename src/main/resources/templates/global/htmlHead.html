@@ -14,6 +14,16 @@
     <link rel="stylesheet" th:href="@{'~/dist/checkout.css'}" th:if="${page == 'Checkout'}" />
     <!-- End Checkout page resources -->
 
+    <!-- Account page resources -->
+    <link rel="stylesheet" th:href="@{'~/dist/account.css'}" th:if="${page == 'Account'}" />
+    <script defer th:src="@{'~/dist/account.js'}" th:if="${page == 'Account'}"></script>
+    <!-- End Account page resources -->
+
+    <!-- Address page resources -->
+    <link rel="stylesheet" th:href="@{'~/dist/address.css'}" th:if="${(page == 'Address' or page == 'AddressForm')}" />
+    <script defer th:src="@{'~/dist/address.js'}" th:if="${page == 'Address'}"></script>
+    <!-- End Address page resources -->
+
     <!-- Search page resources -->
     <link rel="stylesheet" th:href="@{'~/dist/search.css'}" th:if="${page == 'Search'}" />
     <!-- End Search page resources -->

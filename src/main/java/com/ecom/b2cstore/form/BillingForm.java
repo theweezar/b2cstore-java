@@ -15,4 +15,8 @@ public class BillingForm {
     public BillingForm() {
         this.billingAddress = new AddressForm();
     }
+
+    public BillingForm(AddressForm billingAddress) {
+        this.billingAddress = new AddressForm(billingAddress);
+    }
 }

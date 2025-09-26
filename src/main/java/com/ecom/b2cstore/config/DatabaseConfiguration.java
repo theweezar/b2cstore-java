@@ -1,6 +1,5 @@
 package com.ecom.b2cstore.config;
 
-import java.util.HashMap;
 import java.util.Map;
 import javax.sql.DataSource;
 
@@ -13,6 +12,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+
 import jakarta.persistence.EntityManagerFactory;
 
 @Configuration
@@ -62,9 +62,7 @@ public class DatabaseConfiguration {
         factory.setPackagesToScan("com.ecom.b2cstore.entity");
         factory.setDataSource(dataSource());
 
-        Map<String, Object> jpaProperties = new HashMap<>();
-        jpaProperties.put("hibernate.hbm2ddl.auto", "create");
-        factory.setJpaPropertyMap(jpaProperties);
+        factory.setJpaPropertyMap(Map.of("hibernate.hbm2ddl.auto", "create"));
 
         return factory;
     }

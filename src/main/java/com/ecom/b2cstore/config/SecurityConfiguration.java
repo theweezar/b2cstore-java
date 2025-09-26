@@ -35,7 +35,7 @@ public class SecurityConfiguration {
                  * - Invalidate HTTP session and delete JSESSIONID cookie on logout
                  */
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/address", "/address/**").authenticated()
+                        .requestMatchers("/address", "/address/**", "/account", "/account/**").authenticated()
                         .anyRequest().permitAll())
                 .formLogin(form -> form
                         .loginPage("/login")

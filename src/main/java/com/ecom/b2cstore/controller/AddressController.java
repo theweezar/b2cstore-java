@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.ecom.b2cstore.entity.Address;
 import com.ecom.b2cstore.entity.Customer;
 import com.ecom.b2cstore.form.AddressForm;
+import com.ecom.b2cstore.model.CustomerModel;
 import com.ecom.b2cstore.util.ErrorUtil;
 
 import jakarta.validation.Valid;
@@ -21,23 +22,32 @@ public class AddressController extends BaseController {
 
     @GetMapping("/address")
     public String getAddressPage(Model model) {
-        Customer customer = getCurrentCustomer();
-        // if (customer == null) {
-        //     return "redirect:/login";
-        // }
-        model.addAttribute("addresses", addressService.findByCustomerId(customer.getCustomerId()));
+        initBaseModel(model);
+        CustomerModel customerModel = getCurrentCustomerModel();
+        model.addAttribute("customerModel", customerModel);
         model.addAttribute("addressForm", new AddressForm());
+        model.addAttribute("pageTitle", "My Addresses");
+        model.addAttribute("pageDescription", "Manage your shipping and billing addresses.");
 
         return "address";
+    }
+
+    @GetMapping("/address/create")
+    public String getCreateAddressPage(Model model) {
+        initBaseModel(model);
+        CustomerModel customerModel = getCurrentCustomerModel();
+        model.addAttribute("customerModel", customerModel);
+        model.addAttribute("addressForm", new AddressForm());
+        model.addAttribute("pageTitle", "Create New Address");
+        model.addAttribute("pageDescription", "Add a new shipping or billing address to your account.");
+
+        return "account/addressForm";
     }
 
     @PostMapping("/address/create")
     public ResponseEntity<Object> createAddress(@Valid @ModelAttribute AddressForm addressForm,
             BindingResult bindingResult) {
         Customer customer = getCurrentCustomer();
-        // if (customer == null) {
-        //     return ResponseEntity.status(401).body(Map.of("error", "Unauthorized"));
-        // }
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(Map.of("error", ErrorUtil.getBindingResultErrors(bindingResult)));
         }
@@ -61,9 +71,6 @@ public class AddressController extends BaseController {
         }
 
         Customer customer = getCurrentCustomer();
-        // if (customer == null) {
-        //     return ResponseEntity.status(401).body(Map.of("error", "Unauthorized"));
-        // }
         try {
             Address existingAddress = addressService.findByIdAndCustomerId(addressForm.getId(),
                     customer.getCustomerId());
@@ -82,9 +89,6 @@ public class AddressController extends BaseController {
     @PostMapping("/address/delete")
     public ResponseEntity<Object> deleteAddress(@RequestParam Long id) {
         Customer customer = getCurrentCustomer();
-        // if (customer == null) {
-        //     return ResponseEntity.status(401).body(Map.of("error", "Unauthorized"));
-        // }
         try {
             Address address = addressService.findByIdAndCustomerId(id, customer.getCustomerId());
             if (address != null) {

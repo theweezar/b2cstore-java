@@ -1,10 +1,15 @@
-<div class="form-section mb-4 saved-address-list" th:if="${(customerModel != null and not #lists.isEmpty(customerModel.addresses))}" th:fragment="savedAddressSelection">
+<div class="form-section mb-4 saved-address-list"
+    th:classappend="${!(customerModel == null or #lists.isEmpty(customerModel.addresses))} ? '' : 'd-none'"
+    th:fragment="savedAddressSelection">
     <h5 class="subsection-title">Choose Shipping Address</h5>
     <div class="saved-addresses-container">
-        <div class="saved-addresses-list">
+        <div class="saved-address-list">
             <div class="saved-address-card" th:each="address, addressStat : ${customerModel.addresses}">
                 <input type="radio" th:id="'savedAddress' + ${addressStat.index}" name="selectedAddressId"
-                    class="saved-address-radio" th:checked="${addressStat.first}">
+                    class="saved-address-radio" th:checked="${addressStat.first}"
+                    th:data-first-name="${address.firstName}" th:data-last-name="${address.lastName}"
+                    th:data-phone="${address.phone}" th:data-address="${address.address}" th:data-city="${address.city}"
+                    th:data-state="${address.state}" th:data-zip="${address.zipCode}">
                 <label th:for="'savedAddress' + ${addressStat.index}" class="saved-address-label">
                     <div class="address-card-content">
                         <div class="address-header">
@@ -15,8 +20,8 @@
                                     123-4567</span>
                             </div>
                             <!-- <div class="address-badge" th:if="${address.isDefault}">
-                                            <span>Default</span>
-                                        </div> -->
+                                <span>Default</span>
+                            </div> -->
                         </div>
                         <div class="address-details">
                             <div class="street-address" th:text="${address.address}">123 Main Street</div>

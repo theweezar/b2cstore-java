@@ -85,6 +85,10 @@ public class AddressForm {
         copy(model);
     }
 
+    public AddressForm(AddressForm otherForm) {
+        copy(otherForm);
+    }
+
     public void copy(Address address) {
         if (address != null) {
             this.id = address.getId();
@@ -114,6 +118,22 @@ public class AddressForm {
             this.city = model.getCity();
             this.state = model.getState();
             this.zipCode = model.getZipCode();
+        }
+    }
+
+    public void copy(AddressForm form) {
+        if (form != null) {
+            this.id = form.getId();
+            this.defaultAddress = form.isDefaultAddress();
+            this.firstName = form.getFirstName();
+            this.lastName = form.getLastName();
+            this.email = form.getEmail();
+            this.phone = form.getPhone();
+            this.country = form.getCountry();
+            this.address = form.getAddress();
+            this.city = form.getCity();
+            this.state = form.getState();
+            this.zipCode = form.getZipCode();
         }
     }
 }

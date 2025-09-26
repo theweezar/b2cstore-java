@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{global/htmlHead :: htmlHead (page='Account')}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+    <div th:replace="~{global/header :: header}"></div>
+
+    <div class="page account-page container py-4 flex-grow-1">
+        <!-- Page Header -->
+        <div class="account-header mb-4">
+            <h1 class="page-title">My Account</h1>
+            <p class="page-description">Manage your profile, orders, and preferences</p>
+        </div>
+
+        <div class="row g-4">
+            <!-- Profile Information Section -->
+            <div class="col-12 col-lg-4">
+                <div class="card profile-card h-100">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <i class="bi bi-person-circle me-2"></i>
+                            Profile Information
+                        </h2>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">Manage your personal information and account details.</p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="@{'~/profile'}" class="btn btn-primary edit-profile-btn w-100">
+                            <i class="bi bi-pencil me-2"></i>
+                            Edit Profile
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Section -->
+            <div class="col-12 col-lg-4">
+                <div class="card orders-card h-100">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="bi bi-box-seam me-2"></i>
+                            My Orders
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">View and track your order history, returns, and shipping status.</p>
+                        <div class="address-stats">
+                            <div class="stat-item">
+                                <span class="stat-number">0</span>
+                                <span class="stat-label">Total Orders</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a th:href="@{'~/orders'}" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-arrow-right me-2"></i>
+                            View All Orders
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Saved Addresses Section -->
+            <div class="col-12 col-lg-4">
+                <div class="card addresses-card h-100">
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <i class="bi bi-geo-alt me-2"></i>
+                            Saved Addresses
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-description">Manage your shipping and billing addresses for faster checkout.</p>
+                        <div class="address-stats">
+                            <div class="stat-item">
+                                <span class="stat-number"
+                                    th:text="${#lists.size(customerModel.addresses) ?: '0'}">3</span>
+                                <span class="stat-label">Saved Addresses</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a th:href="@{'~/address'}" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-arrow-right me-2"></i>
+                            Manage Addresses
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{global/minicart :: panel}"></div>
+    <div th:replace="~{global/footer :: footer}"></div>
+</body>
+
+</html>

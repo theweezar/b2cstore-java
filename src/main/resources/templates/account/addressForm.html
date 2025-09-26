@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{global/htmlHead :: htmlHead (page='AddressForm')}"></head>
+
+<body class="d-flex flex-column min-vh-100">
+    <div th:replace="~{global/header :: header}"></div>
+
+    <div class="page address-form-page container py-4 flex-grow-1">
+        <!-- Page Header -->
+        <div class="address-form-header mb-4">
+            <h1 class="page-title" th:text="${addressForm.id != null ? 'Edit Address' : 'Create New Address'}">Create
+                New Address</h1>
+            <p class="page-description">Enter your address details below</p>
+        </div>
+
+        <!-- Address Form Container -->
+        <div class="address-form-container">
+            <div class="card address-form-card">
+                <div class="card-header">
+                    <h2 class="card-title">
+                        <i class="bi bi-geo-alt me-2"></i>
+                        Address Information
+                    </h2>
+                </div>
+                <div class="card-body">
+                    <form th:action="@{'/address/save'}" method="post" th:object="${addressForm}" id="addressForm">
+
+                        <!-- Personal Information -->
+                        <div class="form-section mb-4">
+                            <h5 class="subsection-title">Personal Information</h5>
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" th:field="*{firstName}" id="firstName"
+                                            placeholder="First Name" required>
+                                        <label for="firstName">First Name *</label>
+                                        <div class="error-message" th:if="${#fields.hasErrors('firstName')}"
+                                            th:errors="*{firstName}"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" th:field="*{lastName}" id="lastName"
+                                            placeholder="Last Name" required>
+                                        <label for="lastName">Last Name *</label>
+                                        <div class="error-message" th:if="${#fields.hasErrors('lastName')}"
+                                            th:errors="*{lastName}"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" th:field="*{email}" id="email"
+                                            placeholder="Email Address">
+                                        <label for="email">Email Address</label>
+                                        <div class="error-message" th:if="${#fields.hasErrors('email')}"
+                                            th:errors="*{email}"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="tel" class="form-control" th:field="*{phone}" id="phone"
+                                            placeholder="Phone Number">
+                                        <label for="phone">Phone Number</label>
+                                        <div class="error-message" th:if="${#fields.hasErrors('phone')}"
+                                            th:errors="*{phone}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address Details -->
+                        <div class="form-section mb-4">
+                            <h5 class="subsection-title">Address Details</h5>
+                            <div class="row g-3">
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" th:field="*{address}" id="address"
+                                            placeholder="Street Address" required>
+                                        <label for="address">Street Address *</label>
+                                        <div class="error-message" th:if="${#fields.hasErrors('address')}"
+                                            th:errors="*{address}"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" th:field="*{city}" id="city"
+                                            placeholder="City" required>
+                                        <label for="city">City *</label>
+                                        <div class="error-message" th:if="${#fields.hasErrors('city')}"
+                                            th:errors="*{city}"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" th:field="*{state}" id="state"
+                                            placeholder="State" required>
+                                        <label for="state">State *</label>
+                                        <div class="error-message" th:if="${#fields.hasErrors('state')}"
+                                            th:errors="*{state}"></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" th:field="*{zipCode}" id="zipCode"
+                                            placeholder="Zip Code" required>
+                                        <label for="zipCode">Zip Code *</label>
+                                        <div class="error-message" th:if="${#fields.hasErrors('zipCode')}"
+                                            th:errors="*{zipCode}"></div>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating">
+                                        <select class="form-select" th:field="*{country}" id="country" required>
+                                            <option value="">Select Country</option>
+                                            <option value="US" th:selected="*{country} == 'US'">United States</option>
+                                        </select>
+                                        <label for="country">Country *</label>
+                                        <div class="error-message" th:if="${#fields.hasErrors('country')}"
+                                            th:errors="*{country}"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Address Options -->
+                        <div class="form-section mb-4">
+                            <div class="form-check address-option d-flex align-items-center">
+                                <input class="form-check-input m-0" type="checkbox" th:field="*{defaultAddress}" id="defaultAddress"
+                                    value="true">
+                                <label class="form-check-label" for="defaultAddress">
+                                    Set as default address
+                                </label>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="card-footer">
+                    <div class="form-actions">
+                        <a th:href="@{'/address'}" class="btn btn-outline-secondary cancel-btn">
+                            <i class="bi bi-x-circle me-2"></i>
+                            Cancel
+                        </a>
+                        <button type="submit" form="addressForm" class="btn btn-primary save-btn">
+                            <i class="bi bi-check-circle me-2"></i>
+                            <span th:text="${addressForm.id != null ? 'Update Address' : 'Save Address'}">Save
+                                Address
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="~{global/minicart :: panel}"></div>
+    <div th:replace="~{global/footer :: footer}"></div>
+</body>
+
+</html>

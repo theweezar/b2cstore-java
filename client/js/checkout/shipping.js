@@ -30,6 +30,12 @@ function initShippingForm() {
 
         updateView(submitShipping.basketModel);
         switchToStep(2);
+
+        if (submitShipping.savedAddressesHtml) {
+            const savedAddressSection = $('.saved-address-list');
+            savedAddressSection.replaceWith(submitShipping.savedAddressesHtml);
+            showShippingAddressSection(false);
+        }
     });
 }
 
@@ -48,11 +54,38 @@ function showShippingAddressSection(show) {
  * Initializes the handler for the "Use New Address" checkbox.
  */
 function initNewAddressHandler() {
-    $('#useNewAddress').on('change', function () {
-        if ($(this).is(':checked')) {
+    $('body').on('change', '[name="selectedAddressId"]', function () {
+        const self = $(this);
+        const val = self.val();
+        
+        if (val === 'new') {
             showShippingAddressSection(true);
-        } else {
+        } else if (val === 'existing') {
             showShippingAddressSection(false);
+            $('.saved-address-list input[type="radio"]:first').prop('checked', true).trigger('change');
+        }
+    });
+}
+
+/**
+ * Initializes the handler for selecting a saved address.
+ * Fills the shipping form with the selected address details.
+ */
+function initSelectSavedAddressHandler() {
+    $('body').on('change', '.saved-address-list input[type="radio"]', function () {
+        const self = $(this);
+        const addressObj = {
+            firstName: self.data('first-name'),
+            lastName: self.data('last-name'),
+            address: self.data('address'),
+            city: self.data('city'),
+            state: self.data('state'),
+            zipCode: self.data('zip')
+        };
+        const shippingAddressSection = $('.shipping-address-section');
+
+        for (const key in addressObj) {
+            shippingAddressSection.find(`[name$="${key}"]`).val(addressObj[key]).attr('value', addressObj[key]);
         }
     });
 }
@@ -79,9 +112,20 @@ function setFakeShipping() {
     $('[name="shippingAddress.address"]').val(faker.location.streetAddress());
 }
 
+/**
+ * Initializes the faker button to fill the shipping form with random data.
+ */
+function initShippingFakerButton() {
+    $('.faker-shipping').on('click', function () {
+        setFakeShipping();
+    });
+}
+
 if (window.fk) window.fk.setFakeShipping = setFakeShipping;
 
 export default {
     initShippingForm,
-    initNewAddressHandler
+    initNewAddressHandler,
+    initSelectSavedAddressHandler,
+    initShippingFakerButton
 };

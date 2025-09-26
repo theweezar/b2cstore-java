@@ -12,10 +12,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.ecom.b2cstore.entity.Product;
+import com.ecom.b2cstore.entity.ShippingMethod;
 import com.ecom.b2cstore.entity.Category;
 import com.ecom.b2cstore.entity.CategoryAssignment;
 import com.ecom.b2cstore.repository.CategoryRepository;
 import com.ecom.b2cstore.repository.ProductRepository;
+import com.ecom.b2cstore.repository.ShippingRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @SpringBootApplication
@@ -31,6 +33,9 @@ public class B2CStoreSpringApplication {
 
 	@Autowired
 	private CategoryRepository categoryRepo;
+
+	@Autowired
+	private ShippingRepository shippingMethodRepo;
 
 	public List<Product> importProducts(String jsonFilePath) {
 		try (InputStream iStream = getClass().getClassLoader().getResourceAsStream(jsonFilePath)) {
@@ -72,6 +77,25 @@ public class B2CStoreSpringApplication {
 		return null;
 	}
 
+	public List<ShippingMethod> importShippingMethod(String jsonFilePath) {
+		try (InputStream iStream = getClass().getClassLoader().getResourceAsStream(jsonFilePath)) {
+			if (iStream == null) {
+				System.err.println("File not found in resource: " + jsonFilePath);
+				return null;
+			}
+			ObjectMapper mapper = new ObjectMapper();
+			List<ShippingMethod> shippingMethods = Arrays.asList(mapper.readValue(iStream, ShippingMethod[].class));
+			for (ShippingMethod shippingMethod : shippingMethods) {
+				shippingMethodRepo.save(shippingMethod);
+				System.out.println("Created shipping method: " + shippingMethod.toString());
+			}
+			return shippingMethods;
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
 	public void assignProductsToCategory(List<Category> categories, List<Product> products) {
 		if (categories != null && products != null) {
 			int productIndex = 0;
@@ -93,6 +117,7 @@ public class B2CStoreSpringApplication {
 			List<Product> products = importProducts("data/product.json");
 			List<Category> categories = importCategories("data/category.json");
 			assignProductsToCategory(categories, products);
+			importShippingMethod("data/shipping.json");
 		};
 	}
 }

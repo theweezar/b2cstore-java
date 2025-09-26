@@ -44,9 +44,13 @@
 
             <!-- Shipping Address -->
             <div class="form-section mb-4 shipping-address-section"
-                th:classappend="${(customerModel == null or #lists.isEmpty(customerModel.addresses))} ? '' : 'd-none'"
-                id="newAddressSection">
-                <h5 class="subsection-title">Shipping Address</h5>
+                th:classappend="${(customerModel == null or #lists.isEmpty(customerModel.addresses))} ? '' : 'd-none'">
+                <h5 class="subsection-title d-flex align-items-center">
+                    <span>Shipping Address</span>
+                    <span class="ms-1 faker-shipping cursor-pointer" title="Fill with random data">
+                        <i class="bi bi-arrow-clockwise"></i>
+                    </span>
+                </h5>
                 <div class="row g-3">
                     <div class="col-md-6">
                         <div class="form-floating">
@@ -114,6 +118,28 @@
                                 placeholder="Zip Code">
                             <label for="shippingAddressZipCode">Zip Code *</label>
                             <div class="error error-message" id="shippingAddressZipCodeError"></div>
+                        </div>
+                    </div>
+
+                    <div th:if="${(customerModel != null and not #lists.isEmpty(customerModel.addresses))}">
+                        <div class="new-address-option">
+                            <input type="radio" id="useSavedAddress" name="selectedAddressId" value="existing"
+                                class="new-address-radio d-none">
+                            <label for="useSavedAddress" class="new-address-label">
+                                <div class="new-address-content">
+                                    <div class="new-address-icon">
+                                        <i class="bi bi-plus-circle"></i>
+                                    </div>
+                                    <div class="new-address-text">
+                                        <span class="new-address-title">Use Saved Address</span>
+                                        <span class="new-address-subtitle">Select an address from your saved
+                                            addresses</span>
+                                    </div>
+                                </div>
+                                <div class="selection-indicator">
+                                    <i class="bi bi-check-circle-fill"></i>
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>

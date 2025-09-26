@@ -65,8 +65,10 @@
         transition: color 0.3s ease;
     }
 
-    .action-btn:hover {
-        color: var(--primary-accent);
+    .action-btn:not(.logged-in-btn) {
+        &:hover {
+            color: var(--primary-accent);
+        }
     }
 
     .cart-badge {
@@ -129,5 +131,74 @@
     .sidebar-nav-link:hover {
         color: var(--primary-accent);
         border-bottom-color: var(--primary-accent);
+    }
+
+    /* User Dropdown Styles */
+    .dropdown-toggle::after {
+        display: none;
+    }
+
+    .user-dropdown-menu {
+        background-color: var(--primary-bg);
+        border: 1px solid var(--border-color);
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        min-width: 160px;
+        padding: 0.5rem 0;
+        margin-top: 0.5rem;
+    }
+
+    .user-dropdown-item {
+        color: var(--primary-text);
+        font-weight: 500;
+        padding: 0.75rem 1rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        font-size: 0.9rem;
+    }
+
+    .user-dropdown-item:hover {
+        background-color: var(--light-gray);
+        color: var(--primary-accent);
+    }
+
+    .user-dropdown-item:focus {
+        background-color: var(--light-gray);
+        color: var(--primary-accent);
+    }
+
+    .user-dropdown-item i {
+        width: 16px;
+        font-size: 0.9rem;
+    }
+
+    .dropdown-divider {
+        border-color: var(--border-color);
+        margin: 0.5rem 0;
+    }
+
+    /* Logged-in button states */
+    .logged-in-btn {
+        position: relative;
+        outline: none;
+    }
+
+    /* Dropdown animation */
+    .user-dropdown-menu {
+        animation: fadeInDown 0.2s ease-out;
+        transform-origin: top right;
+    }
+
+    /* Mobile responsive adjustments */
+    @media (max-width: 991.98px) {
+        .user-dropdown-menu {
+            min-width: 140px;
+            font-size: 0.85rem;
+        }
+
+        .user-dropdown-item {
+            padding: 0.6rem 0.8rem;
+        }
     }
 }

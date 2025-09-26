@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.ecom.b2cstore.entity.Address;
 import com.ecom.b2cstore.entity.Basket;
-import com.ecom.b2cstore.entity.Customer;
 import com.ecom.b2cstore.form.BillingForm;
 import com.ecom.b2cstore.form.ShippingForm;
 import com.ecom.b2cstore.model.AddressModel;
@@ -68,51 +66,6 @@ public class CheckoutController extends BaseController {
         model.addAttribute("billingForm", new BillingForm());
 
         return "checkout";
-    }
-
-    @PostMapping(value = "/submitshipping", consumes = "application/x-www-form-urlencoded")
-    public ResponseEntity<?> submitShipping(
-            @Valid @ModelAttribute ShippingForm form,
-            BindingResult result) {
-        Basket basket = getCurrentBasket();
-        Map<String, Object> resMap = new HashMap<>();
-
-        if (basket == null) {
-            resMap.put("redirect", "/");
-            return ResponseEntity.ok(resMap);
-        }
-
-        if (result.hasErrors()) {
-            resMap.put("error", ErrorUtil.getBindingResultErrors(result));
-            return ResponseEntity.badRequest().body(resMap);
-        }
-
-        basketService.setCustomerInfo(basket, form);
-        basketService.setShippingAddress(basket, form);
-
-        // Set billing address same as shipping address initially
-        BillingForm billingForm = new BillingForm();
-        billingForm.setBillingAddress(form.getShippingAddress());
-
-        // Copy customer info to billing form
-        billingForm.getBillingAddress().setFirstName(form.getFirstName());
-        billingForm.getBillingAddress().setLastName(form.getLastName());
-        billingForm.getBillingAddress().setEmail(form.getEmail());
-        billingForm.getBillingAddress().setPhone(form.getPhone());
-
-        basketService.setBillingAddress(basket, billingForm);
-        basketService.save(basket);
-
-        Customer customer = getCurrentCustomer();
-        if (customer != null) {
-            addressService.create(customer, new Address(form.getShippingAddress()));
-        }
-
-        BasketModel basketModel = cartUtil.createModel(basket, true);
-        resMap.put("basketModel", basketModel);
-        resMap.put("customerModel", getCurrentCustomerModel());
-        resMap.put("success", true);
-        return ResponseEntity.ok(resMap);
     }
 
     @PostMapping("/updatebilling")
